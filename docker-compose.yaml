@@ -1,0 +1,45 @@
+version: "3.8"
+
+volumes:
+  mysql_data:
+
+
+services:
+  mysqldb:
+    build: ./backend/db
+    env_file:
+      - "./backend/db/db.env"
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: ./backend/backend
+    command: >
+      bash -c "python wait_mysql.py &&
+               python manage.py makemigrations &&
+               python manage.py migrate &&
+               python manage.py runserver 0.0.0.0:8080" &&
+               
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/backend:/app
+    depends_on:
+      - mysqldb
+    links:
+      - mysqldb
+
+
+  frontend:
+    build: ./frontend
+    command: ["npm", "start"]
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app
+
+networks:
+  frontend:
+    driver: bridge
