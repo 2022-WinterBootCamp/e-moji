@@ -2,7 +2,7 @@ version: "3.8"
 
 volumes:
   mysql_data:
-
+  build_folder:
 
 services:
   mysqldb:
@@ -10,7 +10,7 @@ services:
     env_file:
       - "./backend/db/db.env"
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -31,15 +31,22 @@ services:
     links:
       - mysqldb
 
-
-  frontend:
-    build: ./frontend
-    command: ["npm", "start"]
+  nginx:
+    build: ./nginx
     ports:
-      - 3000:3000
+      - "80:80"
     volumes:
-      - ./frontend:/app
-
-networks:
-  frontend:
-    driver: bridge
+      - build_folder:/var/www/frontend
+    depends_on:
+      - backend
+      - client
+  
+  client:
+    container_name: client
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/:/frontend
+      - build_folder:/frontend/build
+    tty: true
