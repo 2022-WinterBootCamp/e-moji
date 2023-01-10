@@ -4,7 +4,6 @@ class Users(models.Model):
     id = models.AutoField(primary_key=True)
     email = models.CharField(unique=True, max_length=200)
     password = models.BinaryField(max_length=60)
-    salt = models.BinaryField(max_length=30)
     alias = models.CharField(unique=True, max_length=20)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
