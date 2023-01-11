@@ -1,10 +1,3 @@
-from fileinput import filename
-from unicodedata import name
-from .models import Picture, Great, Result
-from keras.models import load_model
-from PIL import Image, ImageOps
-from uuid import uuid4
-import numpy as np
 import boto3 ,os
 from backend.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 from backend.settings import AWS_BUCKET_REGION, AWS_STORAGE_BUCKET_NAME
