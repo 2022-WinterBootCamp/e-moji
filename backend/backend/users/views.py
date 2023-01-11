@@ -26,3 +26,14 @@ def sign_up(request):
     data = UserSignupResponse(new_user, many=False).data
 
     return JsonResponse(data, status=201)
+
+@api_view(['POST'])
+def user_test(request) :
+    email = 'test@naver.com'
+    password = 'test'
+    alias = 'test'
+    
+    new_user = create_user(email, password, alias)
+    data = UserSignupResponse(new_user, many=False).data
+
+    return JsonResponse(data, status=201)
