@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # add
     'rest_framework',
     'corsheaders',
+    'drf_yasg',
     # apps
     'users',
     'faces'

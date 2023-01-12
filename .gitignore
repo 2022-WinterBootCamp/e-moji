@@ -274,5 +274,6 @@ sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/django,react,flask
 
-backend/users/migrations/0001_initial.py
+backend/backend/users/migrations/0001_initial.py
+backend/backend/faces/migrations/0001_initial.py
 db/db.env
