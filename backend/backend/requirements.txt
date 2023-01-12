@@ -6,3 +6,8 @@ djangorestframework==3.13.1
 cryptography==37.0.4
 PyMySQL==1.0.2
 mysqlclient==2.1.1
+drf-yasg==1.21.0
+
+#ai
+boto3
+keras-models
