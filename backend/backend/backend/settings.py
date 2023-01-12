@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     # apps
-    'users'
+    'users',
+    'faces'
 ]
 
 MIDDLEWARE = [
