@@ -37,3 +37,6 @@ def user_test(request) :
     data = UserSignupResponse(new_user, many=False).data
 
     return JsonResponse(data, status=201)
+
+
+    
