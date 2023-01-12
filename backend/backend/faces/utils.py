@@ -14,7 +14,7 @@ def get_img_url(img):
     image_type = "jpg"
     image_uuid = str(uuid4())
     s3_client.put_object(Body=image, Bucket='what-moji', Key=image_uuid + "." + image_type)
-    image_url = "http://image-bucket2.s3.ap-northeast-2.amazonaws.com/" + \
+    image_url = "http://what-moji.s3.ap-northeast-2.amazonaws.com/" + \
                 image_uuid + "." + image_type
     image_url = image_url.replace(" ", "/")
     return image_url
