@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Typography,
-    Button,
     Box,
     Container,
     Grid,
@@ -9,14 +8,33 @@ import {
     CardMedia,
     CardContent,
     CardActions,
+    Button,
+    // Modal,
+    // Backdrop,
 } from '@mui/material';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
-
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+// const style = {
+//     position: 'absolute',
+//     top: '50%',
+//     left: '50%',
+//     transform: 'translate(-50%, -50%)',
+//     width: 400,
+//     bgcolor: 'background.paper',
+//     border: '2px solid #000',
+//     boxShadow: 24,
+//     p: 4,
+//   };
+
 export default function MainPage(){
+    // const [open, setOpen] = useState(false);
+    // const handleOpen = () => setOpen(true);
+    // const handleClose = () => setOpen(false);
+
     return(
         <ThemeProvider theme={theme}>
             <main>
@@ -78,7 +96,31 @@ export default function MainPage(){
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
-                                        <Button fullWidth>Use</Button>
+                                        <Button variant="outlined" fullWidth href="/upload">
+                                            USE
+                                        </Button>
+                                        {/* <Button variant="outlined" fullWidth onClick={handleOpen}>
+                                            Use
+                                        </Button>
+                                        <Modal
+                                            open={open}
+                                            onClose={handleClose}
+                                            aria-labelledby="modal-modal-title"
+                                            aria-describedby="modal-modal-description"
+                                        >
+                                            <Box sx={style}>
+                                                <Typography
+                                                    id="modal-modal-title"
+                                                    variant="h6"
+                                                    fontWeight="bold"
+                                                    component="h2"
+                                                    sx={{mb:3, color: "#737458", fontFamily: "Itim"}}
+                                                >
+                                                    지금 당신의 표정을 넣어주세요!
+                                                </Typography>
+                                            </Box>
+
+                                        </Modal> */}
                                     </CardActions>
                                 </Card>
                             </Grid>
@@ -86,20 +128,6 @@ export default function MainPage(){
                     </Grid>
                 </Container>
             </main>
-        <Box sx={{bgcoor: 'background.paper', p: 6}} component="footer">
-            <Typography variant='h6' align='center' gutterBottom>
-                Footer
-            </Typography>
-            <Typography
-                variant='subtitle1'
-                align='center'
-                color="text.secondary"
-                component='p'
-            >
-                Something here to give the footer a purpose!
-            </Typography>
-            
-        </Box>
         </ThemeProvider>
     );
 }

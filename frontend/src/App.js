@@ -4,6 +4,9 @@ import Header from "./components/common/Header";
 
 import MainPage from "./pages/MainPage";
 import MyPage from "./pages/MyPage";
+import Uploadpage from "./pages/UploadPage";
+import LoadingPage from "./pages/LoadingPage";
+import ResultPage from "./pages/ResultPage";
 
 function App() {
     return(
@@ -12,6 +15,9 @@ function App() {
             <Routes>
                 <Route path="/" element={<MainPage />} />
                 <Route path="/my-page" element={<MyPage/>}/>
+                <Route path="/upload" element={<Uploadpage/>}/>
+                <Route path="/loading" element={<LoadingPage/>}/>
+                <Route path="/result" element={<ResultPage/>}/>
             </Routes>
         </React.Fragment>
     );
