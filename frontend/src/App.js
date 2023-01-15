@@ -1,11 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import loginPage from "./component/LoginPage";
+import { Fragment } from "react";
+import LoginPage from "./component/LoginPage";
 
 function App(){
   return(
     <Fragment>
-
-    <loginPage />
+    <LoginPage />
     </Fragment>
   );
 }
