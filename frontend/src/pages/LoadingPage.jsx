@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 //import { useNavigate, setTiemout } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import animationData from '../lotties/emoticon';
@@ -42,7 +42,6 @@ const LoadingPage = () => {
                     bgcolor:'background.paper',
                     pt: 8,
                     pb: 6,
-                    pointerEvents: 'none',
                 }}
             >
                 <Container maxWidth="sm">
