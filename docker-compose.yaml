@@ -31,6 +31,36 @@ services:
     links:
       - mysqldb
 
+  ai:
+    build: ./backend/ai
+    command: python manage.py run -h 0.0.0.0
+    volumes:
+      - ./backend/ai/:/usr/src/app/
+    ports:
+      - 8888:8888
+    env_file:
+      - ./backend/backend/.env
+    depends_on:
+      - mysqldb
+    links:
+      - mysqldb
+
+
+  # rabbitmq:
+  #   image : rabbitmq:3-management
+  #   container_name: rabbitmq-con
+  #   environment:
+  #     RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
+  #     RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
+  #   ports:
+  #     - 5672:5672 
+  #     - 15672:15672
+  #   volumes:
+  #     - data_rabbitmq:/rabbitmq
+  #   networks:
+  #     - app-tier
+  #   tty: true
+
   # nginx:
   #   build: ./nginx
   #   ports:
