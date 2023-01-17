@@ -17,7 +17,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Link from '@mui/material/Link';
-import x from './icon/x.png';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function LoginPage() {
 const theme = createTheme({
@@ -96,8 +97,12 @@ const handleClose = () => {
 
    <div>
       <Dialog open={open} onClose={handleClose}>
-        <Grid> <Button><img src={x} width='12'
-    height='12' position= 'left'></img></Button></Grid>
+      <div style={{textAlign: 'right'}}>
+              <IconButton onClick={() => setOpen(false)}>
+                <CloseIcon fontWeight='300'/>
+              </IconButton>
+            </div>
+
       <DialogTitle>
       <Typography variant="h5"color="inherit" fontStyle= "Inter"  fontWeight= "800"
        marginLeft="20%" sx={{color:'#FECD93'}}>IGE MOJI</Typography></DialogTitle>
@@ -115,7 +120,7 @@ const handleClose = () => {
           </Grid>
           <Grid item>
           <Typography variant="overline" fontStyle= "Inter"  fontWeight= "550">
-          <Link>회원가입</Link></Typography>
+          <Button>회원가입</Button></Typography>
           </Grid>
         </Grid>
         </DialogContent>
