@@ -1,11 +1,11 @@
 import React from 'react';
 import { Fragment } from 'react';
-import OkPage from './component/OkPage';
+import LoginPage from './component/LoginPage';
 
 export default function App(){
   return(
     <Fragment>
-      <OkPage/>
+      <LoginPage/>
     </Fragment>
   );
 }
