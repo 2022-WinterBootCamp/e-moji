@@ -1,17 +1,16 @@
-# pull official base image
-FROM python:3.10.7-slim-buster
+FROM python:3.9.13
 
-# set work directory
-WORKDIR /usr/src/app
+WORKDIR /ai_server
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+COPY ./ ./
 
-# install dependencies
+EXPOSE 8000
+
+RUN pip install mysql-connector-python
 RUN pip install --upgrade pip
-COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
-# copy project
-COPY . /usr/src/app/
+RUN apt-get update
+RUN apt-get -y install libgl1-mesa-glx
+
+CMD [ "python", "app.py" ]

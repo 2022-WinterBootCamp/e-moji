@@ -31,19 +31,19 @@ services:
     links:
       - mysqldb
 
-  ai:
+  ai_server:
     build: ./backend/ai
-    command: python manage.py run -h 0.0.0.0
-    volumes:
-      - ./backend/ai/:/usr/src/app/
-    ports:
-      - 8888:8888
+    command: >
+      bash -c "python wait_mysql.py &&
+               python app.py" &&
     env_file:
-      - ./backend/backend/.env
-    depends_on:
-      - mysqldb
-    links:
-      - mysqldb
+      - "./backend/backend/.env"
+    ports:
+      - "8000:8000"
+    environment:
+      FLASK_DEBUG: 1 
+    volumes:
+      - ./backend/ai:/ai
 
 
   # rabbitmq:
