@@ -1,11 +1,15 @@
-import React from 'react';
+import React from'react';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Positions from '@mui/system';
+import positions from '@mui/system';
+import { Checkbox, makeStyles } from '@mui/material';
 import { createTheme, ThemeProvider, responsiveFontSizes} from '@mui/material/styles';
+import Backdrop from '@mui/material/Backdrop';
 import Typography from '@mui/material/Typography';
+import Icon from '@mui/material/Icon';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -13,12 +17,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Link from '@mui/material/Link';
-import x from './icon/x.png';
-import reply from './icon/reply.png';
-import Icon from '@mdi/react';
-import { mdiAccount } from '@mdi/js';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import SignupPage from './SignupPage';
+import ArrowBack from '@mui/icons-material/ArrowBack';
 
-export default function SignupPage() {
+export default function LoginPage() {
 const theme = createTheme({
   typography: {
     subtitle1: {
@@ -38,16 +42,23 @@ const theme = createTheme({
   },
 });
 const [open, setOpen] = React.useState(false);
+const [isOpen1, setOpen1] = React.useState(false);
 
-const handleClickOpen = () => {
+const handleClick = () => {
   setOpen(true);
+};
+const handleClick1= () => {
+  setOpen1(true);
 };
 
 const handleClose = () => {
   setOpen(false);
 };
+const handleClose1=()=>{
+  setOpen1(false);
+};
 
-return(
+  return(
   <Container fixed>
       <Box sx={{
          width: '100%',
@@ -71,7 +82,7 @@ return(
       <Button variant= "contained" color="inherit" size="large" sx={{top: "40%", marginLeft: "25%", color:'white',
        right: '30%',
        left: '30%', 
-       bgcolor: '#FECD93'}} onClick={handleClickOpen} >Click me!</Button>
+       bgcolor: '#FECD93'}} onClick={handleClick} >Click me!</Button>
     <Grid container>
     <Grid item xs={2}>
       <Typography variant="subtitle1" sx={{top:"15%", marginLeft: "-20%", height: '50vh',
@@ -93,18 +104,53 @@ return(
    
    </Grid>
 
-   
    <div>
       <Dialog open={open} onClose={handleClose}>
-<Grid container>
+      <div style={{textAlign: 'right'}}>
+              <IconButton onClick={() => setOpen(false)}>
+                <CloseIcon fontWeight='300'/>
+              </IconButton>
+            </div>
+
+      <DialogTitle>
+      <Typography variant="h5"color="inherit" fontStyle= "Inter"  fontWeight= "800"
+       marginLeft="20%" sx={{color:'#FECD93'}}>IGE MOJI</Typography></DialogTitle>
+      <Typography variant="h6" fontStyle= "Inter" fontSize={15} fontWeight= "550" marginLeft="40%"> Login </Typography>
+        <DialogContent>
+          <TextField label="ID" autoFocus fullWidth /> <br/>
+          <TextField label="Password" fullWidth type="password" sx={{ mt:3}} />
+          <br/>
+          <Button type='submit'fullWidth variant= "contained" color="inherit" size="large" sx={{ mt:3, color:'white',
+       bgcolor: '#FECD93' }}>sign in</Button>
+       <Grid container>
         <Grid item xs>
-        <Button><img src={reply} width='12'
-    height='12' position= 'left'></img></Button></Grid>
-    <Grid item>
-    <Button><img src={x} width='12'
-    height='12' position= 'left'></img></Button>
-    </Grid>
-    </Grid>
+        <Typography variant="overline" fontStyle= "Inter"  fontWeight= "550">
+          회원이 아니신가요?</Typography>
+          </Grid>
+          <Grid item> <Button onClick={handleClick1} >  
+          <Typography variant="overline" fontStyle= "Inter"  fontWeight= "550">
+         회원가입 </Typography></Button>
+         </Grid>
+         </Grid>
+         </DialogContent>
+          <DialogActions>
+        </DialogActions>
+         </Dialog>
+    </div>
+    <div>
+   <Dialog open={isOpen1} onClose={handleClose1}>
+      <div style={{textAlign: 'right'}}>
+              <IconButton onClick={() => setOpen1(false)}>
+                <IconButton onClick={() => setOpen(false)}>
+                <CloseIcon fontWeight='300'/>
+              </IconButton></IconButton>
+            </div>
+            <div style={{textAlign: 'left'}}>
+              <IconButton onClick={() => setOpen1(false)}>
+                <ArrowBack fontWeight='300'/>
+              </IconButton>
+            </div>
+      
       <DialogTitle>
       <Typography variant="h5"color="inherit" fontStyle= "Inter"  fontWeight= "800"
        marginLeft="30%" sx={{color:'#FECD93'}}>IGE MOJI</Typography></DialogTitle>
@@ -123,7 +169,7 @@ return(
         </DialogActions>
       </Dialog>
       </div>
-        </Container>
-      
-);
-}
+
+         </Container>
+  );
+    }
