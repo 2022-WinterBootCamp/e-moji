@@ -13,7 +13,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Link from '@mui/material/Link';
-import x from './icon/x.png';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 export default function SignupPage() {
 const theme = createTheme({
@@ -94,12 +96,12 @@ return(
    
    <div>
       <Dialog open={open} onClose={handleClose}>
-<Grid container>
-    <Grid item xs>
-    <Button><img src={x} width='12'
-    height='12' position= 'left'></img></Button>
-    </Grid>
-    </Grid>
+        <div style={{textAlign:'right'}}>
+              <IconButton onClick={() => setOpen(false)}>
+                <CloseIcon fontWeight='300'/>
+              </IconButton>
+            </div>
+
       <DialogTitle>
        
       <Typography variant="h5"color="inherit" fontStyle= "Inter"  fontWeight= "800"
