@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     # apps
     'users',
-    'faces'
+    'faces',
+    'emojis'
 ]
 
 MIDDLEWARE = [
