@@ -9,5 +9,5 @@ class Users(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
-class Meta:
-    db_table = 'member'
+    class Meta:
+        db_table = 'users'

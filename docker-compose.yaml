@@ -31,6 +31,31 @@ services:
     links:
       - mysqldb
 
+  ai_server:
+    build: ./backend/ai
+    ports:
+      - "8000:8000"
+    environment:
+      FLASK_DEBUG: 1 
+    volumes:
+      - ./backend/ai:/ai
+
+
+  # rabbitmq:
+  #   image : rabbitmq:3-management
+  #   container_name: rabbitmq-con
+  #   environment:
+  #     RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
+  #     RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
+  #   ports:
+  #     - 5672:5672 
+  #     - 15672:15672
+  #   volumes:
+  #     - data_rabbitmq:/rabbitmq
+  #   networks:
+  #     - app-tier
+  #   tty: true
+
   # nginx:
   #   build: ./nginx
   #   ports:
