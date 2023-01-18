@@ -23,6 +23,8 @@ def faces(request):
     if userId :
         # img_url = get_img_url(image)
         img_url = "aaaa"
+    else :
+        return JsonResponse({"message": "Invalid_User"}, status=401)
 
     images = create_img(userId, img_url)
     data = PictureSerializer(images, many=False).data

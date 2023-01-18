@@ -10,12 +10,7 @@ def get_img_num(image) :
 
 @app.route("/")
 def main():
-    return "hello"
-
-@app.route("/", methods = ["POST"])
-def test1():
-    return "hello"
-
+    return "testing"
 
 @app.route('/api/v1/images/', methods = ['POST'])
 def test():
