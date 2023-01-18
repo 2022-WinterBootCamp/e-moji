@@ -26,7 +26,7 @@ def emojis(request):
  
     userId = Users.objects.get(id = user_id)
     
-    images = create_emoji(userId, name, kind, image)
+    images = create_emoji(userId, name, kind, img_url)
     data = EmojisSerializer(images, many=False).data
     
     return JsonResponse(data, status = 200)
