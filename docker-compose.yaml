@@ -33,11 +33,6 @@ services:
 
   ai_server:
     build: ./backend/ai
-    command: >
-      bash -c "python wait_mysql.py &&
-               python app.py" &&
-    env_file:
-      - "./backend/backend/.env"
     ports:
       - "8000:8000"
     environment:

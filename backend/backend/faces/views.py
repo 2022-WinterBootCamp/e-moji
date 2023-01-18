@@ -1,15 +1,16 @@
 import io
 from PIL import Image
+import requests
 
 from django.http import JsonResponse
 
+import time
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 
 from .serializers import PictureSerializer
-from datetime import datetime, timedelta
 from .utils import get_img_url, create_img
 from users.models import Users
 
@@ -17,11 +18,15 @@ from users.models import Users
 def faces(request):
     user_id = request.data['user_id']
     image = request.data['image']
-    img_url = get_img_url(image)
  
     userId = Users.objects.get(id = user_id)
+    if userId :
+        # img_url = get_img_url(image)
+        img_url = "aaaa"
 
     images = create_img(userId, img_url)
     data = PictureSerializer(images, many=False).data
 
-    return JsonResponse(data, status = 200)
+    url = 'http://ai_server:8000/api/v1/images/'
+    result = requests.post(url, json=data, verify=False).json()
+    return JsonResponse(result, status=201, safe=False)
