@@ -8,13 +8,24 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 
-from .serializers import PictureSerializer # 클래스 이름 다르게 해야 하는지?
+from .serializers import EmojisSerializer
 from datetime import datetime, timedelta
-from .utils import get_img_url, create_img
+from .utils import get_img_url, create_emoji
 from users.models import Users
 # Create your views here.
 
 @api_view(['POST'])
 def emojis(request):
-# 빈 리스트를 만들어서 for문으로 0~6까지 kind에 넣어주는 방법이 괜찮은지?
+    user_id = request.data['user_id']
+    name = request.data['name'] # 이모지 이름
+    kind = request.data['kind'] # 프로필 사진, 표정 6가지 즉, kind 0~6까지 
+    image = request.data['image']
+
+    img_url = "테스트" # get_img_url(image)
+ 
+    userId = Users.objects.get(id = user_id)
+    
+    images = create_emoji(userId, name, kind, image)
+    data = EmojisSerializer(images, many=False).data
+    
     return JsonResponse(data, status = 200)
