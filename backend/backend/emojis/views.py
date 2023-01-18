@@ -10,7 +10,8 @@ from rest_framework.decorators import api_view
 
 from .serializers import EmojisSerializer
 from datetime import datetime, timedelta
-from .utils import get_img_url, create_emoji
+from .utils import create_emoji
+from faces.utils import get_img_url
 from users.models import Users
 # Create your views here.
 
