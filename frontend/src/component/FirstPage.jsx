@@ -62,7 +62,7 @@ const handleClose = () => {
       <Button variant= "contained" color="inherit" size="large" sx={{top: "40%", marginLeft: "25%", color:'white',
        right: '30%',
        left: '30%', 
-       bgcolor: '#FECD93'}} onClick={handleClick} >Click me!</Button>
+       bgcolor: '#FECD93'}} href="/LLLPage" >Click me!</Button>
     <Grid container>
     <Grid item xs={2}>
       <Typography variant="subtitle1" sx={{top:"15%", marginLeft: "-20%", height: '50vh',
