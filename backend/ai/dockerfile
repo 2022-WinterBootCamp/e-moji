@@ -1,0 +1,16 @@
+FROM python:3.9.13
+
+WORKDIR /ai_server
+
+COPY ./ ./
+
+EXPOSE 8000
+
+RUN pip install mysql-connector-python
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+RUN apt-get update
+RUN apt-get -y install libgl1-mesa-glx
+
+CMD [ "python", "app.py" ]

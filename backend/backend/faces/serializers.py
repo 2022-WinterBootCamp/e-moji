@@ -5,3 +5,4 @@ class PictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Face
         fields = ("user_id", "image")  # 프론트에주는 값
+
