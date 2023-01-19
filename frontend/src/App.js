@@ -1,11 +1,17 @@
 import React from 'react';
-import { Fragment } from 'react';
-import LoginPage from './component/LoginPage';
-
+import FirstPage from './component/FirstPage';
+import LLLPage from './component/LLLPage';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 export default function App(){
-  return(
-    <Fragment>
-      <LoginPage/>
-    </Fragment>
+    return(
+        <React.Fragment>
+          <Router>
+            <Routes>
+                <Route path="/FirstPage" element={<FirstPage />} />
+                <Route path="/LLLPage" element={<LLLPage/>}/>
+            </Routes>
+            </Router>
+            </React.Fragment>
+
   );
 }

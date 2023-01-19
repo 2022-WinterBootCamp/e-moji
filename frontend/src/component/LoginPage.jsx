@@ -111,7 +111,7 @@ const handleClose2=()=>{
    </Grid>
 
    <div>
-      <Dialog open={open} onClose={handleClose}>
+      <div open={open} onClose={handleClose}>
       <div style={{textAlign: 'right'}}>
               <IconButton onClick={() => setOpen(false)}>
                 <CloseIcon fontWeight='300'/>
@@ -141,7 +141,7 @@ const handleClose2=()=>{
          </DialogContent>
           <DialogActions>
         </DialogActions>
-         </Dialog>
+        </div>
     </div>
     <div>
    <Dialog open={isOpen1} onClose={handleClose1}>
