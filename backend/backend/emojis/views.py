@@ -12,7 +12,7 @@ from .serializers import EmojisSerializer
 from datetime import datetime, timedelta
 from .utils import create_emoji
 from faces.utils import get_img_url
-from users.models import Users
+from users.models import User
 # Create your views here.
 
 @api_view(['POST'])
@@ -24,7 +24,7 @@ def emojis(request):
 
     img_url = "테스트" # get_img_url(image)
  
-    userId = Users.objects.get(id = user_id)
+    userId = User.objects.get(id = user_id)
     
     images = create_emoji(userId, name, kind, img_url)
     data = EmojisSerializer(images, many=False).data

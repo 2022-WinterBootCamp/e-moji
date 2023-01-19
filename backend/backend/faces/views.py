@@ -11,7 +11,7 @@ from rest_framework.decorators import api_view
 from .serializers import PictureSerializer
 from datetime import datetime, timedelta
 from .utils import get_img_url, create_img
-from users.models import Users
+from users.models import User
 
 @api_view(['POST'])
 def faces(request):
@@ -19,7 +19,7 @@ def faces(request):
     image = request.data['image']
     img_url = get_img_url(image)
  
-    userId = Users.objects.get(id = user_id)
+    userId = User.objects.get(id = user_id)
 
     images = create_img(userId, img_url)
     data = PictureSerializer(images, many=False).data

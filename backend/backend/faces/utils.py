@@ -1,6 +1,6 @@
 import boto3 ,os
 from backend.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
-from .models import Faces
+from .models import Face
 
 from uuid import uuid4
 
@@ -20,4 +20,4 @@ def get_img_url(img):
     return image_url
 
 def create_img(user_id, image):
-    return Faces.objects.create(user_id = user_id, image = image)
+    return Face.objects.create(user_id = user_id, image = image)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Users
+from .models import User
 
 # Serializer는 요청한 값을 정제해서 보내주기 위해 사용합니다. 원하는 값을 바로 묶어서 사용할 수 있는 장점이 있습니다.
 # 장고 모델 쿼리셋을 json형태로 자동으로 바꿔줄 수 있게 만들어주는 용도입니다.
@@ -7,10 +7,10 @@ from .models import Users
 
 class UserSignupResponse(serializers.ModelSerializer):
     class Meta:
-        model = Users
+        model = User
         fields = ['email']  # 프론트에주는 값
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Users
+        model = User
         fields = ['email', 'password', 'alias']

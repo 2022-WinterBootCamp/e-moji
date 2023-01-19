@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Faces
+from .models import Face
 
-@admin.register(Faces)
+@admin.register(Face)
 class FaceAdmin(admin.ModelAdmin):
 
     list_display = ['id','user_id','image']
