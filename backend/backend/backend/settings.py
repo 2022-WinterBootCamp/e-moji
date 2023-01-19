@@ -33,10 +33,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # add
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    'allauth.socialaccount',
     'corsheaders',
     'drf_yasg',
     # apps
@@ -46,6 +48,12 @@ INSTALLED_APPS = [
     
     
 ]
+
+ACCOUNT_ADAPTER = 'thenameofyyourapp.adapter.CustomAccountAdapter'
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'thenameofyourapp.serializers.CustomRegisterSerializer',
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':(

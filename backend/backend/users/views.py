@@ -1,59 +1,56 @@
-from django.http import JsonResponse
-from .serializers import UserSignupResponse
-from .models import Users
-import jwt
-import datetime
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework import status, mixins
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
+from rest_framework.decorators import permission_classes, authentication_classes
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework_jwt.serializers import VerifyJSONWebTokenSerializer
 
-        token['username']=user.username
+from .serializers import *
+from .models import *
 
-        return token
+@permission_classes([AllowAny])
+class Registration(generics.GenericAPIView):
+    serializer_class=CustomRegisterSerializer
 
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid(reaise_exception=True):
+            return Response({"message": "Request Body Error."}, status=status.HTTP_409_CONFLICT)
 
+        serializer.is_valid(raise_exception=True)
+        user=serializer.save(request)
+        return Response(
+            {
+                "user": UserSerializer(
+                    user, context=self.get_serializer_context()
+                ).data
+            },
+                status=status.HTTP_201_CREATED,
+        )
+            
+@permission_classes([AllowAny])
+class Login(generics.GenericAPIView):
+    serializer_class = UserLoginSerializer
 
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
 
-from rest_framework.decorators import api_view
+        if not serializer.is_valid(raise_exception=True):
+            return Response({"message": "Request Body Error."}, status=status.HTTP_409_CONFLICT)
 
-def user_hash_password(password):
-    password = str(password).encode('utf-8') # 해시하기 전에 인코딩을 먼저 해야된다!!
-    return password
-
-def create_user(email, password, alias):
-    hash_password = user_hash_password(password)
-    return Users.objects.create(email=email, alias=alias, password=hash_password)
-
-@api_view(['POST'])
-def user(request):
-    if request.method == 'POST':
-        return sign_up(request)
-    
-def sign_up(request):
-    email = request.data['email']
-    password = request.data['password']
-    alias = request.data['alias']
-    
-    new_user = create_user(email, password, alias)
-    data = UserSignupResponse(new_user, many=False).data
-
-    return JsonResponse(data, status=201)
-
-@api_view(['POST'])
-def user_test(request) :
-    email = 'test@naver.com'
-    password = 'test'
-    alias = 'test'
-    
-    new_user = create_user(email, password, alias)
-    data = UserSignupResponse(new_user, many=False).data
-
-    return JsonResponse(data, status=201)
-
-
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data
+        if user['email'] == "None":
+            return Response({"message": "fail"}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        return Response(
+            {
+                "user": UserSerializer(
+                    user, context=self.get_serializer_context()
+                ).data,
+                "token": user['token']
+            }
+        )
