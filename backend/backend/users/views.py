@@ -1,6 +1,24 @@
 from django.http import JsonResponse
 from .serializers import UserSignupResponse
 from .models import Users
+import jwt
+import datetime
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        token['username']=user.username
+
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+
 
 from rest_framework.decorators import api_view
 
@@ -37,3 +55,5 @@ def user_test(request) :
     data = UserSignupResponse(new_user, many=False).data
 
     return JsonResponse(data, status=201)
+
+
