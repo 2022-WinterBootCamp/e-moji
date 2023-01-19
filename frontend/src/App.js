@@ -2,11 +2,8 @@ import React from "react";
 import Header from "./components/common/Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import MainPage from "./pages/MainPage";
 import MyPage from "./pages/MyPage";
-import Uploadpage from "./pages/UploadPage";
-import LoadingPage from "./pages/LoadingPage";
-import ResultPage from "./pages/ResultPage";
+import RankDrawer from "./components/main/RankDrawer";
 
 function App() {
     return(
@@ -14,11 +11,8 @@ function App() {
             <Header />
             <Router>
               <Routes>
-                  <Route path="/" element={<MainPage />} />
-                  <Route path="/my-page" element={<MyPage/>}/>
-                  <Route path="/upload" element={<Uploadpage/>}/>
-                  <Route path="/loading" element={<LoadingPage/>}/>
-                  <Route path="/result" element={<ResultPage/>}/>
+                  <Route path="/main" element={<RankDrawer />} />
+                  <Route path="/mypage" element={<MyPage/>}/>
               </Routes>     
             </Router>
         </React.Fragment>

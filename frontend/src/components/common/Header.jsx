@@ -13,15 +13,15 @@ import PersonIcon from '@mui/icons-material/Person';
 export default function Header(){
     return(
         <Box sx={{flexGrow: 1}} >
-            <AppBar position="static">
+            <AppBar position="fixed" sx={{ bgcolor: '#FECD93',zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar sx={{bgcolor: '#FECD93'}}>
-                    <div style={{width:'20%', textAlign: 'center'}}>
-                        <Link sx={{fontWeight: '700'}} align="left" variant="h5" color="inherit" href="/" underline="none" >
+                    <div style={{width:'40%', textAlign: 'left'}}>
+                        <Link sx={{fontWeight: '700', ml: 4}} align="left" variant="h5" color="inherit" href="/main" underline="none" >
                             IGE MOJI
                         </Link>
                     </div>
-                    <div style={{width:'90%', textAlign:'right'}}>
-                        <Link sx={{fontWeight: '500'}} align="right" variant="h6" color="inherit" href="/my-page" underline="none">
+                    <div style={{width:'80%', textAlign:'right'}}>
+                        <Link sx={{fontWeight: '500'}} align="right" variant="h6" color="inherit" href="/mypage" underline="none">
                             <IconButton color="inherit" sx = {{mt: -0.6}}>
                                 <PersonIcon/>
                             </IconButton>
