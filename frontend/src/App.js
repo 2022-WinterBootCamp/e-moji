@@ -1,17 +1,21 @@
 import React from 'react';
 import FirstPage from './component/FirstPage';
-import LLLPage from './component/LLLPage';
+import LoginPage from './component/LoginPage';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SignupPage from './component/SignupPage';
+
+
+
 export default function App(){
     return(
-        <React.Fragment>
+      <React.Fragment>
           <Router>
             <Routes>
-                <Route path="/FirstPage" element={<FirstPage />} />
-                <Route path="/LLLPage" element={<LLLPage/>}/>
+                <Route path="/" element={<FirstPage />} />
+                <Route path="/LoginPage" element={<LoginPage/>}/>
+                <Route path="/SignupPage" element={<SignupPage/>}/>
             </Routes>
-            </Router>
-            </React.Fragment>
-
+          </Router>
+        </React.Fragment>
   );
 }
