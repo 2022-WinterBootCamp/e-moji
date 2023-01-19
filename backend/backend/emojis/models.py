@@ -1,10 +1,10 @@
 from django.db import models
-from users.models import Users
+from users.models import User
 # Create your models here.
 
-class Emojis(models.Model):
+class Emoji(models.Model): # django admin에서 보이는 s 수정
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(Users, on_delete=models.CASCADE, db_column='user_id')
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     name = models.CharField(max_length=200)
     kind = models.IntegerField()
     image = models.CharField(max_length=200)
@@ -12,4 +12,4 @@ class Emojis(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)
     
     class Meta:
-        db_table = 'emoji'
+        db_table = 'emoji' 

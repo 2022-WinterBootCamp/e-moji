@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from .serializers import UserSignupResponse
-from .models import Users
+from .models import User
 
 from rest_framework.decorators import api_view
 
@@ -10,7 +10,7 @@ def user_hash_password(password):
 
 def create_user(email, password, alias):
     hash_password = user_hash_password(password)
-    return Users.objects.create(email=email, alias=alias, password=hash_password)
+    return User.objects.create(email=email, alias=alias, password=hash_password)
 
 @api_view(['POST'])
 def user(request):

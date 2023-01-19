@@ -1,6 +1,6 @@
 from django.db import models
 
-class Users(models.Model):
+class User(models.Model):
     id = models.AutoField(primary_key=True)
     email = models.CharField(unique=True, max_length=200, null=True, blank=True)
     password = models.BinaryField(max_length=60)

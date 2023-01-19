@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import Faces
+from .models import Face
  
 class PictureSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Faces
-        fields = ("user_id", "image")  # 프론트에 주는 값
+        model = Face
+        fields = ("user_id", "image")  # 프론트에주는 값
+

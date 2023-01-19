@@ -12,14 +12,14 @@ from rest_framework.decorators import api_view
 
 from .serializers import PictureSerializer
 from .utils import get_img_url, create_img
-from users.models import Users
+from users.models import User
 
 @api_view(['POST'])
 def faces(request):
     user_id = request.data['user_id']
     image = request.data['image']
  
-    userId = Users.objects.get(id = user_id)
+    userId = User.objects.get(id = user_id)
     if userId :
         # img_url = get_img_url(image)
         img_url = "aaaa"
