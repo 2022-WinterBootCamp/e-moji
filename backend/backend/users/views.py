@@ -2,15 +2,11 @@ from django.http import JsonResponse
 from .serializers import UserSignupResponse
 from .models import User
 
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 
-def user_hash_password(password):
-    password = str(password).encode('utf-8') # 해시하기 전에 인코딩을 먼저 해야된다!!
-    return password
-
-def create_user(email, password, alias):
-    hash_password = user_hash_password(password)
-    return User.objects.create(email=email, alias=alias, password=hash_password)
+from .utils import create_user, user_find_email, user_get_access_token
 
 @api_view(['POST'])
 def user(request):
@@ -37,3 +33,21 @@ def user_test(request) :
     data = UserSignupResponse(new_user, many=False).data
 
     return JsonResponse(data, status=201)
+
+@api_view(['POST'])
+def login(request): #로그인 구현
+    input_email = request.data['email']
+    input_password = request.data['password']
+    access_token = None
+    if input_password and input_email:
+        user_data = user_find_email(input_email).first()
+        if user_data:
+                access_token = user_get_access_token(user_data)
+        else: 
+                return JsonResponse({"message": "user not exist"}, status=400)
+    else:
+            return JsonResponse({"message": "user not exist"}, status=400)
+
+    logindata = {"access_token": access_token}
+
+    return JsonResponse(logindata, status=200)
