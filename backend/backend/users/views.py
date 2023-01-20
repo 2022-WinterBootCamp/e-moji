@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
-from .utils import create_user, user_find_email, user_get_access_token
+from .utils import create_user, user_find_email, user_get_access_token, user_ispassword
 
 @api_view(['POST'])
 def user(request):
@@ -41,11 +41,12 @@ def login(request): #로그인 구현
     access_token = None
     if input_password and input_email:
         user_data = user_find_email(input_email).first()
-        if user_data:
-                access_token = user_get_access_token(user_data)
-        else: 
-                return JsonResponse({"message": "user not exist"}, status=400)
-    else:
+        if user_data :
+                if user_ispassword(input_password, user_data) :
+                    access_token = user_get_access_token(user_data)
+                else :
+                    return JsonResponse({"message": "user not exist"}, status=400)
+        else :
             return JsonResponse({"message": "user not exist"}, status=400)
 
     logindata = {"access_token": access_token}

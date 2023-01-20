@@ -29,3 +29,7 @@ def user_token_to_data(token):
     except jwt.exceptions.DecodeError: # 토큰 디코딩 오류 생겼을 때
         return "Invalid_Token"
     return payload
+
+def user_ispassword(password, user_data):
+    hash_password = user_hash_password(password)
+    return hash_password == user_data.password

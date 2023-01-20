@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 from .utils import create_emoji
 from faces.utils import get_img_url
 from users.models import User
-# Create your views here.
+from users.utils import user_token_to_data
 
 @api_view(['POST'])
 def emojis(request):
@@ -22,11 +22,16 @@ def emojis(request):
     kind = request.data['kind'] # 프로필 사진, 표정 6가지 즉, kind 0~6까지 
     image = request.data['image']
 
-    img_url = "테스트" # get_img_url(image)
- 
-    userId = User.objects.get(id = user_id)
+    userID= User.objects.get(id = user_id)
+    userData = userID.alias
+    payload = user_token_to_data(request.headers.get('Authorization', None))
+
+    if (payload.get('alias') == str(userData)):
+        img_url = "테스트" # get_img_url(image)
     
-    images = create_emoji(userId, name, kind, img_url)
-    data = EmojisSerializer(images, many=False).data
+        images = create_emoji(userID, name, kind, img_url)
+        data = EmojisSerializer(images, many=False).data
+        return JsonResponse(data, status = 200)
     
-    return JsonResponse(data, status = 200)
+    else :
+        return JsonResponse({"message": "Invalid_User"}, status=401)
