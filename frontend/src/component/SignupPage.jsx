@@ -13,6 +13,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBack from '@mui/icons-material/ArrowBack';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 
 export default function SignupPage() {
 const theme = createTheme({
@@ -42,6 +46,39 @@ const handleClick = () => {
 const handleClose = () => {
   setOpen(false);
 };
+
+const formSchema = yup.object({
+  email: yup
+    .string()
+    .required('이메일을 입력해주세요')
+    .email('이메일 형식이 아닙니다.'),
+  password: yup
+    .string()
+    .required('영문, 숫자포함 8자리를 입력해주세요.')
+    .min(8, '최소 8자 이상 가능합니다')
+    .max(15, '최대 15자 까지만 가능합니다')
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/,
+      '영문 숫자포함 8자리를 입력해주세요.'
+    ),
+  passwordConfirm: yup
+    .string()
+    .oneOf([yup.ref('password'), null], '비밀번호가 다릅니다.'),
+    name: yup.string().required('필수 입력값입니다'),
+})
+.required();
+
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+} = useForm({
+  mode: 'onChange',
+  resolver: yupResolver(formSchema),
+});
+
+const onSubmit = (data) => console.log(data);
+
 return(
 
 <Container fixed>
@@ -53,25 +90,46 @@ return(
            </IconButton>
          </div>
    
-         <Box sx={{
-    display: 'flex',
-  flexDirection:'column',
-alignItems:'center',}}>
+         <Box sx={{ 
+          display: 'flex',
+          flexDirection:'column',
+          alignItems:'center',}}>
     <Button href="/">
    <Typography variant="h3"color="inherit" fontStyle= "Inter"  fontWeight= "800"
      position= 'center' sx={{color:'#FECD93'}}>IGE MOJI</Typography></Button>
    <Typography variant="h5" fontStyle= "Inter"  fontWeight= "600"
      position= 'center'> Sign Up </Typography>
-
-       <TextField label="Email" autoFocus  required sx={{ mt:3, width:500}}/> <br/>
-       <TextField label="Password" type="password" required sx={{ mt:3, width:500}} />
-       <br/>
-       <TextField label="Check Your Password" required type="password" sx={{mt:3, width:500}} /> <br/>
-       <TextField label="Nickname" required autoComplete="email"
-       sx={{ mt:3, width:500}} />
-       <Button type='submit' variant= "contained" color="inherit" size="" sx={{ mt:5, color:'white',
-    bgcolor: '#FECD93', width:500 }} onClick={handleClick}>Sign Up</Button>
-    </Box>
+     <br/>
+     <form onSubmit={handleSubmit(onSubmit)}>
+     <TextField label="Email" autoFocus  required sx={{ mt:3, width:500}}name="email" placeholder="Email" {...register('email')}/> 
+        {errors.email && <p>{errors.email.message}</p>}
+        <br/>
+        <TextField label="Password" required sx={{ mt:3, width:500}}
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+          {...register('password')}
+        />
+        {errors.password && <p>{errors.password.message}</p>}
+        <br/>
+        <TextField label="Check Your Password" required  sx={{mt:3, width:500}} 
+          type="password"
+          name="Check Your Password"
+          placeholder="비밀번호 확인"
+          {...register('passwordConfirm')}/> 
+        {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
+        <br/>
+       <TextField label="Nickname" required
+       sx={{ mt:3, width:500}}
+        type="name"
+        name="Nickname"
+        placeholder='닉네임'
+        {...register('Nickname')}/> 
+        {errors.Nickname && <p>{errors.Nickname.message}</p>}
+      <br/>
+       <Button type='submit' name= 'signup' variant= "contained" color="inherit" size="" sx={{ mt:5, color:'white',
+    bgcolor: '#FECD93', width:500 }} onClick={handleClick} >Signup</Button> </form>
+    </Box> 
     
     <div>
       <Dialog open={open} onClose={handleClose}>

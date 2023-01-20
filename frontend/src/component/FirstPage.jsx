@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider} from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-
+import back from './img/back.1.png';
 
 export default function FirstPage() {
 const theme = createTheme({
@@ -28,9 +28,10 @@ const theme = createTheme({
 });
 
 
-
   return(
   <Container fixed>
+     <Box> <img src={back} /></Box>
+
       <Box sx={{
          width: '100%',
          height: '100%',
@@ -39,6 +40,7 @@ const theme = createTheme({
          backgroundColor: '#FECD93',
        }}>
         </Box>
+       
       <Grid container>
        <Box sx={{
         bgcolor: 'white', height: '50vh',
@@ -48,7 +50,7 @@ const theme = createTheme({
         left: '30%',
         borderRadius: '45px',
       }}
-    >  
+    > 
    <ThemeProvider theme={theme}>
       <Button variant= "contained" color="inherit" size="large" sx={{top: "40%", marginLeft: "25%", color:'white',
        right: '30%',
@@ -71,8 +73,8 @@ const theme = createTheme({
      </ThemeProvider>
  
   
-   </Box> 
+   </Box>
    
-   </Grid>
+   </Grid> 
    </Container>
   );}
