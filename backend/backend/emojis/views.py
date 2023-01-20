@@ -28,10 +28,10 @@ def emojis(request):
 
     if (payload.get('alias') == str(userData)):
         img_url = "테스트" # get_img_url(image)
+    
+        images = create_emoji(userID, name, kind, img_url)
+        data = EmojisSerializer(images, many=False).data
+        return JsonResponse(data, status = 200)
+    
     else :
         return JsonResponse({"message": "Invalid_User"}, status=401)
-    
-    images = create_emoji(userID, name, kind, img_url)
-    data = EmojisSerializer(images, many=False).data
-    
-    return JsonResponse(data, status = 200)
