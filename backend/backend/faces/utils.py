@@ -1,7 +1,12 @@
 import boto3 ,os
 from backend.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+<<<<<<< HEAD
 from .models import Face
 from emojis.models import Emoji
+=======
+from .models import Faces
+from emojis.models import Emojis
+>>>>>>> 08-BE-result
 
 from uuid import uuid4
 
@@ -21,7 +26,14 @@ def get_img_url(img):
     return image_url
 
 def create_img(user_id, image):
+<<<<<<< HEAD
     return Face.objects.create(user_id = user_id, image = image)
 
 def create_result(user_id, face_id, emoji_id, kind, image):
     return Emoji.objects.create(user_id = user_id, face_id = face_id, emoji_id = emoji_id, kind = kind, image = image)
+=======
+    return Faces.objects.create(user_id = user_id, image = image)
+
+def create_result(user_id, face_id, emoji_id, kind, image):
+    return Emojis.objects.create(user_id = user_id, face_id = face_id, emoji_id = emoji_id, kind = kind, image = image)
+>>>>>>> 08-BE-result

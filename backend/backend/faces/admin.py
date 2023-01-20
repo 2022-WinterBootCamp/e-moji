@@ -1,5 +1,9 @@
 from django.contrib import admin
+<<<<<<< HEAD
 from .models import Face
+=======
+from .models import Faces
+>>>>>>> 08-BE-result
 from .models import Result
 
 @admin.register(Face)
