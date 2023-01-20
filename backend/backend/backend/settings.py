@@ -9,8 +9,16 @@ pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env(DEBUG=(bool, True))
-environ.Env.read_env(
+is_dev = False
+
+if is_dev:
+    env = environ.Env(DEBUG=(bool, True))
+    environ.Env.read_env(
+        env_file=os.path.join(BASE_DIR, 'dev.env')
+    )
+else:
+    env = environ.Env(DEBUG=(bool, True))
+    environ.Env.read_env(
         env_file=os.path.join(BASE_DIR, '.env')
     )
 
