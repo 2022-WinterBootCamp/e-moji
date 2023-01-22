@@ -22,6 +22,7 @@ class CustomRegisterSerializer(RegisterSerializer):
 
     def get_cleaned_data(self):
         data_dict=super().get_cleaned_data()
+        data_dict['alias']=self.validated_data.get('alias', '')
         
         return data_dict
 

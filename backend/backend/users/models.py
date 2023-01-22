@@ -2,15 +2,9 @@ from django.db import models
 from django.contrib.auth.models import UserManager, AbstractUser
 
 class Users(AbstractUser):
-    
-    objects = UserManager()
-    id = models.AutoField(primary_key=True)
-    email = models.CharField(unique=True, max_length=200, null=True, blank=True)
-    password = models.BinaryField(max_length=60)
-    alias = models.CharField(unique=True, max_length=20)
-    active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    updated_at = models.DateTimeField(auto_now=True, blank=True)
 
+    objects = UserManager()
+    alias = models.CharField(blank=True, max_length=50)
+    
 class Meta:
     db_table = 'member'
