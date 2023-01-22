@@ -1,5 +1,9 @@
 version: "3.8"
 
+networks:
+  monitor:
+    driver: bridge
+
 volumes:
   mysql_data:
   build_folder:
@@ -28,6 +32,7 @@ services:
       - ./backend/backend:/app
     depends_on:
       - mysqldb
+      - redis
     links:
       - mysqldb
 
@@ -39,6 +44,40 @@ services:
       FLASK_DEBUG: 1 
     volumes:
       - ./backend/ai:/ai
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    hostname: redis
+    ports:
+      - "6379:6379"
+
+  prometheus:
+    image: prom/prometheus:latest
+    user: root
+    volumes:
+      - ./backend/prometheus/config/:/etc/prometheus/
+    ports:
+      - 9090:9090
+    networks:
+      - monitor
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin1234
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./backend/grafana_data:/var/lib/grafana
+    ports:
+      - 3000:3000
+    depends_on:
+      - prometheus
+    networks:
+      - monitor
+    restart: always
 
 
   # rabbitmq:
