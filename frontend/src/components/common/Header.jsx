@@ -16,7 +16,7 @@ export default function Header(){
             <AppBar position="fixed" sx={{ bgcolor: '#FECD93',zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar sx={{bgcolor: '#FECD93'}}>
                     <div style={{width:'40%', textAlign: 'left'}}>
-                        <Link sx={{fontWeight: '700', ml: 4}} align="left" variant="h5" color="inherit" href="/main" underline="none" >
+                        <Link sx={{fontWeight: '700', ml: 4}} align="left" variant="h5" color="inherit" href="/mainpage" underline="none" >
                             IGE MOJI
                         </Link>
                     </div>

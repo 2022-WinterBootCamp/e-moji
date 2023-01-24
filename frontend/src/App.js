@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import FirstPage from './component/FirstPage';
 import LoginPage from './component/LoginPage';
 import SignupPage from './component/SignupPage';
-
 import MyPage from "./pages/MyPage";
 import RankDrawer from "./components/main/RankDrawer";
 
@@ -13,15 +12,16 @@ function App() {
         <React.Fragment>
             <Header />
             <Router>
-              <Routes>
-                  <Route path="/main" element={<RankDrawer />} />
-                  <Route path="/mypage" element={<MyPage/>}/>
+                <Routes>
+                    <Route path="/" element={<FirstPage/>}/>
+                    <Route path="/loginpage" element={<LoginPage/>}/>
+                    <Route path="/signuppage" element={<SignupPage/>}/>
+                    <Route path="/mainpage" element={<RankDrawer />} />
+                    <Route path="/MyPage" element={<MyPage/>}/>
               </Routes>     
             </Router>
         </React.Fragment>
     );
-                <Route path="/LoginPage" element={<LoginPage/>}/>
-                <Route path="/SignupPage" element={<SignupPage/>}/>
 }
 
 export default App;

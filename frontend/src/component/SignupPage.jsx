@@ -118,7 +118,7 @@ return (
     <ThemeProvider theme={theme}>
       <Container maxWidth="s">
         <div style={{textAlign: 'left'}}>
-           <IconButton href="/LoginPage">
+           <IconButton href="/loginpage">
              <ArrowBack fontWeight='300'/>
            </IconButton>
          </div></Container>
@@ -270,7 +270,7 @@ return (
                       sx={{ mt:3, 
                         color:'white', 
                         bgcolor: '#FECD93'}} 
-                       href="/LoginPage" >로그인 바로가기</Button>
+                       href="/loginpage" >로그인 바로가기</Button>
                         </DialogContent>
 
                         <DialogActions>

@@ -73,7 +73,7 @@ export default function LoginPage() {
             color:'white',
             bgcolor: '#FECD93', 
             width:500}} 
-            href="/MainPage">sign in</Button>
+            href="/mainpage">sign in</Button>
        
        <Grid container>
         <Grid item xs>
@@ -86,7 +86,7 @@ export default function LoginPage() {
           <Typography variant="overline" 
           fontStyle= "Inter"  
           fontWeight= "550"> 
-         <Button href="/SignupPage"> 회원가입</Button> </Typography>
+         <Button href="/signuppage"> 회원가입</Button> </Typography>
          </Grid>
          </Grid>
          </Box>

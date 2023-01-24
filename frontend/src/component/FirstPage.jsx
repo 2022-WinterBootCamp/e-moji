@@ -134,7 +134,7 @@ const theme = createTheme({
       right: '30%',
       left: '20%', 
       bgcolor: '#FECD93'}} 
-      href="/LoginPage" >Click me!</Button>
+      href="/loginpage" >Click me!</Button>
 
      </ThemeProvider>
      
