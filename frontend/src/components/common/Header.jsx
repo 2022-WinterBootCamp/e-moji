@@ -11,6 +11,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 
 export default function Header(){
+    if(window.location.pathname === '/' || window.location.pathname === '/loginpage' || window.location.pathname === '/signuppage')
+        return null;
     return(
         <Box sx={{flexGrow: 1}} >
             <AppBar position="fixed" sx={{ bgcolor: '#FECD93',zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -28,7 +30,7 @@ export default function Header(){
                             사용자님, 환영합니다!
                         </Link>
                         <Tooltip title="logout">
-                            <IconButton color="inherit" sx = {{ml: 2,mt: -0.6}}>
+                            <IconButton color="inherit" sx = {{ml: 2,mt: -0.6}} href="/">
                                 <LogoutIcon />
                             </IconButton>
                         </Tooltip>
