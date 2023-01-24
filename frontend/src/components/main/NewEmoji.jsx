@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import apiClient from '../../Api';
 import axios from 'axios';
 
 function NewEmoji() {
@@ -15,24 +14,20 @@ function NewEmoji() {
     const [emojiPost, setEmojiPost] = useState(null);
 
     const formatResponse = (res) => {
-        return JSON.stringify(res, null, 2);
+        return JSON.stringify(res, null, 4);
     };
 
     async function postData(){
         const postData = {
             user_id: 1,
             name: emoji_name.current.value,
-            kind: 1,
-            image: {profile: emoji_profile.current.value}
-            // {
-            //     profile: emoji_profile.current.value,
-            //     angry: emoji_angry.current.value,
-            //     disgust: emoji_disgust.current.value,
-            //     fear: emoji_fear.current.value,
-            //     happy: emoji_happy.current.value,
-            //     sad: emoji_sad.current.value,
-            //     surprised: emoji_surprised.current.value,
-            // }
+            image: emoji_profile.current.value,
+            image1: emoji_angry.current.value,
+            image2: emoji_disgust.current.value,
+            image3: emoji_fear.current.value,
+            image4: emoji_happy.current.value,
+            image5: emoji_sad.current.value,
+            image6: emoji_surprised.current.value,
         };
         try{
             const res = await axios.post("/api/v1/emojis/", postData, {
@@ -48,6 +43,7 @@ function NewEmoji() {
             };
 
             setEmojiPost(formatResponse(result));
+            // alert(result.data);
         }catch(err){
             setEmojiPost(formatResponse(err.response?.data||err));
         }
@@ -66,7 +62,7 @@ function NewEmoji() {
             <br/>
             {emojiPost}
         </>
-    )
+    );
 }
 
 export default NewEmoji;

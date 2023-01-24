@@ -8,4 +8,4 @@ from .models import Emoji
 class EmojisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emoji
-        fields = ("user_id", "name", "kind", "image")  # 프론트에주는 값 "name", "kind"
+        fields = ("user_id", "name", "image")
