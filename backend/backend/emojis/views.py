@@ -23,15 +23,15 @@ def emojis(request):
     image = request.data['image']
 
     userID= User.objects.get(id = user_id)
-    userData = userID.alias
-    payload = user_token_to_data(request.headers.get('Authorization', None))
+    # userData = userID.alias
+    # payload = user_token_to_data(request.headers.get('Authorization', None))
 
-    if (payload.get('alias') == str(userData)):
-        img_url = "테스트" # get_img_url(image)
+    # if (payload.get('alias') == str(userData)):
+    img_url = "테스트" # get_img_url(image)
     
-        images = create_emoji(userID, name, kind, img_url)
-        data = EmojisSerializer(images, many=False).data
-        return JsonResponse(data, status = 200)
+    images = create_emoji(userID, name, kind, img_url)
+    data = EmojisSerializer(images, many=False).data
+    return JsonResponse(data, status = 200)
     
-    else :
-        return JsonResponse({"message": "Invalid_User"}, status=401)
+    # else :
+    #     return JsonResponse({"message": "Invalid_User"}, status=401)
