@@ -5,4 +5,4 @@ from .models import Emoji
 @admin.register(Emoji)
 class EmojiAdmin(admin.ModelAdmin):
     
-    list_display = ['id', 'user_id', 'name', 'kind', 'image']
+    list_display = ['id', 'user_id', 'name', 'image']
