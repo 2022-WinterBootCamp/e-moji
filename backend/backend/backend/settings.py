@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     # add
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_simplejwt',
+    
     'allauth',
     'allauth.account',
     'rest_auth',
-    'rest_framework.authtoken',
+    
     'rest_auth.registration',
     'allauth.socialaccount',
     'corsheaders',
