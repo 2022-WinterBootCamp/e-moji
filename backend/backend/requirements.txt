@@ -7,7 +7,7 @@ cryptography==37.0.4
 PyMySQL==1.0.2
 mysqlclient==2.1.1
 drf-yasg==1.21.0
-djangorestframework-simplejwt
+djangorestframework-simplejwt==5.0.0
 
 
 #ai

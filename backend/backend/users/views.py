@@ -11,6 +11,8 @@ from rest_framework_jwt.serializers import VerifyJSONWebTokenSerializer
 from .serializers import *
 from .models import *
 
+
+
 @permission_classes([AllowAny])
 class Registration(generics.GenericAPIView):
     serializer_class=CustomRegisterSerializer
