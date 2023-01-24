@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "./components/common/Header";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import FirstPage from './component/FirstPage';
-import LoginPage from './component/LoginPage';
-import SignupPage from './component/SignupPage';
-import MyPage from "./pages/MyPage";
+import Header from "./components/common/Header";
 import RankDrawer from "./components/main/RankDrawer";
+import FirstPage from './pages/FirstPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import MyPage from "./pages/MyPage";
 
 function App() {
     return(
@@ -17,7 +17,7 @@ function App() {
                     <Route path="/loginpage" element={<LoginPage/>}/>
                     <Route path="/signuppage" element={<SignupPage/>}/>
                     <Route path="/mainpage" element={<RankDrawer />} />
-                    <Route path="/MyPage" element={<MyPage/>}/>
+                    <Route path="/mypage" element={<MyPage/>}/>
               </Routes>     
             </Router>
         </React.Fragment>

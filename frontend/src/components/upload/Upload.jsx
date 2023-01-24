@@ -173,7 +173,7 @@ import axios from "axios";
 //   );
 // };
 
-const Upload = () => {
+export default function Upload() {
     const [image, setImage] = useState({
       image_file: "",
       preview_URL:
@@ -257,5 +257,3 @@ const Upload = () => {
       </center>
     );
   };
-
-export default Upload;
