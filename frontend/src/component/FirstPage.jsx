@@ -9,13 +9,9 @@ import { Button,
 import back from './img/3.png';
 import a from './img/5.png';
 import front from './img/6.png';
-import devill from './img/7.png';
-import smile from './img/smile.png';
 import b from './img/5.1.png';
-import sad from './img/sad.png';
-import love from './img/love.png';
 import rainbow from './img/rainbow.png';
-import happy from './img/6.1.png';
+import heart from './img/heart.png';
 
 export default function FirstPage() {
 const theme = createTheme({
@@ -50,24 +46,18 @@ const theme = createTheme({
          left: '0%',
        }}>  
        
-       <Box sx={{ 
-        position: 'absolute',
-        top: '13%',
-        left: '53%',
-      }}>
-      <img src={happy} /></Box>
-
-       <Box sx={{ 
-        position: 'absolute',
-        top: '5%',
-        left: '45%',
-      }}>
-      <img src={devill} /></Box>
-    
+       
       <Box sx={{ 
         position: 'absolute',
-        top: '60%',
-        left: '70%',
+        top: '13%',
+        left: '27%',
+      }}>
+      <img src={heart} /></Box> 
+
+      <Box sx={{ 
+        position: 'absolute',
+        top: '69%',
+        left: '72%',
       }}>
       <img src={a} /></Box> 
       
@@ -76,35 +66,7 @@ const theme = createTheme({
         top: '0%',
         left: '67%',
       }}>
-      <img src={b} /></Box> 
-     
-      <Box sx={{ 
-        position: 'absolute',
-        top: '10%',
-        left: '28%',
-      }}>
-      <img src={smile} /></Box> 
-      
-      <Box sx={{ 
-        position: 'absolute',
-        top: '65%',
-        left: '50%',
-      }}>
-      <img src={sad} /></Box>
-      
-      <Box sx={{ 
-        position: 'absolute',
-        top: '75%',
-        left: '45%',
-        }}>
-      <img src={love} /></Box>
-      
-      <Box sx={{ 
-        position: 'absolute',
-        top: '45%',
-        left: '22%',
-      }}>
-      <img src={love} /></Box>
+      <img src={b} /></Box>      
       
       <Box sx={{ 
         position: 'absolute',
