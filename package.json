@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "http-proxy-middleware": "^2.0.6",
     "material-ui-dropzone": "^3.5.0"
   }
 }

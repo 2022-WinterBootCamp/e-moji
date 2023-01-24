@@ -28,6 +28,8 @@ import StepTwo from "../components/upload/LoadingPage";
 import StepFinal from "../components/upload/ResultPage";
 
 import NewImoji from "../components/main/NewImoji";
+import NewIgeMoji from "../components/main/NewIgeMoji";
+import NewEmoji from "../components/main/NewEmoji";
 
 
 const theme = createTheme();
@@ -355,7 +357,8 @@ export default function MainPage() {
                 </IconButton>
               </div>
             </Toolbar>
-            <NewImoji/>
+            {/* <NewIgeMoji/> */}
+            <NewEmoji/>
           </Typography>
         </Box>
       </Modal>

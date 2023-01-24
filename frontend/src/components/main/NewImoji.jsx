@@ -10,8 +10,6 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import Angry from '../../emoticon/angry.svg';
-
 export default function NewImoji() {
     let inputRef, inputRef_angry, inputRef_disgust, inputRef_fear, inputRef_happy, inputRef_sad, inputRef_surprised;
     const [image, setImage] = useState({
@@ -146,7 +144,7 @@ export default function NewImoji() {
         if (image.image_file) {
             const formData = new FormData();
             formData.append("file", image.image_file);
-            await axios.post("/api/image/upload", formData);
+            await axios.post("/api/v1/emojis/", formData);
             alert("서버에 등록이 완료되었습니다!");
             setImage({
             image_file: "",
