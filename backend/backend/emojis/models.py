@@ -16,4 +16,4 @@ class Emoji(models.Model): # django admin에서 보이는 s 수정
     updated_at = models.DateTimeField(auto_now=True, blank=True)
     
     class Meta:
-        db_table = 'emoji' 
+        db_table = 'emoji'
