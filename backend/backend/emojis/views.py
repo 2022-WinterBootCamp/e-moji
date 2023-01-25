@@ -51,37 +51,37 @@ def emojis(request):
 #    return JsonResponse({"message": "Invalid_User"}, status=401)
 
 
-#마이페이지 
-@api_view(['GET'])
-def mypage(request, user_id, number):
-    # 내가 만든 이모지
-    if number == 0 :
-        userId = User.objects.get(id = user_id).id
-        payload = user_token_to_data(request.headers.get('Authorization', None))
-        if (payload.get('id') == str(userId)):
-            if not Emoji.objects.filter(user_id=userId).exists():
-                return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
+# #마이페이지 
+# @api_view(['GET'])
+# def mypage(request, user_id, number):
+#     # 내가 만든 이모지
+#     if number == 0 :
+#         userId = User.objects.get(id = user_id).id
+#         payload = user_token_to_data(request.headers.get('Authorization', None))
+#         if (payload.get('id') == str(userId)):
+#             if not Emoji.objects.filter(user_id=userId).exists():
+#                 return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
                 
-            resultByUser = Emoji.objects.all().filter(user_id = userId)
-            resultByUser = Emoji.objects.filter(user_id=User.objects.get(id=userId))
-            print(resultByUser)
-            get_result = EmojisMadeSerializer(resultByUser).data
-            print(get_result)
-            return JsonResponse(get_result, status = 200, safe=False)
-        else:
-            return JsonResponse({"message": "Token Error"}, status=401)
+#             resultByUser = Emoji.objects.all().filter(user_id = userId)
+#             resultByUser = Emoji.objects.filter(user_id=User.objects.get(id=userId))
+#             print(resultByUser)
+#             get_result = EmojisMadeSerializer(resultByUser).data
+#             print(get_result)
+#             return JsonResponse(get_result, status = 200, safe=False)
+#         else:
+#             return JsonResponse({"message": "Token Error"}, status=401)
         
-    elif number == 1 :
-        userId = User.objects.get(id = user_id).id
-        payload = user_token_to_data(request.headers.get('Authorization', None))
-        if (payload.get('id') == str(userId)):
-            if not Emoji.objects.filter(user_id=userId).exists():
-                return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
+#     elif number == 1 :
+#         userId = User.objects.get(id = user_id).id
+#         payload = user_token_to_data(request.headers.get('Authorization', None))
+#         if (payload.get('id') == str(userId)):
+#             if not Emoji.objects.filter(user_id=userId).exists():
+#                 return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
                 
-            resultByUser = Emoji.objects.all().filter(user_id=userId)
-            return resultByUser
-        else:
-            return JsonResponse({"message": "Token Error"}, status=401)
+#             resultByUser = Emoji.objects.all().filter(user_id=userId)
+#             return resultByUser
+#         else:
+#             return JsonResponse({"message": "Token Error"}, status=401)
         
-    else :
-        return JsonResponse({"message" : "Forbidden Route"}, status = 403)
+#     else :
+#         return JsonResponse({"message" : "Forbidden Route"}, status = 403)
