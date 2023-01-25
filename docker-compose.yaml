@@ -14,22 +14,22 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  backend:
-    build: ./backend/backend
-    command: >
-      bash -c "python wait_mysql.py &&
-               python manage.py makemigrations &&
-               python manage.py migrate &&
-               python manage.py runserver 0.0.0.0:8080" &&
+  # backend:
+  #   build: ./backend/backend
+  #   command: >
+  #     bash -c "python wait_mysql.py &&
+  #              python manage.py makemigrations &&
+  #              python manage.py migrate &&
+  #              python manage.py runserver 0.0.0.0:8080" &&
                
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./backend/backend:/app
-    depends_on:
-      - mysqldb
-    links:
-      - mysqldb
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./backend/backend:/app
+  #   depends_on:
+  #     - mysqldb
+  #   links:
+  #     - mysqldb
 
   ai_server:
     build: ./backend/ai
@@ -56,23 +56,23 @@ services:
   #     - app-tier
   #   tty: true
 
-  nginx:
-    build: ./nginx
-    ports:
-      - "80:80"
-    volumes:
-      - build_folder:/var/www/frontend
-    depends_on:
-      - backend
-      - client
+  # nginx:
+  #   build: ./nginx
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - build_folder:/var/www/frontend
+  #   depends_on:
+  #     - backend
+  #     - client
   
-  client:
-    container_name: client
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend/:/frontend
-      - build_folder:/frontend/build
-    tty: true
+  # client:
+  #   container_name: client
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./frontend/:/frontend
+  #     - build_folder:/frontend/build
+  #   tty: true
   
