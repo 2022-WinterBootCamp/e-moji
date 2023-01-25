@@ -75,14 +75,3 @@ services:
       - ./frontend/:/frontend
       - build_folder:/frontend/build
     tty: true
-
-  # client:
-  #   build: ./frontend
-  #   command: ["npm", "start"]
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./frontend/:/frontend
-  #     - build_folder:/frontend/build
-  #   tty: true
-  
