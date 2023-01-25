@@ -52,4 +52,3 @@ def faces(request):
     
     else :
         return JsonResponse({"message": "Invalid_User"}, status=401)
-        

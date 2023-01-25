@@ -28,5 +28,5 @@ def create_result(user_id, face_id, emoji_id, kind, image):
     return Result.objects.create(user_id = user_id, face_id = face_id, emoji_id = emoji_id, kind = kind, image = image)
 
 def get_result_emoji(emoji_id, kind) :
-    e_data = Emoji.objects.get(id=emoji_id).image
-    return e_data[kind]
+    data = Emoji.objects.get(id=emoji_id).image
+    return data[kind]
