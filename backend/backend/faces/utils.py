@@ -2,7 +2,8 @@ import boto3 ,os
 from backend.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 from .models import Face
 from .models import Result
-
+from .models import Emoji
+import json
 from uuid import uuid4
 
 def get_img_url(img):
@@ -25,3 +26,7 @@ def create_img(user_id, image):
 
 def create_result(user_id, face_id, emoji_id, kind, image):
     return Result.objects.create(user_id = user_id, face_id = face_id, emoji_id = emoji_id, kind = kind, image = image)
+
+def get_result_emoji(emoji_id, kind) :
+    data = Emoji.objects.get(id=emoji_id).image
+    return data[kind]

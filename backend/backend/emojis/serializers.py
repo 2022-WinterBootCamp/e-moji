@@ -9,3 +9,8 @@ class EmojisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emoji
         fields = ("user_id", "name", "image")
+
+class EmojisMadeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Emoji
+        fields = ("name", "image")
