@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 
-from .serializers import EmojisSerializer, EmojisMadeSerializer, ResultMadeSerialzer
+from .serializers import EmojisSerializer, ResultMadeSerialzer, EmojisMadeSerializer
 from datetime import datetime, timedelta
 from .utils import create_emoji
 from faces.utils import get_img_url
@@ -67,7 +67,7 @@ def mypage(request, number):
             return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
                 
             # 해당 유저 데이터 받아오기
-        resultByUser = Emoji.objects.all().filter(user_id = userId).values() 
+        resultByUser = Emoji.objects.all().filter(user_id = userId).values()
         get_result= EmojisMadeSerializer(resultByUser, many=True).data
         return JsonResponse(get_result, status = 200, safe=False)
         # else:
