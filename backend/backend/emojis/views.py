@@ -58,7 +58,7 @@ def emojis(request):
 def mypage(request, number):
     user_id = request.data['user_id']
     # 내가 만든 이모지
-    if number == 'make' :
+    if number == 'upload' :
         userId = User.objects.get(id = user_id).id
         # payload = user_token_to_data(request.headers.get('Authorization', None))
         # if (payload.get('id') == str(userId)):
