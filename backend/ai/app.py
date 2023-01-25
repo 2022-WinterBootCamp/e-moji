@@ -18,11 +18,11 @@ def test():
     user_id = req['user_id']
     image = req['image']
     
-    image_number = get_img_num(image)
+    kind = get_img_num(image)
     
     result = jsonify(
         user_id = user_id,
-        image_number = image_number
+        kind = kind
     )
 
     return result
