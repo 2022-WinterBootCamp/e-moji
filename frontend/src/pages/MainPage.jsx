@@ -27,11 +27,11 @@ import StepOne from "../components/upload/Upload";
 import StepTwo from "../components/upload/LoadingPage";
 import StepFinal from "../components/upload/ResultPage";
 
-import NewImoji from "../components/main/NewImoji";
+import NewEmoji from "../components/main/NewEmoji";
 
 
 const theme = createTheme();
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const style = {
   position: "absolute",
@@ -176,13 +176,13 @@ export default function MainPage() {
         
         <div style={{width: '80%',textAlign: 'right'}}>
           <Button variant='contained'
-                  sx={{
-                          bgcolor: "#FECD93",
-                          ':hover':{
-                              bgcolor: '#FECD93',
-                          },
-                  }}
-                  onClick={handleOpen2}
+            sx={{
+              bgcolor: "#FECD93",
+              ':hover':{
+                  bgcolor: '#FECD93',
+              },
+            }}
+            onClick={handleOpen2}
           >
             새로 만들기
           </Button>
@@ -355,7 +355,7 @@ export default function MainPage() {
                 </IconButton>
               </div>
             </Toolbar>
-            <NewImoji/>
+            <NewEmoji/>
           </Typography>
         </Box>
       </Modal>
