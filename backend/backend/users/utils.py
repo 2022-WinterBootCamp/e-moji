@@ -33,3 +33,23 @@ def user_token_to_data(token):
 def user_ispassword(password, user_data):
     hash_password = user_hash_password(password)
     return hash_password == user_data.password
+
+class UserDuplicateCheck:
+    @staticmethod
+    def alias(alias):
+        if user_find_alias(alias):
+            return False
+        return True
+
+    @staticmethod
+    def email(email):
+        if user_find_email(email):
+            return False
+        return True
+
+    
+def user_find_alias(alias):
+    return User.objects.filter(alias=alias)
+
+def user_find_email(email):
+    return User.objects.filter(email=email)
