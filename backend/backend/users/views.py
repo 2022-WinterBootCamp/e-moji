@@ -14,9 +14,9 @@ def user(request):
         return sign_up(request)
     
 def sign_up(request):
-    email = request.data['email']
-    password = request.data['password']
-    alias = request.data['alias']
+    email = request.POST['email']
+    password = request.POST['password']
+    alias = request.POST['alias']
     
     new_user = create_user(email, password, alias)
     data = UserSignupResponse(new_user, many=False).data
@@ -52,3 +52,44 @@ def login(request): #로그인 구현
     logindata = {"access_token": access_token}
 
     return JsonResponse(logindata, status=200)
+
+api_view(['GET'])
+def duplicate_check_email(request):
+    email=request.GET.get('email')
+    global duplicate_email
+    try:
+        _email=User.objects.get(email=email)
+
+    except:
+        _email=None
+
+    if _email is None:
+        duplicate_email='pass'
+
+    else:
+        duplicate_email='fail'
+
+    context={'duplicate': duplicate_email}
+    return JsonResponse(context)
+    
+
+api_view(['GET'])
+def duplicate_check_alias(request):
+    global duplicate_alias
+    
+    alias=request.GET.get('alias')
+
+    try:
+        _alias=User.objects.get(alias=alias)
+
+    except:
+        _alias=None
+    
+    if _alias is None:
+        duplicate_alias='pass'
+
+    else:
+        duplicate_alias='fail'
+    
+    context={'duplicate': duplicate_alias}
+    return JsonResponse(context)
