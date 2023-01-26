@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from 'react';
 import {Dialog, 
   DialogActions, 
@@ -14,11 +15,13 @@ import {Dialog,
   Typography,
   Container,
   createTheme, 
+  Modal,
   ThemeProvider} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBack from '@mui/icons-material/ArrowBack';
-import axios from 'axios';
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+
 
 const FormHelperTexts = styled(FormHelperText)`
   width: 100%;
@@ -31,86 +34,96 @@ const Boxs = styled(Box)`
   padding-bottom: 40px !important;
 `;
 
-export default function SignupPage() {
+
+export default function Signup() {
   const theme = createTheme();
   const [emailError, setEmailError] = useState('');
   const [passwordState, setPasswordState] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [nameError, setNameError] = useState('');
+  const [aliasError, setaliasError] = useState('');
   const [registerError, setRegisterError] = useState('');
+  const {replace}=useNavigate();
 
-
-  const onhandlePost = async (data) => {
-    const { email, name, password } = data;
-    const postData = { email, name, password };
-
-  //post
-    await axios
-      .post('/member/join', postData)
-      .then(function (response) {
-        console.log(response, '성공');
-      })
-      .catch(function (err) {
-        console.log(err);
-        setRegisterError('회원가입에 실패하였습니다. 다시한번 확인해 주세요.');
-      });
-  };
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [alias, setalias] = useState('');
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = new FormData(e.currentTarget);
-    const joinData = {
-      email: data.get('email'),
-      name: data.get('name'),
-      password: data.get('password'),
-      rePassword: data.get('rePassword'),
-    };
-    const {email, name, password, rePassword } = joinData;
+  const data = new FormData(e.currentTarget);
+  const joinData = {
+    email: data.get('email'),
+    alias: data.get('alias'),
+    password: data.get('password'),
+    rePassword: data.get('rePassword'),
+  };
+  const {email, alias, password, rePassword } = joinData;
 
   
-    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    if (!emailRegex.test(email)) {
-      setEmailError('올바른 이메일 형식이 아닙니다.');
-    } else {
-      setEmailError('');
-    }
+  const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  if (!emailRegex.test(email)) {
+    setEmailError('올바른 이메일 형식이 아닙니다.');
+  } else {
+    setEmailError('');
+  }
+
+
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+  if (!passwordRegex.test(password)) {
+    setPasswordState('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!');
+  } else {
+    setPasswordState('');
+  }
+
+
+  if (password !== rePassword) {
+    setPasswordError('비밀번호가 일치하지 않습니다.');
+  } else {
+    setPasswordError('');
+  }
 
   
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    if (!passwordRegex.test(password)) {
-      setPasswordState('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!');
-    } else {
-      setPasswordState('');
-    }
+  const aliasRegex = /^[가-힣a-zA-Z]+$/;
+  if (!aliasRegex.test(alias) || alias.length < 1) {
+    setaliasError('올바른 닉네임을 입력해주세요.');
+  } else {
+    setaliasError('');
+  }
+  }
+	const [inputInfo, setInputInfo] = useState({
+		email: "",
+		password: "",
+    nickalias:"",
+	});
 
-  
-    if (password !== rePassword) {
-      setPasswordError('비밀번호가 일치하지 않습니다.');
-    } else {
-      setPasswordError('');
-    }
 
-    
-    const nameRegex = /^[가-힣a-zA-Z]+$/;
-    if (!nameRegex.test(name) || name.length < 1) {
-      setNameError('올바른 닉네임을 입력해주세요.');
-    } else {
-      setNameError('');
-    }
-
-  
-
-    if (
-      emailRegex.test(email) &&
-      passwordRegex.test(password) &&
-      password === rePassword &&
-      nameRegex.test(name)
-    ) {
-      onhandlePost(joinData);
-    }
+	const submitOnClick = async () => {
+    axios
+		.post( "http://localhost:8080/v1/api/users/",{
+      email: email,
+      password: password,
+      nickalias: alias,
+    })
+    .then((response)=>{
+      console.log('Well done!');
+      console.log('Userprofile', response.data.user);
+      console.log('user token', response.data.joinData);
+      localStorage.setItem('token',response.data.joinData);
+      replace("/checkModal");
+    })
+    .catch((error)=>{console.log('회원가입에 실패하였습니다. 다시한번 확인해 주세요.',error.response);
+    });
   };
 
+	const textOnChange = (e) => {
+		setInputInfo({
+			...inputInfo,
+			[e.target.alias]: e.target.value,
+		});
+	};
+
+  
   const [open, setOpen] = React.useState(false);
   const handleClick = () => {
     setOpen(true);
@@ -120,8 +133,29 @@ export default function SignupPage() {
     setOpen(false);
   };
 
-  return (
-    <ThemeProvider theme={theme}>
+
+  
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  height:300,
+  width: 500,
+  bgcolor: "background.paper",
+  border: "2px solid #FFFFFF",
+  borderRadius: '25px',
+  boxShadow: 24,
+  p: 4,
+};
+
+
+	// useEffect(() => {
+	// 	console.log(signinResult);
+	// }, [signinResult]);
+  
+	return (
+		<ThemeProvider theme={theme}>
       <Container maxWidth="s">
         <div style={{textAlign: 'left'}}>
           <IconButton href="/loginpage">
@@ -162,7 +196,6 @@ export default function SignupPage() {
         > 
           Sign Up 
         </Typography>
-
         <Boxs component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <FormControl component="fieldset" variant="standard">
             <Grid container spacing={2}>
@@ -176,6 +209,7 @@ export default function SignupPage() {
                   name="email"
                   label="Email"
                   error={emailError !== '' || false}
+                  onChange={textOnChange}
                 />
               </Grid>
               <FormHelperTexts>{emailError}</FormHelperTexts>
@@ -189,6 +223,7 @@ export default function SignupPage() {
                   name="password"
                   label="Password(숫자+영문자+특수문자 8자리 이상)"
                   error={passwordState !== '' || false}
+                  onChange={textOnChange}
                 />
               </Grid>
               <FormHelperTexts>{passwordState}</FormHelperTexts>
@@ -210,31 +245,46 @@ export default function SignupPage() {
                 <TextField
                   required
                   fullWidth
-                  id="name"
+                  id="alias"
                   name="Nickname"
                   label="Nickname"
-                  error={nameError !== '' || false}
+                  error={aliasError !== '' || false}
+                  onChange={textOnChange}
                 />
               </Grid>
-              <FormHelperTexts>{nameError}</FormHelperTexts>
+              <FormHelperTexts>{aliasError}</FormHelperTexts>
             </Grid>
-
-            <Button type="submit"
-              fullWidth
-              variant="contained"
-              size="large" 
-              name= 'signup' 
-              sx={{ mt: 3, 
-              mb: 2, 
-              color:'white', 
-              bgcolor: '#FECD93'}}
-              onClick={handleClick} >Signup</Button>
-          </FormControl>
-          <FormHelperTexts>{registerError}</FormHelperTexts>
-
-        </Boxs>
-      </Box>
-
+      
+          
+            <Button 
+          value="Upload"
+          type="submit"
+          fullWidth
+          variant="contained"
+          size="large" 
+          alias= 'signup' 
+          sx={{ mt: 3, 
+          mb: 2, 
+          color:'white', 
+          bgcolor: '#FECD93'}}
+          onClick={() => {
+            submitOnClick();}}
+        >
+          Signup
+        </Button>
+        { 
+          email&&
+          password &&
+          password === password &&
+          alias === true
+          ? <Modal
+              aria-labelledby="modal-title"
+              aria-describedby="modal-description"
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+            >
+				<Box sx={style}>
       <div>
       <Dialog open={open} onClose={handleClose}>
         <div style={{textAlign: 'right'}}>
@@ -287,9 +337,14 @@ export default function SignupPage() {
                 
         </Dialog>
       </div>
-      
+      </Box>
+            </Modal>
+          : null
+            }
+      </FormControl>
+      </Boxs>
+      </Box>
       </Container>
     </ThemeProvider>
   );
 };
-    

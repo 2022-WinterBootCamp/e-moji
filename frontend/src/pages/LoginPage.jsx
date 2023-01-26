@@ -86,7 +86,7 @@ export default function LoginPage() {
           <Typography variant="overline" 
           fontStyle= "Inter"  
           fontWeight= "550"> 
-         <Button href="/signuppage"> 회원가입</Button> </Typography>
+         <Button href="/Examplepage"> 회원가입</Button> </Typography>
          </Grid>
          </Grid>
          </Box>
