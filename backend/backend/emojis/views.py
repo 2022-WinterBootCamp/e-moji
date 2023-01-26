@@ -1,7 +1,3 @@
-import io
-from PIL import Image
-import json
-
 from django.http import JsonResponse
 
 from rest_framework import status, viewsets
@@ -17,6 +13,10 @@ from users.models import User
 from users.utils import user_token_to_data
 from emojis.models import Emoji
 from faces.models import Result
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+    
+
+
 
 @api_view(['POST'])
 def emojis(request):
@@ -35,7 +35,7 @@ def emojis(request):
  #   payload = user_token_to_data(request.headers.get('Authorization', None))
 
 # if (payload.get('alias') == str(userData)):
-    img_url = "https://what-moji.s3.ap-northeast-2.amazonaws.com/b379ea29-d1a8-4f3d-b545-2440811e332a.jpg" # get_img_url(image)
+    img_url = "테스트" # get_img_url(image)
     img_url1 = "테스트1" # get_img_url(image1)
     img_url2 = "테스트2" # get_img_url(image2)
     img_url3 = "테스트3" # get_img_url(image3)
@@ -89,3 +89,24 @@ def mypage(request, number):
         
     else :
         return JsonResponse({"message" : "Forbidden Route"}, status = 403)
+
+
+@api_view(['GET'])
+def recent_check(self, user_id, page_number):
+    #  payload = user_token_to_data(
+    #      request.headers.get('Authorization', None))
+    # if (payload.get('id') == user_id):
+        recent_filter = Emoji.objects.filter(
+            user_id=user_id).order_by('-created_at')
+        paginator = Paginator(recent_filter, 12)
+        page = page_number
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except EmptyPage:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        serializer = EmojisSerializer(data, many=True)
+        return Response(serializer.data)
+    # else:
+    #     return JsonResponse({"message": "Invalid_Token"}, status=401)
