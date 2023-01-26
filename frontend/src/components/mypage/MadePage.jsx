@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Card,
     Grid,
@@ -10,13 +10,17 @@ import {
     Toolbar,
     Modal,
     Typography,
-    Button
+    Button,
+    TextField,
+    Divider
 } from '@mui/material';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import CloseIcon from '@mui/icons-material/Close';
 import EditPage from "./EditPage";
+import madeData from './madeData';
+import axios from 'axios';
 
-const cards = [1, 2, 3, 4, 5, 6];
+// const cards = [1, 2, 3, 4, 5, 6];
 
 const style = {
     position: "absolute",
@@ -34,34 +38,83 @@ const style = {
 
 export default function MadePage() {
   const [open, setOpen] = useState(false);
-  // const [activeStep, setActiveStep] = React.useState(0);
+  const handleClose = () => setOpen(false);
 
-  // const handleReset = () => {
-  //     setActiveStep(0);
-  // };
-  // const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-      setOpen(false);
-      // setActiveStep(0);
-  };
+  const [userId, setUserId] = useState(null);
+  const [images, setImages] = useState([]);
 
-  const [visible, setVisible] = useState(false);
+//   async function getAllData(){
+//     try{
+
+//         const data = {user_id: 1};
+//         fetch(`http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`, {
+//           method: 'GET'
+//         })
+//         .then((response) => {
+//             console.log(response);
+//             console.log("user id >>> ", `${response.user_id.user_id_id}`);
+//             console.log("name >>> ", `${response.user_id.name}`);
+//             console.log("image >>> ", `${response.user_id.image}`);
+//             // console.log("name >>", name)
+//             setName(response.name);
+//         });
+//     } catch(err){
+//         console.log(err)
+//     }
+// }
+  useEffect(() => {
+    const EmojiInfo = async() => {
+      try{
+        const data = {user_id: 1};
+        await fetch(`http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`, {
+          method: 'GET'
+        })
+        .then((res) => {
+            return res.data;
+        })
+        .then((data) => {
+            console.log("data>>> ", data);
+            setImages(data);
+        })
+      } catch(err){
+        console.log(err);
+      }
+      EmojiInfo();
+    }}, []);
 
   return (
-    <Box >
+    <>
+      <Typography>
+        이모지 INFO
+      </Typography>
+      {/* <TextField value={name}/> */}
+      {/* <Typography value={name}/> */}
+      {/* <Button onClick={getAllData}>
+          Get All Data
+      </Button> */}
+      {/* {images.map((image) => {
+        <div key={image[0]}>
+          <h2>{image[1]}</h2>
+          <p>{image[2]}</p>
+        </div>
+      })} */}
+      <h2>{userId}</h2>
+      
+
+    <Box>
       <Grid container spacing={3} style={{justifyContent: 'center'}}>
-        {cards.map((card) => (
-          <Grid item key={card} xs={12} sm={6} md={4}>
+        {images.map((e) => (
+          <Grid item key={e.user_id_id} xs={12} sm={6} md={4}>  
             <Button onClick={() => setOpen(true)}>
-              <Card sx={{/*maxWidth: 345, */ width: 250, textAlign:'initial'}}>
+              <Card sx={{width: 250, textAlign:'initial'}}>
                 <Toolbar>
                   <div style={{marginLeft: '-30px'}}>
                     <CardHeader
                       avatar={    
-                          <Avatar><EmojiEmotionsIcon/></Avatar>
+                        <Avatar><EmojiEmotionsIcon/></Avatar>
                       }
-                      title="유미의 세포들"
-                      subheader="made by mojji"
+                      title={e.name}
+                      // subheader={e.image}
                     />
                   </div>
                 </Toolbar>
@@ -77,64 +130,78 @@ export default function MadePage() {
           </Grid>
         ))}
       </Grid>
-      <Modal
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-      >
-        <Box sx={style}>
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            fontWeight="bold"
-            component="h2"
-            sx={{ mb: 3, color: "#737458", fontFamily: "Itim"}}
-          >
-            <Toolbar sx={{mt: -4}}>
-              <div style={{width: '120%', textAlign: 'right'}}>
-                <Typography
-                  component="h1"
-                  variant='h5'
-                  textAlign='center'
-                  color='text.primary'
-                  gutterBottom
-                  fontStyle='bold'
-                  fontFamily='Itim'
-                >
-                  이모지 수정
-                </Typography>
-              </div>
-              <div style={{width: '0%',textAlign: 'right'}}>
-                <IconButton onClick={() => setOpen(false)}>
-                  <CloseIcon fontWeight='300'/>
-                </IconButton>
-              </div>
-            </Toolbar>
+    </Box>
+    </>
 
-            <EditPage/>
-          </Typography>
-        </Box>
-      </Modal>
-    </Box> 
+    // <Box>
+    //   <Grid container spacing={3} style={{justifyContent: 'center'}}>
+    //     {madeData.map((e) => (
+    //       <Grid item key={e.user_id_id} xs={12} sm={6} md={4}>  
+    //         <Button onClick={() => setOpen(true)}>
+    //           <Card sx={{width: 250, textAlign:'initial'}}>
+    //             <Toolbar>
+    //               <div style={{marginLeft: '-30px'}}>
+    //                 <CardHeader
+    //                   avatar={    
+    //                     <Avatar><EmojiEmotionsIcon/></Avatar>
+    //                   }
+    //                   title={e.name}
+    //                   // subheader={e.image}
+    //                 />
+    //               </div>
+    //             </Toolbar>
+
+    //             <CardMedia
+    //               component="img"
+    //               height="194"
+    //               image="https://mblogthumb-phinf.pstatic.net/MjAyMTEwMjRfNTIg/MDAxNjM1MDU3NDU2NzQ0.yiSnrU_Ax6Y9jT1k3qkFPfP_UOr9zYB1vMfLLVBOwgMg.wDFvOoUEMfjvoQVwO5Ix0m9f9yZxnC_W0Jo3brhbC10g.PNG.eugenius1231/image.png?type=w800"
+    //               alt="Paella dish"
+    //             />
+    //           </Card>
+    //         </Button>
+    //       </Grid>
+    //     ))}
+    //   </Grid>
+    //   <Modal
+    //     aria-labelledby="modal-title"
+    //     aria-describedby="modal-description"
+    //     open={open}
+    //     onClose={handleClose}
+    //     closeAfterTransition
+    //   >
+    //     <Box sx={style}>
+    //       <Typography
+    //         id="modal-modal-title"
+    //         variant="h6"
+    //         fontWeight="bold"
+    //         component="h2"
+    //         sx={{ mb: 3, color: "#737458", fontFamily: "Itim"}}
+    //       >
+    //         <Toolbar sx={{mt: -4}}>
+    //           <div style={{width: '120%', textAlign: 'right'}}>
+    //             <Typography
+    //               component="h1"
+    //               variant='h5'
+    //               textAlign='center'
+    //               color='text.primary'
+    //               gutterBottom
+    //               fontStyle='bold'
+    //               fontFamily='Itim'
+    //             >
+    //               이모지 수정
+    //             </Typography>
+    //           </div>
+    //           <div style={{width: '0%',textAlign: 'right'}}>
+    //             <IconButton onClick={() => setOpen(false)}>
+    //               <CloseIcon fontWeight='300'/>
+    //             </IconButton>
+    //           </div>
+    //         </Toolbar>
+
+    //         <EditPage/>
+    //       </Typography>
+    //     </Box>
+    //   </Modal>
+    // </Box>
   );
 }
-
-// const cards = [
-//     {
-//         title: '유미의 세포들',
-//         user: 'mojji',
-//         src: 'https://www.artinsight.co.kr/data/tmp/2110/20211020130553_rodbhczf.jpg',
-//     },
-//     {
-//         title: '짱구는 못말려',
-//         user: 'mojji',
-//         src: 'https://upload.wikimedia.org/wikipedia/ko/thumb/4/4a/%EC%8B%A0%EC%A7%B1%EA%B5%AC.png/230px-%EC%8B%A0%EC%A7%B1%EA%B5%AC.png',
-//     },
-//     {
-//         title: '인사이드아웃',
-//         user: 'mojji',
-//         src: 'https://w.namu.la/s/b10bcd51a51c5787e5bc4fca9061f4989a545f1c37cefc69dca16511e4c2dd9d2a8cc37dc2509a0eed80abaa96939b65c5f8a982879c3707a7fb0f6f5b5c78f20258531a12a66baa9265f25349e1127d12bddecc0c8ab8680387da84a567aee13c290248567b9005ae84bf59aabf55dd'
-//     }
-// ];

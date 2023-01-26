@@ -6,14 +6,32 @@ import {
   Typography,
   Box,
   TextField,
+  Modal,
 } from '@mui/material';
 import axios from 'axios';
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  height:300,
+  width: 500,
+  bgcolor: "background.paper",
+  border: "2px solid #FFFFFF",
+  borderRadius: '25px',
+  boxShadow: 24,
+  p: 4,
+};
+
 export default function NewEmoji() {
   let inputRef_profile, inputRef_angry, inputRef_disgust, inputRef_fear, inputRef_happy, inputRef_sad, inputRef_surprised;
+  const [emojiState, setEmojiState] = useState(false);
+  const [open, setOpen] = useState(true);
+  const handleClose = () => setOpen(false);
 
-  const [emojiName, setEmojiName] = useState(null);
-  const [emojiProfile, setEmojiProfile] = useState({
+  const [emoji_name, setEmojiName] = useState(null);
+  const [emoji_profile, setEmojiProfile] = useState({
     image_file: "",
     preview_URL: "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif"
   });
@@ -115,7 +133,7 @@ export default function NewEmoji() {
   const handleFileOnChange = (e) => {
     e.preventDefault();
     if(e.target.files[0]){
-      URL.revokeObjectURL(emojiProfile.preview_URL);
+      URL.revokeObjectURL(emoji_profile.preview_URL);
       const preview_URL = URL.createObjectURL(e.target.files[0]);
       setEmojiProfile(() => ({
         image_file: e.target.files[0],
@@ -126,38 +144,44 @@ export default function NewEmoji() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("user_id", 1);
-    formData.append("name", emojiName);
-    formData.append("image", emojiProfile.image_file);
-    formData.append("image1", emoji_angry.image_file);
-    formData.append("image2", emoji_disgust.image_file);
-    formData.append("image3", emoji_fear.image_file);
-    formData.append("image4", emoji_happy.image_file);
-    formData.append("image5", emoji_sad.image_file);
-    formData.append("image6", emoji_surprised.image_file);
-    try{
-      await axios({
-        method: "POST",
-        url: "/api/v1/emojis/",
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        }
-      })
-      .then ((response) => {
-        alert("이모지 생성이 완료되었습니다.")
-        console.log("Response >>", response.data);
-      });
-    }catch(err){
-      console.log(err);
-    }
+    // if(emoji_profile.image_file&&emoji_angry.image_file&&emoji_disgust.image_file&&emoji_fear.image_file&&emoji_happy.image_file&&emoji_sad.image_file&&emoji_surprised.image_file){
+      const formData = new FormData();
+
+      formData.append("user_id", 1);
+      formData.append("name", emoji_name);
+      formData.append("image", emoji_profile.image_file);
+      formData.append("image1", emoji_angry.image_file);
+      formData.append("image2", emoji_disgust.image_file);
+      formData.append("image3", emoji_fear.image_file);
+      formData.append("image4", emoji_happy.image_file);
+      formData.append("image5", emoji_sad.image_file);
+      formData.append("image6", emoji_surprised.image_file);
+      try{
+        await axios({
+          method: "POST",
+          url: "/api/v1/emojis/",
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          }
+        })
+        .then ((response) => {
+          setEmojiState(true);
+          // alert("이모지 생성이 완료되었습니다.");
+          console.log("Response >>", response.data);
+        });
+      } catch(err){
+        console.log(err);
+      }
+    // } else {
+    //   alert("모든 사진을 등록해주세요!");
+    // }
   }
 
   useEffect(() => {
     // 컴포넌트가 언마운트되면 createObjectURL()을 통해 생성한 기존 URL을 폐기
     return () => {
-        URL.revokeObjectURL(emojiProfile.preview_URL);
+        URL.revokeObjectURL(emoji_profile.preview_URL);
         URL.revokeObjectURL(emoji_angry.preview_URL);
         URL.revokeObjectURL(emoji_disgust.preview_URL);
         URL.revokeObjectURL(emoji_fear.preview_URL);
@@ -178,14 +202,14 @@ export default function NewEmoji() {
           >
               이모지 이름
           </Typography>
-          <TextField 
+          <TextField
             required
             id="outlined-required"
             size="small"
             color="warning"
             sx={{ml: 3, width: 270}}
             type="text" 
-            value={emojiName} 
+            value={emoji_name} 
             onChange={nameOnChange} 
             label="이모지 이름을 입력"
           />
@@ -205,7 +229,7 @@ export default function NewEmoji() {
             style={{ display: "none"}}
           />
           <Button>
-            <img style={{height: '140px', width: '270px', borderRadius: '15px'}} src={emojiProfile.preview_URL} 
+            <img style={{height: '140px', width: '270px', borderRadius: '15px'}} src={emoji_profile.preview_URL} 
             onClick={() => inputRef_profile.click()}/>
           </Button>
         </Toolbar>
@@ -310,15 +334,63 @@ export default function NewEmoji() {
         <Divider color="#FECD93" />
         <Button 
           style={{textAlign: 'center', position: 'absolute', bottom: '15px', left: '35%', width: '200px', height: '30px',
-          backgroundColor: "#FECD93", color: '#FFFFFF', borderColor: '#FECD93',
-          borderRadius: '30px'
+            backgroundColor: "#FECD93", color: '#FFFFFF', borderColor: '#FECD93',
+            borderRadius: '30px'
           }}
           variant="contained"
-          type="submit" 
+          type="submit"
           value="Upload"
         >
           Upload
         </Button>
+        { 
+          emojiState === true
+          ? <Modal
+              aria-labelledby="modal-title"
+              aria-describedby="modal-description"
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+            >
+              <Box sx={style}>
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  fontWeight="bold"
+                  component="h2"
+                  sx={{ mb: 3, color: "#737458", fontFamily: "Itim"}}
+                >
+                  <Toolbar sx={{mt: -2}}>
+                    <div style={{width: '120%', textAlign: 'right'}}>
+                      <Typography
+                        component="h1"
+                        variant='h5'
+                        textAlign='center'
+                        color='text.primary'
+                        gutterBottom
+                        fontStyle='bold'
+                        fontFamily='Itim'
+                        marginTop='80px'
+                      >
+                        이모지 생성이 완료되었습니다.
+                      </Typography>
+                    </div>
+                  </Toolbar>
+                </Typography>
+                <Button
+                  style={{textAlign: 'center', position: 'absolute', bottom: '15px', left: '30%', width: '200px', height: '30px',
+                    backgroundColor: "#FECD93", color: '#FFFFFF', borderColor: '#FECD93',
+                    borderRadius: '30px'
+                  }}
+                  variant="contained"
+                  href="/mainpage"
+                >
+                  이모지 하러가기
+                </Button>
+              </Box>
+            </Modal>
+          : null
+        }
       </form>
     </div>
   )

@@ -284,7 +284,7 @@ export default function MainPage() {
                     {getStepContent(activeStep)}
                   </Typography>
                   <div style={{textAlign: 'center', width: '85%', position: 'absolute', bottom: '30px'}}>
-                    <Button
+                    {/* <Button
                       disabled={activeStep === 0}
                       onClick={handleBack}
                       className={classes.button}
@@ -296,7 +296,7 @@ export default function MainPage() {
                       }}  
                     >
                       Back
-                    </Button>
+                    </Button> */}
 
                     <Button
                       variant="contained"
