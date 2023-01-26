@@ -69,6 +69,7 @@ def mypage(request, number):
             # 해당 유저 데이터 받아오기
         resultByUser = Emoji.objects.all().filter(user_id = userId).values()
         get_result= EmojisMadeSerializer(resultByUser, many=True).data
+        print(get_result)
         return JsonResponse(get_result, status = 200, safe=False)
         # else:
         #     return JsonResponse({"message": "Token Error"}, status=401)
