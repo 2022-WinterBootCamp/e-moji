@@ -71,8 +71,15 @@ def mypage(request, number):
             return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
                 
             # 해당 유저 데이터 받아오기
-        resultByUser = Emoji.objects.all().filter(user_id = userId).values()
-        get_result= EmojisMadeSerializer(resultByUser, many=True).data
+
+        emojiData = Emoji.objects.filter(user_id = user_id).values()
+        userName = User.objects.filter(id = user_id).values().first()
+        print(userName['alias'])
+        for i in emojiData :
+            print(i['id'])
+            print(i['name'])
+            # print(emojiData[0]['name'])
+        get_result= EmojisMadeSerializer(emojiData, many=True).data
         print(get_result)
         return JsonResponse(get_result, status = 200, safe=False)
         # else:
