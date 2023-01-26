@@ -40,3 +40,26 @@ def user_ispassword(password, user_data):
     hash_password = bcrypt.hashpw(password, user_data.salt)
     return hash_password == user_data.password
 
+
+
+def user_find_email(email):
+    return User.objects.filter(email=email)
+
+
+def user_find_alias(alias):
+    return User.objects.filter(alias=alias)
+
+class duplicate_check:
+    
+    @staticmethod
+    def email(email):
+        if user_find_email(email):
+            return False
+        return True
+    
+    @staticmethod
+    def alias(alias):
+        if user_find_alias(alias):
+            return False
+        return True
+    
