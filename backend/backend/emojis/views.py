@@ -35,13 +35,13 @@ def emojis(request):
  #   payload = user_token_to_data(request.headers.get('Authorization', None))
 
 # if (payload.get('alias') == str(userData)):
-    img_url = "테스트" # get_img_url(image)
-    img_url1 = "테스트1" # get_img_url(image1)
-    img_url2 = "테스트2" # get_img_url(image2)
-    img_url3 = "테스트3" # get_img_url(image3)
-    img_url4 = "테스트4" # get_img_url(image4)
-    img_url5 = "테스트5" # get_img_url(image5)
-    img_url6 = "테스트6" # get_img_url(image6)
+    img_url = "http://what-moji.s3.ap-northeast-2.amazonaws.com/9c1ba590-cfd7-4f4a-9814-4162958a6174.jpg" # get_img_url(image)
+    img_url1 = "http://what-moji.s3.ap-northeast-2.amazonaws.com/bed587c5-3905-45a0-8f02-036cb89eeb00.jpg" # get_img_url(image1)
+    img_url2 = "http://what-moji.s3.ap-northeast-2.amazonaws.com/de1099e8-244d-478f-8140-7f0354877c6c.jpg" # get_img_url(image2)
+    img_url3 = "http://what-moji.s3.ap-northeast-2.amazonaws.com/b968b3f0-ca85-4dad-91f5-dac57e554a29.jpg" # get_img_url(image3)
+    img_url4 = "http://what-moji.s3.ap-northeast-2.amazonaws.com/3c4d738f-90a8-44f1-bf8a-abb2310ee377.jpg" # get_img_url(image4)
+    img_url5 = "http://what-moji.s3.ap-northeast-2.amazonaws.com/3146695e-8546-4e03-8dc4-8432dcb4c2fd.jpg" # get_img_url(image5)
+    img_url6 = "http://what-moji.s3.ap-northeast-2.amazonaws.com/5e7c6574-6a8b-4cc0-b235-eea65848a463.jpg" # get_img_url(image6)
 
     img_url_pack = [img_url, img_url1, img_url2, img_url3, img_url4, img_url5, img_url6]
     
