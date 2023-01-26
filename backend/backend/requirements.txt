@@ -15,10 +15,6 @@ django-redis
 redis
 paginator
 
-#ai
-boto3
-keras-models
-
 #celery
 PyAMQP
 django_celery_beat
