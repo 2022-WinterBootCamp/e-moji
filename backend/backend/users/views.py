@@ -58,7 +58,7 @@ def login(request): #로그인 구현
     return JsonResponse(logindata, status=200)
 
 
-def User_duplicate_check(request):
+def user_duplicate_check(request):
     case = request.GET.get('case')
     value = request.GET.get('value')
     standard= Duplicate_Check()
