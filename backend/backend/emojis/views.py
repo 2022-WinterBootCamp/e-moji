@@ -56,7 +56,7 @@ def emojis(request):
 #마이페이지 
 @api_view(['GET'])
 def mypage(request, number):
-    user_id = request.data['user_id']
+    user_id = request.GET.get('user_id', None)
     # 내가 만든 이모지
     if number == 'upload' :
         userId = User.objects.get(id = user_id).id
