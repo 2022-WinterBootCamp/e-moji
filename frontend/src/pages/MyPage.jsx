@@ -10,6 +10,7 @@ import PropsTypes from 'prop-types';
 
 import DonePage from '../components/mypage/DonePage';
 import MadePage from '../components/mypage/MadePage';
+import emojiInfo from "../components/mypage/emojiInfo";
 
 function TabPanel(props){
     const {children, value, index, ...other} = props;
@@ -69,7 +70,7 @@ export default function MyPage(){
                     </Tabs>
                 </Box>
 
-                <TabPanel value={value} index={0} alignItems="">
+                <TabPanel value={value} index={0}>
                     {/* 내가 했던 거지롱~😜 */}
                     <DonePage/>
                     
@@ -77,6 +78,7 @@ export default function MyPage(){
                 <TabPanel value={value} index={1}>
                     {/* 내가 만든 거지롱~😜 */}
                     <MadePage/>
+                    {/* <emojiInfo/> */}
                 </TabPanel>
             </Box>
         </Container>

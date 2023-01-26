@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Emoji
+from faces.models import Result
 
 # Serializer는 요청한 값을 정제해서 보내주기 위해 사용합니다. 원하는 값을 바로 묶어서 사용할 수 있는 장점이 있습니다.
 # 장고 모델 쿼리셋을 json형태로 자동으로 바꿔줄 수 있게 만들어주는 용도입니다.
@@ -13,4 +14,9 @@ class EmojisSerializer(serializers.ModelSerializer):
 class EmojisMadeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emoji
-        fields = ("name", "image")
+        fields = ("user_id_id","name", "image")
+
+class ResultMadeSerialzer(serializers.ModelSerializer) :
+    class Meta:
+        model = Result
+        fields = ("image",)

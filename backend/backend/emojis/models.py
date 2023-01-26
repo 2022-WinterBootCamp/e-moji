@@ -10,7 +10,7 @@ class Emoji(models.Model): # django admin에서 보이는 s 수정
     image = ListCharField(
         base_field=models.CharField(max_length=150),
         size=7,
-        max_length=(7 * 200),  # 6 * 10 character nominals, plus commas
+        max_length=(7 * 200),  # 7 * 200 character nominals, plus commas
     )
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
