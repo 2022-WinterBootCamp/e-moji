@@ -6,3 +6,4 @@ celery
 opencv-python
 fer
 deepface
+Pillow

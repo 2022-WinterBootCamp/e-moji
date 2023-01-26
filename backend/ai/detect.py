@@ -1,31 +1,28 @@
 from deepface import DeepFace
 from fer import FER
+from utils import emotions
 import cv2
-import urllib.request
 import numpy as np
+import os
+from PIL import Image
 
-def ai_detect(img):
+def ai_detect(url):
+
+    # 다운받을 이미지 url
+    url = "https://lotofsense.com/wp-content/uploads/2022/09/tileburnedin.jpg"
+
+    # curl 요청
+    os.system("curl " + url + " > savesavesavesave.jpg")
+
+    # 저장 된 이미지 확인
+    img = Image.open("savesavesavesave.jpg")
     
     emotion_detector = FER(mtcnn=True)
-    test_img = cv2.imread(img)
-    analysis = emotion_detector.detect_emotions(test_img)
+    test_img = cv2.imread("savesavesavesave.jpg")
+    # analysis = emotion_detector.detect_emotions(test_img)
 
-    return analysis
+    dominant_emotion, emotion_score = emotion_detector.top_emotion(test_img)
 
-import os
-import time
-from PIL import Image
-# 다운받을 이미지 url
-url = "https://lotofsense.com/wp-content/uploads/2022/09/tileburnedin.jpg"
-
-# time check
-start = time.time()
-
-# curl 요청
-os.system("curl " + url + " > savesavesavesave.jpg")
-
-# 이미지 다운로드 시간 체크
-print(time.time() - start)
-
-# 저장 된 이미지 확인
-img = Image.open("savesavesavesave.jpg")
+    result = emotions(dominant_emotion)
+    
+    return result

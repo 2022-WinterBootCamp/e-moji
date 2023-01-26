@@ -16,7 +16,6 @@ def ai_server():
     image = request.form["image"]
 
     kind = ai_detect(image)
-    print(kind)
     
     result = jsonify(
         user_id = user_id,
