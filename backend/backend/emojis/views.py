@@ -1,7 +1,3 @@
-import io
-from PIL import Image
-import json
-
 from django.http import JsonResponse
 
 from rest_framework import status, viewsets

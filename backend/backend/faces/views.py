@@ -1,10 +1,7 @@
-import io
-from PIL import Image
 import requests
 
 from django.http import JsonResponse
 
-import time
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView

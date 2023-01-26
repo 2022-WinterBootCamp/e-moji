@@ -11,9 +11,9 @@ def main():
 
 @app.route('/api/v1/images/', methods = ['POST'])
 def ai_server():
-
-    user_id = request.form['user_id']
-    image = request.form["image"]
+    req = request.json
+    user_id = req['user_id']
+    image = req["image"]
 
     kind = ai_detect(image)
     

@@ -1,4 +1,3 @@
-import boto3 ,os
 from backend.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 from .models import Emoji
 
