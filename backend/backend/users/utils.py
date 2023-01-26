@@ -49,8 +49,7 @@ def user_find_email(email):
 def user_find_alias(alias):
     return User.objects.filter(alias=alias)
 
-class duplicate_check:
-    
+class Duplicate_Check:
     @staticmethod
     def email(email):
         if user_find_email(email):

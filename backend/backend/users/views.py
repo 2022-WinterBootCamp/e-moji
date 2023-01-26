@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 
-from .utils import create_user, user_find_email, user_get_access_token, user_ispassword, duplicate_check
+from .utils import create_user, user_find_email, user_get_access_token, user_ispassword, Duplicate_Check
 
 @api_view(['GET', 'POST'])
 def user(request):
@@ -57,11 +57,11 @@ def login(request): #로그인 구현
 
     return JsonResponse(logindata, status=200)
 
-api_view(['GET'])
+
 def User_duplicate_check(request):
     case = request.GET.get('case')
     value = request.GET.get('value')
-    standard= duplicate_check()
+    standard= Duplicate_Check()
 
     if case =='email':
         return JsonResponse({"result": standard.email(value)}, status = 200)
