@@ -47,13 +47,6 @@ services:
     volumes:
       - ./backend/ai:/ai
 
-  redis:
-    container_name: redis
-    image: redis:latest
-    hostname: redis
-    ports:
-      - "6379:6379"
-
   prometheus:
     image: prom/prometheus
     restart: always
@@ -115,20 +108,41 @@ services:
       - prometheus
 
 
-  # rabbitmq:
-  #   image : rabbitmq:3-management
-  #   container_name: rabbitmq-con
-  #   environment:
-  #     RABBITMQ_DEFAULT_USER: "${RABBITMQ_DEFAULT_USER}"
-  #     RABBITMQ_DEFAULT_PASS: "${RABBITMQ_DEFAULT_PASS}"
-  #   ports:
-  #     - 5672:5672 
-  #     - 15672:15672
-  #   volumes:
-  #     - data_rabbitmq:/rabbitmq
-  #   networks:
-  #     - app-tier
-  #   tty: true
+  redis:
+    container_name: redis
+    image: redis:latest
+    hostname: redis
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management-alpine
+    environment:
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    ports:
+      - "5672:5672" # Default Port
+      - "15672:15672" # For UI
+    expose:
+      - "15672"
+    
+  celery_worker:
+    container_name: celery_worker
+    build:
+      context: ./backend/backend
+      dockerfile: dockerfile
+    volumes:
+      - ./backend/backend:/backend
+    ports: []
+    depends_on:
+      - rabbitmq
+      - redis
+      - backend
+    environment:
+      - C_FORCE_ROOT=true
+    command: sh -c "python wait_mysql.py &&
+                    celery -A backend worker --loglevel=info"
 
   # nginx:
   #   build: ./nginx

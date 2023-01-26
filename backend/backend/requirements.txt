@@ -10,7 +10,17 @@ mysqlclient==2.1.1
 drf-yasg==1.21.0
 django-prometheus
 django-mysql
+gunicorn
+django-redis
 
 #ai
 boto3
 keras-models
+
+#celery
+paginator
+PyAMQP
+django_celery_beat
+django_celery_results
+celery
+redis
