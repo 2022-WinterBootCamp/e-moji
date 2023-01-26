@@ -5,7 +5,7 @@ from flask import Response
 app = Flask(__name__)
 
 def get_img_num(image) :
-    return 3
+    return 4
 
 
 @app.route("/")

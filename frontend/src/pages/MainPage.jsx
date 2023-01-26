@@ -298,7 +298,7 @@ export default function MainPage() {
                       Back
                     </Button> */}
 
-                    {/* <Button
+                    <Button
                       variant="contained"
                       sx={{
                         bgcolor: "#FECD93",
@@ -310,7 +310,7 @@ export default function MainPage() {
                       className={classes.button}
                     >
                       {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                    </Button> */}
+                    </Button>
                   </div>
                 </div>
               )}
