@@ -15,7 +15,7 @@ from faces.utils import get_img_url
 from users.models import User
 from users.utils import user_token_to_data
 from emojis.models import Emoji
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
     
 
 
@@ -56,12 +56,21 @@ def emojis(request):
 
 
 @api_view(['GET'])
-def recent_check(request):
-#    user_id = request.data['user_id']
-    recent_filter = Emoji.objects.filter(user_id = 1)
-
-    data = EmojisSerializer(recent_filter, many = True).data
-    return JsonResponse(data, status = 200, safe=False)
-
-
-# filter(active = True)
+def recent_check(self, user_id, page_number):
+    #  payload = user_token_to_data(
+    #      request.headers.get('Authorization', None))
+    # if (payload.get('id') == user_id):
+        recent_filter = Emoji.objects.filter(
+            user_id=user_id).order_by('-created_at')
+        paginator = Paginator(recent_filter, 12)
+        page = page_number
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except EmptyPage:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        serializer = EmojisSerializer(data, many=True)
+        return Response(serializer.data)
+    # else:
+    #     return JsonResponse({"message": "Invalid_Token"}, status=401)
