@@ -15,6 +15,11 @@ from users.utils import user_token_to_data
 from emojis.models import Emoji
 from faces.models import Result
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+# redis
+import time
+import logging
+from django.core.cache import cache
     
 
 
@@ -129,10 +134,23 @@ def mypage(request, case):
     #     return JsonResponse({"message": "Invalid Token"}, status=403)
 
 
+logger = logging.getLogger(__name__)
+
+# 최근 이모지 12개 조회
 @api_view(['GET'])
 def recent_check(self, page_number):
         get_data = {}
         data_set = {}
+def recent_check(self, user_id, page_number):
+        start = time.time()
+
+        greatlist = cache.get_or_set('emoji', Emoji.objects.all())
+        serializer = EmojisSerializer(greatlist, many=True)
+        speed = time.time() -start
+        speedlog = ">>>>>>>>>걸린시간>>>>>"+str(speed )
+        logger.debug(speedlog)
+        print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
+        
     #  payload = user_token_to_data(
     #      request.headers.get('Authorization', None))
     # if (payload.get('id') == user_id):
