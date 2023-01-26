@@ -13,15 +13,11 @@ django-mysql
 gunicorn
 django-redis
 bcrypt == 4.0.1
-
-#ai
-boto3
-keras-models
+redis
+paginator
 
 #celery
-paginator
 PyAMQP
 django_celery_beat
 django_celery_results
 celery
-redis
