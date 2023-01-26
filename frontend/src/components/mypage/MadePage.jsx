@@ -15,6 +15,7 @@ import {
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import CloseIcon from '@mui/icons-material/Close';
 import EditPage from "./EditPage";
+import madeData from './madeData'
 
 const cards = [1, 2, 3, 4, 5, 6];
 
@@ -45,7 +46,7 @@ export default function MadePage() {
       // setActiveStep(0);
   };
 
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
   return (
     <Box >

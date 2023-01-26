@@ -18,19 +18,7 @@ export default function DonePage() {
         <Grid container spacing={3} style={{justifyContent: 'center'}}>
             {cards.map((card) => (
                 <Grid item key={card} xs={12} sm={6} md={4}>
-                    <Card sx={{/*maxWidth: 345, */ width: 250, textAlign:'initial'}}>
-                        <Toolbar>
-                            <div style={{marginLeft: '-30px'}}>
-                            <CardHeader
-                            avatar={
-                                <Avatar><EmojiEmotionsIcon/></Avatar>
-                            }
-                            title="유미의 세포들"
-                            subheader="made by mojji"
-                        />
-                            </div>
-                        </Toolbar>
-
+                    <Card sx={{/*maxWidth: 345, */ width: 250, textAlign:'initial', borderRadius: '20px'}}>
                         <CardMedia
                             component="img"
                             height="194"
