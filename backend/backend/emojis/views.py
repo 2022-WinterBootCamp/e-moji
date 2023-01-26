@@ -14,6 +14,10 @@ from .utils import create_emoji
 from faces.utils import get_img_url
 from users.models import User
 from users.utils import user_token_to_data
+from emojis.models import Emoji
+    
+
+
 
 @api_view(['POST'])
 def emojis(request):
@@ -48,3 +52,15 @@ def emojis(request):
     
 # else :
 #    return JsonResponse({"message": "Invalid_User"}, status=401)
+
+
+@api_view(['GET'])
+def recent_check(request):
+#    user_id = request.data['user_id']
+    recent_filter = Emoji.objects.filter(user_id = 1)
+
+    data = EmojisSerializer(recent_filter, many = True).data
+    return JsonResponse(data, status = 200, safe=False)
+
+
+# filter(active = True)
