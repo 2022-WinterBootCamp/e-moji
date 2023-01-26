@@ -17,6 +17,10 @@ from users.models import User
 from users.utils import user_token_to_data
 from emojis.models import Emoji
 from faces.models import Result
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+    
+
+
 
 @api_view(['POST'])
 def emojis(request):
@@ -89,3 +93,24 @@ def mypage(request, number):
         
     else :
         return JsonResponse({"message" : "Forbidden Route"}, status = 403)
+
+
+@api_view(['GET'])
+def recent_check(self, user_id, page_number):
+    #  payload = user_token_to_data(
+    #      request.headers.get('Authorization', None))
+    # if (payload.get('id') == user_id):
+        recent_filter = Emoji.objects.filter(
+            user_id=user_id).order_by('-created_at')
+        paginator = Paginator(recent_filter, 12)
+        page = page_number
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except EmptyPage:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        serializer = EmojisSerializer(data, many=True)
+        return Response(serializer.data)
+    # else:
+    #     return JsonResponse({"message": "Invalid_Token"}, status=401)
