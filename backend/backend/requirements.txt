@@ -14,3 +14,4 @@ django-mysql
 #ai
 boto3
 keras-models
+Pillow

@@ -11,10 +11,10 @@ class EmojisSerializer(serializers.ModelSerializer):
         model = Emoji
         fields = ("user_id", "name", "image")
 
-class EmojisMadeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Emoji
-        fields = ("user_id_id","name", "image")
+class EmojisMadeSerializer(serializers.Serializer):
+    user_id_id = serializers.IntegerField()
+    name = serializers.CharField(max_length=100)
+    image = serializers.ListField(child=serializers.CharField())
 
 class ResultMadeSerialzer(serializers.ModelSerializer) :
     class Meta:
