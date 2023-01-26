@@ -144,7 +144,7 @@ export default function NewEmoji() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    if(emoji_profile.image_file&&emoji_angry.image_file&&emoji_disgust.image_file&&emoji_fear.image_file&&emoji_happy.image_file&&emoji_sad.image_file&&emoji_surprised.image_file){
+    // if(emoji_profile.image_file&&emoji_angry.image_file&&emoji_disgust.image_file&&emoji_fear.image_file&&emoji_happy.image_file&&emoji_sad.image_file&&emoji_surprised.image_file){
       const formData = new FormData();
 
       formData.append("user_id", 1);
@@ -173,9 +173,9 @@ export default function NewEmoji() {
       } catch(err){
         console.log(err);
       }
-    } else {
-      alert("모든 사진을 등록해주세요!");
-    }
+    // } else {
+    //   alert("모든 사진을 등록해주세요!");
+    // }
   }
 
   useEffect(() => {

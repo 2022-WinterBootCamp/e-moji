@@ -35,7 +35,7 @@ def emojis(request):
  #   payload = user_token_to_data(request.headers.get('Authorization', None))
 
 # if (payload.get('alias') == str(userData)):
-    img_url = "테스트" # get_img_url(image)
+    img_url = "https://what-moji.s3.ap-northeast-2.amazonaws.com/b379ea29-d1a8-4f3d-b545-2440811e332a.jpg" # get_img_url(image)
     img_url1 = "테스트1" # get_img_url(image1)
     img_url2 = "테스트2" # get_img_url(image2)
     img_url3 = "테스트3" # get_img_url(image3)

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Card,
     Grid,
@@ -10,7 +10,9 @@ import {
     Toolbar,
     Modal,
     Typography,
-    Button
+    Button,
+    TextField,
+    Divider
 } from '@mui/material';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import CloseIcon from '@mui/icons-material/Close';
@@ -38,33 +40,103 @@ export default function MadePage() {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
 
-  async function getAllData(){
-    try{
-        const data = await axios.get(
-          "/api/v1/emojis/mypage/upload"
-          // {
-          //     params: {
-          //         number: 'upload'
-          // }}
-        )
-        .then((response) => {
-            alert(response);
-            console.log(data);
-        });
-    } catch(err){
-        console.log(err)
-    }
-}
+  const [userId, setUserId] = useState(null);
+  const [images, setImages] = useState([]);
+
+//   async function getAllData(){
+//     try{
+
+//         const data = {user_id: 1};
+//         fetch(`http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`, {
+//           method: 'GET'
+//         })
+//         .then((response) => {
+//             console.log(response);
+//             console.log("user id >>> ", `${response.user_id.user_id_id}`);
+//             console.log("name >>> ", `${response.user_id.name}`);
+//             console.log("image >>> ", `${response.user_id.image}`);
+//             // console.log("name >>", name)
+//             setName(response.name);
+//         });
+//     } catch(err){
+//         console.log(err)
+//     }
+// }
+  useEffect(() => {
+    const EmojiInfo = async() => {
+      try{
+        const data = {user_id: 1};
+        await fetch(`http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`, {
+          method: 'GET'
+        })
+        .then((res) => {
+            // console.log(response);
+            // setImages(response.data);
+            console.log("res.data>>> ", res.data);
+            // 정우님 예시 : setEmoji(res.data.image);
+
+            return res.data;
+        })
+        .then((data) => {
+            console.log("data>>> ", data);
+            setImages(data);
+        })
+      } catch(err){
+        console.log(err);
+      }
+      EmojiInfo();
+    }}, []);
 
   return (
-    <div>
+    <>
       <Typography>
-          이모지 INFO
+        이모지 INFO
       </Typography>
-      <Button onClick={getAllData}>
+      {/* <TextField value={name}/> */}
+      {/* <Typography value={name}/> */}
+      {/* <Button onClick={getAllData}>
           Get All Data
-      </Button>
-    </div>
+      </Button> */}
+      {/* {images.map((image) => {
+        <div key={image[0]}>
+          <h2>{image[1]}</h2>
+          <p>{image[2]}</p>
+        </div>
+      })} */}
+      <h2>{userId}</h2>
+      
+
+    <Box>
+      <Grid container spacing={3} style={{justifyContent: 'center'}}>
+        {images.map((e) => (
+          <Grid item key={e.user_id_id} xs={12} sm={6} md={4}>  
+            <Button onClick={() => setOpen(true)}>
+              <Card sx={{width: 250, textAlign:'initial'}}>
+                <Toolbar>
+                  <div style={{marginLeft: '-30px'}}>
+                    <CardHeader
+                      avatar={    
+                        <Avatar><EmojiEmotionsIcon/></Avatar>
+                      }
+                      title={e.name}
+                      // subheader={e.image}
+                    />
+                  </div>
+                </Toolbar>
+
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image="https://mblogthumb-phinf.pstatic.net/MjAyMTEwMjRfNTIg/MDAxNjM1MDU3NDU2NzQ0.yiSnrU_Ax6Y9jT1k3qkFPfP_UOr9zYB1vMfLLVBOwgMg.wDFvOoUEMfjvoQVwO5Ix0m9f9yZxnC_W0Jo3brhbC10g.PNG.eugenius1231/image.png?type=w800"
+                  alt="Paella dish"
+                />
+              </Card>
+            </Button>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+    </>
 
     // <Box>
     //   <Grid container spacing={3} style={{justifyContent: 'center'}}>
