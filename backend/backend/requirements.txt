@@ -12,15 +12,15 @@ django-prometheus
 django-mysql
 gunicorn
 django-redis
+redis
+paginator
 
 #ai
 boto3
 keras-models
 
 #celery
-paginator
 PyAMQP
 django_celery_beat
 django_celery_results
 celery
-redis

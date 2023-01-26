@@ -1,7 +1,9 @@
 Flask==2.2.2
-Flask-MySQL
 boto3
 cryptography==37.0.4
 python-dotenv
 
 celery
+opencv-python
+fer
+deepface
