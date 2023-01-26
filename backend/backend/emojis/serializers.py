@@ -9,14 +9,14 @@ from faces.models import Result
 class EmojisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emoji
-        fields = ("user_id", "name", "image")
+        fields = ("id","user_id", "name", "image")
 
 class EmojisMadeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emoji
-        fields = ("user_id_id","name", "image")
+        fields = ("id","user_id_id","name", "image")
 
 class ResultMadeSerialzer(serializers.ModelSerializer) :
     class Meta:
         model = Result
-        fields = ("image",)
+        fields = ("id","image",)
