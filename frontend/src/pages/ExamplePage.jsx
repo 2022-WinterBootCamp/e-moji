@@ -110,7 +110,7 @@ export default function Signup() {
       console.log('Userprofile', response.data.user);
       console.log('user token', response.data.joinData);
       localStorage.setItem('token',response.data.joinData);
-      replace("/checkModal");
+     
     })
     .catch((error)=>{console.log('회원가입에 실패하였습니다. 다시한번 확인해 주세요.',error.response);
     });
@@ -285,8 +285,7 @@ const style = {
               closeAfterTransition
             >
 				<Box sx={style}>
-      <div>
-      <Dialog open={open} onClose={handleClose}>
+      
         <div style={{textAlign: 'right'}}>
           <IconButton href="/">
             <CloseIcon fontWeight='300'/>
@@ -299,7 +298,7 @@ const style = {
           fontWeight= "800"
           align="center" 
           sx={{color:'#FECD93'}}>IGE MOJI</Typography></DialogTitle>
-          <DialogContent>
+         
             <Grid>
               <Typography variant="body1" 
                 align="center" 
@@ -330,13 +329,8 @@ const style = {
               color:'white', 
               bgcolor: '#FECD93'}} 
               href="/loginpage" >로그인 바로가기</Button>
-          </DialogContent>
-
-          <DialogActions>
-          </DialogActions>
-                
-        </Dialog>
-      </div>
+        
+       
       </Box>
             </Modal>
           : null

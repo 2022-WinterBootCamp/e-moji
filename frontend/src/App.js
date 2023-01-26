@@ -17,8 +17,8 @@ function App() {
             <Router>
                 <Routes>
                     <Route path="/" element={<FirstPage/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/examplepage" element={<ExamplePage/>}/>
+                    <Route path="/Loginpage" element={<LoginPage/>}/>
+                    <Route path="/Signuppage" element={<SignupPage/>}/>
                     <Route path="/mainpage" element={<RankDrawer />} />
                     <Route path="/mypage" element={<MyPage/>}/>
               </Routes>     

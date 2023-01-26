@@ -11,7 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 
 export default function Header(){
-    if(window.location.pathname === '/' || window.location.pathname === '/loginpage' || window.location.pathname === '/signuppage')
+    if(window.location.pathname === '/' || window.location.pathname === '/Loginpage' || window.location.pathname === '/Signuppage')
         return null;
     return(
         <Box sx={{flexGrow: 1}} >

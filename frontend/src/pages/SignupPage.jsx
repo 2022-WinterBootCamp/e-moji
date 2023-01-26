@@ -122,7 +122,7 @@ export default function SignupPage() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="s">
+      <Container maxWidth="xs">
         <div style={{textAlign: 'left'}}>
           <IconButton href="/loginpage">
             <ArrowBack fontWeight='300'/>
@@ -279,7 +279,7 @@ export default function SignupPage() {
             sx={{ mt:3, 
               color:'white', 
               bgcolor: '#FECD93'}} 
-              href="/loginpage" >로그인 바로가기</Button>
+              href="/Loginpage" >로그인 바로가기</Button>
           </DialogContent>
 
           <DialogActions>
