@@ -11,7 +11,7 @@ from .utils import create_user, user_find_email, user_get_access_token, user_isp
 @api_view(['GET', 'POST'])
 def user(request):
     if request.method == 'GET':
-        return User_duplicate_check(request)
+        return user_duplicate_check(request)
     
     if request.method == 'POST':
         return sign_up(request)

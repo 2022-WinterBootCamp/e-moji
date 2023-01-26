@@ -5,10 +5,6 @@ from detect import ai_detect
 
 app = Flask(__name__)
 
-def get_img_num(image) :
-    return 4
-
-
 @app.route("/")
 def main():
     return "testing"
