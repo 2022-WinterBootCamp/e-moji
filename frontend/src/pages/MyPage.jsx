@@ -77,13 +77,11 @@ export default function MyPage(){
     const handleClose = () => setOpen(false);
 
     const [value, setValue] = React.useState(0);
-    const [userId, setUserId] = useState(null);
-    const [emojiName, setEmojiName] = useState(null);
-    const [emojiImage, setEmojiImage] = useState([]);
-    const [emoji, setEmoji] = useState(null);
     const [emojiData, setEmojiData] = useState([]);
-
-    let length = 0;
+    // const [userId, setUserId] = useState(null);
+    // const [emojiName, setEmojiName] = useState(null);
+    // const [emojiImage, setEmojiImage] = useState([]);
+    // const [emoji, setEmoji] = useState(null);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -101,20 +99,20 @@ export default function MyPage(){
                 return response.json();
             })
             .then((data) => {
-                // console.log(data);
                 console.log("data>>> ", data);
-                console.log("data[0].user_id_id>> ", data[0].user_id_id);
-                console.log("data[0].name>> ", data[0].name);
-                console.log("data[0].image>> ", data[0].image);
-                console.log("data[0]>> ", data[0]);
-
-                setUserId(data[0].user_id_id);
-                setEmojiName(data[0].name);
-                setEmojiImage(data[0].image);
-                setEmoji(data[0]);
                 setEmojiData(data);
+                // console.log("data[0].user_id_id>> ", data[0].user_id_id);
+                // console.log("data[0].name>> ", data[0].name);
+                // console.log("data[0].image>> ", data[0].image);
+                // console.log("data[0]>> ", data[0]);
 
-                console.log("data[0].image[1] = emojiImage[1]", emojiImage[1]);
+                // setUserId(data[0].user_id_id);
+                // setEmojiName(data[0].name);
+                // setEmojiImage(data[0].image);
+                // setEmoji(data[0]);
+
+                console.log("data[0].image[0]>>> ", data[0].image[0]);
+                console.log("data[0].image[1]>>> ", data[0].image[1]);
                 // 0번째 전체 데이터 불러오기: console.log("data[0]", data[0]);
             })
         } catch(err){
@@ -215,14 +213,6 @@ export default function MyPage(){
                         </Box>
                       </Modal>
                     </Box>
-                    {/* <h2>userId는 {userId}입니다.</h2>
-                    <h2>emojiName은 {emojiName}입니다.</h2>
-                    <CardHeader
-                        title={emojiName}
-                    />
-                    {emojiImage}
-                    <img src={emojiImage}/> */}
-                    {/* <MadePage/> */}
                 </TabPanel>
             </Box>
         </Container>

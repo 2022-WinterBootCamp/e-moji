@@ -67,7 +67,7 @@
 //     );
 // }
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button,Typography } from "@mui/material";
 import axios from "axios";
 
@@ -174,13 +174,13 @@ import axios from "axios";
 // };
 
 export default function Upload() {
+    let inputRef;
     const [image, setImage] = useState({
       image_file: "",
       preview_URL:
         "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif"
     });
   
-    let inputRef;
   
     const saveImage = (e) => {
       e.preventDefault();
@@ -194,6 +194,35 @@ export default function Upload() {
         }));
       }
     };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (image.image_file) {
+        const formData = new FormData();
+
+        formData.append("user_id", 1);
+        formData.append("emoji_id", 1);
+        formData.append("image", image.image_file);
+
+        try{
+          await axios({
+            method: "POST",
+            url: "/api/v1/faces/",
+            data: formData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            }
+          })
+          .then((response) => {
+            console.log("response >> ", response.data);
+          });
+        }catch(err){
+          console.log(err);
+        }
+      } else {
+        alert("사진을 등록하세요!");
+      }
+    };
   
     useEffect(() => {
       // 컴포넌트가 언마운트되면 createObjectURL()을 통해 생성한 기존 URL을 폐기
@@ -202,24 +231,10 @@ export default function Upload() {
       };
     }, []);
   
-    const sendImageToServer = async () => {
-      if (image.image_file) {
-        const formData = new FormData();
-        formData.append("file", image.image_file);
-        await axios.post("/api/image/upload", formData);
-        alert("서버에 등록이 완료되었습니다!");
-        setImage({
-          image_file: "",
-          preview_URL:
-            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAYFBMVEXa2tpVVVXd3d1OTk5SUlJwcHC1tbVLS0uOjo7h4eGcnJxWVlbU1NRaWlphYWGnp6fHx8e8vLxra2umpqa5ubnOzs51dXWvr6+WlpaGhobDw8OAgIBkZGR7e3uQkJBERETECcahAAACeUlEQVR4nO3b6W6qQBiAYWaxw7gdxAXc2vu/y4qIgIKpQo7x433+lUaTeYPDDGIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGQffo3WN5jV7Go/74dw/nJXrsbH8+tYFRvZnQgAY0kNDAuE4kNLDp6quDxVxAA5P4LmsjP7cCGvzrtMajwTAb3G4NhtdAB7skWVdfMLgGOhqdroY2rBwaWgMd2fOA3aY8NrgGG5uviFz5mqE1WBeLaxtfhzywBnrliu3B7HpwaA12RQM7l/xZ0Kv9gyTzy3xgQsmfBR27sHU4epmfCNauBZ8HOnHKpa3j8Wl2C9KoRfkSeQ2Cw2lEbtx+Juy28SitLhTFNfD5ye6W7RG897UJQ1yDYHaZ85L6kB5Mk9Ia+LRYBP181SbKRfu7SGswVVd2URnU1O5bv0wT1sBvKzea3a48PUJj4mlLBFkN9Lp6r91OouJ45LKV4bo5grAGe6uqEYqFUL5btGbXGEFUg3I3cN0UnCPoL3NpkjSNU1QDP7LqNsJ5Eig2Cc1rJ0kNKhvjMsJpJvTj8rgL7z8OkhoE8e1pkP1vdLouVv52x7vlkqAG2WapgTlua2nur5GSGkyaEmQz4e0cEdUjyGng//w9vLWr2nDlNJjO/pggWyjUrpFiGujomccxajdZBtpAua3A+0hPNlBuc708SGrQsDp4wByKLZSgBmr2nMnssoUS0+B0YXhe/i6CGryMBlIaJL6Tg4AG9vgddvCdrzA/u4Hq+NC+ktCgFzSgAQ0+u0H60+2p/ZoPbRB1eWb/1qf+uK9P7x4MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPwHvzkNNPrHNmiDAAAAAElFTkSuQmCC"
-        });
-      } else {
-        alert("사진을 등록하세요!");
-      }
-    };
   
     return (
       <center>
+        <form onSubmit={handleSubmit}>
           <Typography
               component="h1"
               fontSize='2rem'
@@ -249,11 +264,17 @@ export default function Upload() {
               </Button>
           </div>
   
-          <div style={{marginTop: '20px'}}>
-              <Button sx={{ml: 2}} color="success" variant="contained" onClick={sendImageToServer}>
-                  Upload
-              </Button>
-          </div>
+          <Button style={{textAlign: 'center', position: 'absolute', bottom: '50px', left: '35%', width: '200px', height: '35px',
+            backgroundColor: "#FECD93", color: '#FFFFFF', borderColor: '#FECD93',
+            borderRadius: '30px'
+            }}
+            variant="contained"
+            type="submit"
+            value="Upload"
+          >
+              Upload
+          </Button>
+        </form>
       </center>
     );
   };

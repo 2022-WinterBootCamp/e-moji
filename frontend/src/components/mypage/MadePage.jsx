@@ -70,11 +70,6 @@ export default function MadePage() {
           method: 'GET'
         })
         .then((res) => {
-            // console.log(response);
-            // setImages(response.data);
-            console.log("res.data>>> ", res.data);
-            // 정우님 예시 : setEmoji(res.data.image);
-
             return res.data;
         })
         .then((data) => {
