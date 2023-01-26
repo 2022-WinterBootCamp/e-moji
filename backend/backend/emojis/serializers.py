@@ -20,3 +20,9 @@ class ResultMadeSerialzer(serializers.ModelSerializer) :
     class Meta:
         model = Result
         fields = ("id","image",)
+
+class EmojisMadeSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    alias = serializers.CharField()
+    name = serializers.CharField()
+    image = serializers.CharField()
