@@ -15,6 +15,7 @@ from faces.utils import get_img_url
 from users.models import User
 from users.utils import user_token_to_data
 from emojis.models import Emoji
+from django.core.paginator import Paginator
     
 
 
