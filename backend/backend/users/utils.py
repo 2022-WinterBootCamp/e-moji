@@ -3,17 +3,22 @@ from .models import User
 import jwt
 from backend.settings import ALGORITHM, JWT_SECRET_KEY
 from datetime import datetime, timedelta
+import bcrypt
 
 def user_find_email(email):
     return User.objects.filter(email=email)
 
-def user_hash_password(password):
-    password = str(password).encode('utf-8') # 해시하기 전에 인코딩을 먼저 해야된다!!
-    return password
+
+
+def create_salt_hashed_password(password):
+    password=str(password).encode('utf-8')
+    salt=bcrypt.gensalt()
+    hash_password = bcrypt.hashpw(password, salt)
+    return hash_password, salt
 
 def create_user(email, password, alias):
-    hash_password = user_hash_password(password)
-    return User.objects.create(email=email, alias=alias, password=hash_password)
+    hash_password, salt = create_salt_hashed_password(password)
+    return User.objects.create(email=email, alias=alias, password=hash_password, salt=salt)
 
 def user_get_access_token(user_data):
     return jwt.encode(
@@ -31,25 +36,30 @@ def user_token_to_data(token):
     return payload
 
 def user_ispassword(password, user_data):
-    hash_password = user_hash_password(password)
+    password=str(password).encode('utf-8')
+    hash_password = bcrypt.hashpw(password, user_data.salt)
     return hash_password == user_data.password
 
-class UserDuplicateCheck:
-    @staticmethod
-    def alias(alias):
-        if user_find_alias(alias):
-            return False
-        return True
 
+
+def user_find_email(email):
+    return User.objects.filter(email=email)
+
+
+def user_find_alias(alias):
+    return User.objects.filter(alias=alias)
+
+class duplicate_check:
+    
     @staticmethod
     def email(email):
         if user_find_email(email):
             return False
         return True
-
     
-def user_find_alias(alias):
-    return User.objects.filter(alias=alias)
-
-def user_find_email(email):
-    return User.objects.filter(email=email)
+    @staticmethod
+    def alias(alias):
+        if user_find_alias(alias):
+            return False
+        return True
+    

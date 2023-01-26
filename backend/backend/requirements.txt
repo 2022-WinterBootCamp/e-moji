@@ -12,6 +12,7 @@ django-prometheus
 django-mysql
 gunicorn
 django-redis
+bcrypt == 4.0.1
 
 #ai
 boto3
