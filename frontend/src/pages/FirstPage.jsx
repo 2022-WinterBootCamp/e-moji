@@ -39,6 +39,7 @@ export default function FirstPage() {
          height: '100%',
          position: 'absolute',
          backgroundColor: '#FECD93',
+         top: '0%',
          right: '10%',
          left: '0%',
       }}>  
@@ -141,7 +142,7 @@ export default function FirstPage() {
             left: '20%', 
             bgcolor: '#FECD93'
             }} 
-            href="/loginpage" 
+            href="/Loginpage" 
           >Click me!</Button>
         </ThemeProvider>
       </Box>
