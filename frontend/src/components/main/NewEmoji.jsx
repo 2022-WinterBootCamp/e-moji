@@ -30,8 +30,8 @@ export default function NewEmoji() {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
 
-  const [emojiName, setEmojiName] = useState(null);
-  const [emojiProfile, setEmojiProfile] = useState({
+  const [emoji_name, setEmojiName] = useState(null);
+  const [emoji_profile, setEmojiProfile] = useState({
     image_file: "",
     preview_URL: "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif"
   });
@@ -133,7 +133,7 @@ export default function NewEmoji() {
   const handleFileOnChange = (e) => {
     e.preventDefault();
     if(e.target.files[0]){
-      URL.revokeObjectURL(emojiProfile.preview_URL);
+      URL.revokeObjectURL(emoji_profile.preview_URL);
       const preview_URL = URL.createObjectURL(e.target.files[0]);
       setEmojiProfile(() => ({
         image_file: e.target.files[0],
@@ -144,12 +144,12 @@ export default function NewEmoji() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    if(emojiProfile.image_file&&emoji_angry.image_file&&emoji_disgust.image_file&&emoji_fear.image_file&&emoji_happy.image_file&&emoji_sad.image_file&&emoji_surprised.image_file){
+    if(emoji_profile.image_file&&emoji_angry.image_file&&emoji_disgust.image_file&&emoji_fear.image_file&&emoji_happy.image_file&&emoji_sad.image_file&&emoji_surprised.image_file){
       const formData = new FormData();
 
       formData.append("user_id", 1);
-      formData.append("name", emojiName);
-      formData.append("image", emojiProfile.image_file);
+      formData.append("name", emoji_name);
+      formData.append("image", emoji_profile.image_file);
       formData.append("image1", emoji_angry.image_file);
       formData.append("image2", emoji_disgust.image_file);
       formData.append("image3", emoji_fear.image_file);
@@ -181,7 +181,7 @@ export default function NewEmoji() {
   useEffect(() => {
     // 컴포넌트가 언마운트되면 createObjectURL()을 통해 생성한 기존 URL을 폐기
     return () => {
-        URL.revokeObjectURL(emojiProfile.preview_URL);
+        URL.revokeObjectURL(emoji_profile.preview_URL);
         URL.revokeObjectURL(emoji_angry.preview_URL);
         URL.revokeObjectURL(emoji_disgust.preview_URL);
         URL.revokeObjectURL(emoji_fear.preview_URL);
@@ -209,7 +209,7 @@ export default function NewEmoji() {
             color="warning"
             sx={{ml: 3, width: 270}}
             type="text" 
-            value={emojiName} 
+            value={emoji_name} 
             onChange={nameOnChange} 
             label="이모지 이름을 입력"
           />
@@ -229,7 +229,7 @@ export default function NewEmoji() {
             style={{ display: "none"}}
           />
           <Button>
-            <img style={{height: '140px', width: '270px', borderRadius: '15px'}} src={emojiProfile.preview_URL} 
+            <img style={{height: '140px', width: '270px', borderRadius: '15px'}} src={emoji_profile.preview_URL} 
             onClick={() => inputRef_profile.click()}/>
           </Button>
         </Toolbar>
