@@ -12,6 +12,7 @@ class Emoji(models.Model): # django admin에서 보이는 s 수정
         size=7,
         max_length=(7 * 200),  # 7 * 200 character nominals, plus commas
     )
+    active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
     
