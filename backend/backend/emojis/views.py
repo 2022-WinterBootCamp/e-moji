@@ -92,6 +92,10 @@ def mypage(request, case):
 
     # 내가 만든 이모지 
     if case == 'upload' :
+        start = time.time()
+        # greatlist = cache.get_or_set('emoji', Emoji.objects.all())
+        # serializer = EmojisSerializer(greatlist, many=True)
+        print("time :", time.time() - start)
             # 해당 유저에 만든 데이터가 없을때
             if not Emoji.objects.filter(user_id=userId, active=1).exists():
                 return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
@@ -146,10 +150,8 @@ def recent_check(self, user_id, page_number):
 
         greatlist = cache.get_or_set('emoji', Emoji.objects.all())
         serializer = EmojisSerializer(greatlist, many=True)
-        speed = time.time() -start
-        speedlog = ">>>>>>>>>걸린시간>>>>>"+str(speed )
-        logger.debug(speedlog)
-        print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
+        
+        print("time :", time.time() - start)
         
     #  payload = user_token_to_data(
     #      request.headers.get('Authorization', None))
