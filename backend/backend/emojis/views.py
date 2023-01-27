@@ -15,6 +15,11 @@ from users.utils import user_token_to_data
 from emojis.models import Emoji
 from faces.models import Result
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+#redis
+import time
+import logging
+from django.core.cache import cache
     
 
 
@@ -61,14 +66,20 @@ def emoji_create(request):
 
 def emoji_check(request) :
     emoji_id = request.GET.get('number', None)
-    emojiData = Emoji.objects.get(id = emoji_id)
-    result = EmojisSerializer(emojiData).data
+
+    start = time.time()
+    emojicaching = cache.get_or_set('emoji', Emoji.objects.get(id = emoji_id))
+  # emojiData = Emoji.objects.get(id = emoji_id)
+    result = EmojisSerializer(emojicaching).data
+    print("time :", time.time() - start)
+
     return JsonResponse(result, status = 201)
 
 
 #마이페이지 
 @api_view(['GET'])
 def mypage(request, case):
+
     user_id = request.GET.get('user_id', None)
     userId = User.objects.get(id = user_id).id
 
@@ -87,6 +98,7 @@ def mypage(request, case):
 
     # 내가 만든 이모지 
     if case == 'upload' :
+
             # 해당 유저에 만든 데이터가 없을때
             if not Emoji.objects.filter(user_id=userId, active=1).exists():
                 return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
@@ -131,6 +143,7 @@ def mypage(request, case):
 
 @api_view(['GET'])
 def recent_check(self, page_number):
+
         get_data = {}
         data_set = {}
     #  payload = user_token_to_data(
