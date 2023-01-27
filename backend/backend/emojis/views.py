@@ -61,31 +61,32 @@ def mypage(request, number):
     # 내가 만든 이모지
     if number == 'upload' :
         userId = User.objects.get(id = user_id).id
-        # payload = user_token_to_data(request.headers.get('Authorization', None))
-        # if (payload.get('id') == str(userId)):
+        payload = user_token_to_data(request.headers.get('Authorization', None))
+        if (payload.get('id') == str(userId)):
             # 해당 유저에 만든 데이터가 없을때
-        if not Emoji.objects.filter(user_id=userId).exists():
-            return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
-                
-            # 해당 유저 데이터 받아오기
+            if not Emoji.objects.filter(user_id=userId).exists():
+                return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
+                    
+                # 해당 유저 데이터 받아오기
 
-        get_data = {}
-        data_set = {}
-        count = 0
-        emojiData = Emoji.objects.filter(user_id = user_id).values()
-        for i in emojiData :
-            userName = User.objects.filter(id = i['user_id_id']).values().first()
-            # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
-            get_data.setdefault('id', i['id'])
-            get_data.setdefault('name', i['name'])
-            get_data.setdefault('alias',userName['alias'])
-            data_set[count] = get_data
-            get_data = {} # 딕셔너리 초기화 후 데이터 넣기
-            count += 1
+            get_data = {}
+            data_set = {}
+            count = 0
+            emojiMyData = Emoji.objects.filter(user_id = user_id).values()
+            for i in emojiMyData :
+                userName = User.objects.filter(id = i['user_id_id']).values().first()
+                # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
+                get_data.setdefault('id', i['id'])
+                get_data.setdefault('name', i['name'])
+                get_data.setdefault('alias',userName['alias'])
+                get_data.setdefault('image',i['image'])
+                data_set[count] = get_data
+                get_data = {} # 딕셔너리 초기화 후 데이터 넣기
+                count += 1
 
-        return JsonResponse(data_set, status = 200, safe=False)
-        # else:
-        #     return JsonResponse({"message": "Token Error"}, status=401)
+            return JsonResponse(data_set, status = 200, safe=False)
+        else:
+            return JsonResponse({"message": "Token Error"}, status=401)
     
     # 내가 했던 이모지
     elif number == 'result' :
