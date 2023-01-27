@@ -9,9 +9,10 @@ from faces.models import Result
 class EmojisSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emoji
-        fields = ("user_id", "name", "image")
+        fields = ("id","user_id", "name", "image")
 
 class EmojisMadeSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     user_id_id = serializers.IntegerField()
     name = serializers.CharField(max_length=100)
     image = serializers.ListField(child=serializers.CharField())
@@ -19,4 +20,10 @@ class EmojisMadeSerializer(serializers.Serializer):
 class ResultMadeSerialzer(serializers.ModelSerializer) :
     class Meta:
         model = Result
-        fields = ("image",)
+        fields = ("id","image",)
+
+class AllDataSerializer(serializers.Serializer) :
+    id = serializers.IntegerField()
+    name = serializers.CharField(max_length=20)
+    alias = serializers.CharField(max_length=20)
+    image = serializers.ListField(child=serializers.CharField())
