@@ -76,9 +76,9 @@ def mypage(request, number):
     # 내가 만든 이모지 
     if number == 'upload' :
             # 해당 유저에 만든 데이터가 없을때
-            if not Emoji.objects.filter(user_id=userId).exists():
+            if not Emoji.objects.filter(user_id=userId, active=1).exists():
                 return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
-            emojiMyData = Emoji.objects.filter(user_id = user_id).values()
+            emojiMyData = Emoji.objects.filter(user_id = user_id, active=1).values()
 
             for i in emojiMyData :
                 userName = User.objects.filter(id = i['user_id_id']).values().first()
@@ -99,7 +99,7 @@ def mypage(request, number):
         resultMyData = Result.objects.filter(user_id = user_id).values()
 
         for i in resultMyData :
-            userEmoji = Emoji.objects.filter(id = i['emoji_id_id']).values().first()
+            userEmoji = Emoji.objects.filter(id = i['emoji_id_id'], active=1).values().first()
             makerName = User.objects.filter(id = userEmoji['user_id_id']).values().first()
             # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
             get_data.setdefault('id', i['id'])
@@ -124,7 +124,7 @@ def recent_check(self, page_number):
     #  payload = user_token_to_data(
     #      request.headers.get('Authorization', None))
     # if (payload.get('id') == user_id):
-        recentData = Emoji.objects.all().filter().order_by('-created_at').values()
+        recentData = Emoji.objects.filter(active=1).order_by('-created_at').values()
         count = recentData.count()
         for i in recentData :
             makerName = User.objects.filter(id = i['user_id_id']).values().first()
