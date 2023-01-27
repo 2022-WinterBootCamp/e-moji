@@ -71,7 +71,10 @@ export default function LoginPage() {
           size="large" 
           sx={{ mt:3, 
             color:'white',
-            bgcolor: '#FECD93', 
+            bgcolor: "#FECD93",
+                        ':hover':{
+                            bgcolor: '#FECD93',
+                        }, 
             width:500}} 
             href="/mainpage">sign in</Button>
        
