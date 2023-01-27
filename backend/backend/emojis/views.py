@@ -68,6 +68,12 @@ def mypage(request, number):
     user_id = request.data['user_id']
     # 내가 만든 이모지
     if number == 'upload' :
+
+        start = time.time()
+        # greatlist = cache.get_or_set('emoji', Emoji.objects.all())
+        # serializer = EmojisSerializer(greatlist, many=True)
+        print("time :", time.time() - start)
+
         userId = User.objects.get(id = user_id).id
         # payload = user_token_to_data(request.headers.get('Authorization', None))
         # if (payload.get('id') == str(userId)):
@@ -84,6 +90,9 @@ def mypage(request, number):
     
     # 내가 했던 이모지
     elif number == 'result' :
+
+
+
         userId = User.objects.get(id = user_id).id
         # payload = user_token_to_data(request.headers.get('Authorization', None))
         # if (payload.get('id') == str(userId)):
@@ -109,10 +118,8 @@ def recent_check(self, user_id, page_number):
 
         greatlist = cache.get_or_set('emoji', Emoji.objects.all())
         serializer = EmojisSerializer(greatlist, many=True)
-        speed = time.time() -start
-        speedlog = ">>>>>>>>>걸린시간>>>>>"+str(speed )
-        logger.debug(speedlog)
-        print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
+        
+        print("time :", time.time() - start)
         
     #  payload = user_token_to_data(
     #      request.headers.get('Authorization', None))

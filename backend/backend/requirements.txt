@@ -10,6 +10,7 @@ mysqlclient==2.1.1
 drf-yasg==1.21.0
 django-prometheus
 django-mysql
+Pillow
 
 #ai
 boto3
