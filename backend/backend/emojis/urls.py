@@ -4,5 +4,5 @@ from . import views
 urlpatterns = [
     path('', views.emojis),
     path('mypage/<number>', views.mypage),
-     path('users/<user_id>/pages/<page_number>',views.recent_check)
+     path('pages/<page_number>',views.recent_check)
 ]

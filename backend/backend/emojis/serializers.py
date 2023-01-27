@@ -22,8 +22,8 @@ class ResultMadeSerialzer(serializers.ModelSerializer) :
         model = Result
         fields = ("id","image",)
 
-class EmojisMadeSerializer(serializers.Serializer):
+class AllDataSerializer(serializers.Serializer) :
     id = serializers.IntegerField()
-    alias = serializers.CharField()
-    name = serializers.CharField()
-    image = serializers.CharField()
+    name = serializers.CharField(max_length=20)
+    alias = serializers.CharField(max_length=20)
+    image = serializers.ListField(child=serializers.CharField())

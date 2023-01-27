@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 
-from .serializers import EmojisSerializer, ResultMadeSerialzer, EmojisMadeSerializer
+from .serializers import EmojisSerializer, ResultMadeSerialzer, EmojisMadeSerializer, AllDataSerializer
 from datetime import datetime, timedelta
 from .utils import create_emoji
 from faces.utils import get_img_url
@@ -97,17 +97,14 @@ def mypage(request, number):
         if not Result.objects.filter(user_id=userId).exists():
             return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
         resultMyData = Result.objects.filter(user_id = user_id).values()
-        print(resultMyData)
 
         for i in resultMyData :
-            # userName = User.objects.filter(id = i['user_id_id']).values().first()
-            # userEmoji = Emoji.objects.filter(id = i['emoji_id_id']).values().first()
+            userEmoji = Emoji.objects.filter(id = i['emoji_id_id']).values().first()
+            makerName = User.objects.filter(id = userEmoji['user_id_id']).values().first()
             # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
-            print(userName)
-            print(userEmoji)
             get_data.setdefault('id', i['id'])
             get_data.setdefault('name', userEmoji['name'])
-            get_data.setdefault('alias',userName['alias'])
+            get_data.setdefault('alias',makerName['alias'])
             get_data.setdefault('image',i['image'])
             data_set[count] = get_data
             get_data = {} # 딕셔너리 초기화 후 데이터 넣기
@@ -121,12 +118,26 @@ def mypage(request, number):
 
 
 @api_view(['GET'])
-def recent_check(self, user_id, page_number):
+def recent_check(self, page_number):
+        get_data = {}
+        data_set = {}
     #  payload = user_token_to_data(
     #      request.headers.get('Authorization', None))
     # if (payload.get('id') == user_id):
-        recent_filter = Emoji.objects.filter(
-            user_id=user_id).order_by('-created_at')
+        recentData = Emoji.objects.all().filter().order_by('-created_at').values()
+        count = recentData.count()
+        for i in recentData :
+            makerName = User.objects.filter(id = i['user_id_id']).values().first()
+            # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
+            get_data.setdefault('id', i['id'])
+            get_data.setdefault('name', i['name'])
+            get_data.setdefault('alias',makerName['alias'])
+            get_data.setdefault('image',i['image'])
+            data_set[count] = get_data
+            get_data = {} # 딕셔너리 초기화 후 데이터 넣기
+            count -= 1
+            
+        recent_filter = tuple(data_set.values())
         paginator = Paginator(recent_filter, 12)
         page = page_number
         try:
@@ -135,7 +146,7 @@ def recent_check(self, user_id, page_number):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except EmptyPage:
             return Response(status=status.HTTP_204_NO_CONTENT)
-        serializer = EmojisSerializer(data, many=True)
-        return Response(serializer.data)
+        serializer = AllDataSerializer(data, many=True)
+        return JsonResponse(serializer.data, status = 201, safe = False)
     # else:
     #     return JsonResponse({"message": "Invalid_Token"}, status=401)
