@@ -18,9 +18,15 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
     
 
 
-
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def emojis(request):
+    if request.method == 'GET':
+        return emoji_check(request)
+    
+    if request.method == 'POST':
+        return emoji_create(request)
+    
+def emoji_create(request):
     user_id = request.data['user_id']
     name = request.data['name'] # 이모지 이름
     image = request.data['image']
@@ -53,10 +59,16 @@ def emojis(request):
 # else :
 #    return JsonResponse({"message": "Invalid_User"}, status=401)
 
+def emoji_check(request) :
+    emoji_id = request.GET.get('number', None)
+    emojiData = Emoji.objects.get(id = emoji_id)
+    result = EmojisSerializer(emojiData).data
+    return JsonResponse(result, status = 201)
+
 
 #마이페이지 
 @api_view(['GET'])
-def mypage(request, number):
+def mypage(request, case):
     user_id = request.GET.get('user_id', None)
     userId = User.objects.get(id = user_id).id
 
@@ -74,7 +86,7 @@ def mypage(request, number):
     count = 0 
 
     # 내가 만든 이모지 
-    if number == 'upload' :
+    if case == 'upload' :
             # 해당 유저에 만든 데이터가 없을때
             if not Emoji.objects.filter(user_id=userId, active=1).exists():
                 return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
@@ -93,7 +105,7 @@ def mypage(request, number):
             return JsonResponse(data_set, status = 200, safe=False)
 
     # 내가 했던 이모지
-    elif number == 'result' :
+    elif case == 'result' :
         if not Result.objects.filter(user_id=userId).exists():
             return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
         resultMyData = Result.objects.filter(user_id = user_id).values()
