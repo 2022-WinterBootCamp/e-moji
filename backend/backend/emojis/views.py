@@ -96,6 +96,10 @@ def mypage(request, case):
         # greatlist = cache.get_or_set('emoji', Emoji.objects.all())
         # serializer = EmojisSerializer(greatlist, many=True)
         print("time :", time.time() - start)
+        start = time.time()
+        # greatlist = cache.get_or_set('emoji', Emoji.objects.all())
+        # serializer = EmojisSerializer(greatlist, many=True)
+        print("time :", time.time() - start)
             # 해당 유저에 만든 데이터가 없을때
             if not Emoji.objects.filter(user_id=userId, active=1).exists():
                 return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
