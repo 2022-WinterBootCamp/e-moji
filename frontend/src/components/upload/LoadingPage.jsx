@@ -1,7 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Box, Container, Typography } from "@mui/material";
+import StepFinal from './ResultPage';
 
 export default function FormTwo() {
+  const timeout = () =>{
+    setTimeout(() => {
+      <StepFinal/>
+    }, 5000);
+  }
+  useEffect(() => {
+    timeout();
+    
+    return() => {
+      clearTimeout(timeout);
+    };
+  });
+
   return (
     <center>
       <Box

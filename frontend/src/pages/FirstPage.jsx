@@ -140,7 +140,10 @@ export default function FirstPage() {
             color:'white',
             right: '30%',
             left: '20%', 
-            bgcolor: '#FECD93'
+            bgcolor: "#FECD93",
+                        ':hover':{
+                            bgcolor: '#FECD93',
+                        },
             }} 
             href="/Loginpage" 
           >Click me!</Button>

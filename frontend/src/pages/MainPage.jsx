@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   Box,
@@ -29,6 +29,7 @@ import StepFinal from "../components/upload/ResultPage";
 
 import NewEmoji from "../components/main/NewEmoji";
 
+import axios from 'axios';
 
 const theme = createTheme();
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -79,20 +80,13 @@ function getSteps() {
   return ["Upload", "Uploading", "Result"];
 }
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <StepOne />;
-    case 1:
-      return <StepTwo />;
-    case 2:
-      return <StepFinal />;
-    default:
-      return "Unknown step";
-  }
-}
-
 export default function MainPage() {
+  const [image, setImage] = useState({
+    image_file: "",
+    preview_URL:
+      "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif"
+  });
+
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -127,9 +121,153 @@ export default function MainPage() {
     setSkipped(newSkipped);
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  // const handleBack = () => {
+  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  // };
+
+function getStepContent(step) {
+  switch (step) {
+    case 0:
+      // return <StepOne />;
+    let inputRef;
+    const saveImage = (e) => {
+      e.preventDefault();
+      if (e.target.files[0]) {
+        // 새로운 이미지를 올리면 createObjectURL()을 통해 생성한 기존 URL을 폐기
+        URL.revokeObjectURL(image.preview_URL);
+        const preview_URL = URL.createObjectURL(e.target.files[0]);
+        setImage(() => ({
+          image_file: e.target.files[0],
+          preview_URL: preview_URL
+        }));
+      }
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (image.image_file) {
+        const formData = new FormData();
+
+        formData.append("user_id", 1);
+        formData.append("emoji_id", 1);
+        formData.append("image", image.image_file);
+
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+        try{
+          await axios({
+            method: "POST",
+            url: "/api/v1/faces/",
+            data: formData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            }
+          })
+          .then((response) => {
+            console.log("response >> ", response.data);
+          });
+        }catch(err){
+          console.log(err);
+        }
+      } else {
+        alert("사진을 등록하세요!");
+      }
+    };
+
+    return(
+      <center>
+        <form onSubmit={handleSubmit}>
+          <Typography
+              component="h1"
+              fontSize='2rem'
+              align='center'
+              color='text.primary'
+              gutterBottom
+              fontStyle='bold'
+              fontFamily='Itim'
+              sx={{mt: 3, mb: 3}}
+          >
+              지금 당신의 표정을 넣어주세요!
+          </Typography>
+          <input
+              type="file"
+              accept="image/*"
+              onChange={saveImage}
+              // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
+              // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
+              onClick={(e) => (e.target.value = null)}
+              ref={(refParam) => (inputRef = refParam)}
+              style={{ display: "none"}}
+          />
+          <div style={{/*borderStyle: 'dashed', */borderRadius: '15px'}}>
+            <Button>
+              <img style={{height: '300px', width: '520px', borderRadius: '15px'}} textAlign src={image.preview_URL} 
+              onClick={() => inputRef.click()}/>
+              </Button>
+          </div>
+  
+          <Button style={{textAlign: 'center', position: 'absolute', bottom: '50px', left: '35%', width: '200px', height: '35px',
+            backgroundColor: "#FECD93", color: '#FFFFFF', borderColor: '#FECD93',
+            borderRadius: '30px'
+            }}
+            variant="contained"
+            type="submit"
+            value="Upload"
+          >
+              Upload
+          </Button>
+          
+        </form>
+      </center>
+    );
+
+    case 1:
+      return (
+        <center>
+          <Box
+            whiteSpace="pre-wrap"
+            sx={{
+              bgcolor: "background.paper",
+              pt: 8,
+              pb: 6,
+              mt: -5,
+            }}
+          >
+            <Container maxWidth="sm">
+              <Typography
+                component="h1"
+                variant="h4"
+                align="center"
+                color="text.primary"
+                gutterBottom
+                fontStyle="bold"
+                fontFamily="Itim"
+              >
+                AI가 당신의 표정을 분석 중이에요!
+              </Typography>
+              <Typography
+                variant="h6"
+                align="center"
+                color="text.secondary"
+                paragraph
+              >
+                잠시만 기다려주세요...
+              </Typography>
+            </Container>
+          </Box>
+          {/* <Lottie
+                options={defaultOptions}
+                height={400}
+                width={400}
+            /> */}
+        </center>
+      );
+    case 2:
+      return <StepFinal />;
+    default:
+      return "Unknown step";
+  }
+}
 
   return (
     <ThemeProvider theme={theme}>

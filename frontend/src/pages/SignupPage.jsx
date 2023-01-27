@@ -227,7 +227,10 @@ export default function SignupPage() {
               sx={{ mt: 3, 
               mb: 2, 
               color:'white', 
-              bgcolor: '#FECD93'}}
+              bgcolor: "#FECD93",
+                        ':hover':{
+                            bgcolor: '#FECD93',
+                        },}}
               onClick={handleClick} >Signup</Button>
           </FormControl>
           <FormHelperTexts>{registerError}</FormHelperTexts>
@@ -278,7 +281,10 @@ export default function SignupPage() {
             size="large" 
             sx={{ mt:3, 
               color:'white', 
-              bgcolor: '#FECD93'}} 
+              bgcolor: "#FECD93",
+                        ':hover':{
+                            bgcolor: '#FECD93',
+                        },}} 
               href="/Loginpage" >로그인 바로가기</Button>
           </DialogContent>
 

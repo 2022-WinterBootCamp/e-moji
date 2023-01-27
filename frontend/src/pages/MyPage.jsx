@@ -19,11 +19,9 @@ import PropsTypes from 'prop-types';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import CloseIcon from '@mui/icons-material/Close';
 
-import DonePage from '../components/mypage/DonePage';
 import EditPage from "../components/mypage/EditPage";
-
-import MadePage from '../components/mypage/MadePage';
-import emojiInfo from "../components/mypage/emojiInfo";
+// import MadePage from '../components/mypage/MadePage';
+// import DonePage from '../components/mypage/DonePage';
 
 function TabPanel(props){
     const {children, value, index, ...other} = props;
@@ -78,6 +76,9 @@ export default function MyPage(){
 
     const [value, setValue] = React.useState(0);
     const [emojiData, setEmojiData] = useState([]);
+    
+    const [emojiState, setEmojiState] = useState(false);
+    
     // const [userId, setUserId] = useState(null);
     // const [emojiName, setEmojiName] = useState(null);
     // const [emojiImage, setEmojiImage] = useState([]);
@@ -99,7 +100,9 @@ export default function MyPage(){
                 return response.json();
             })
             .then((data) => {
-                console.log("data>>> ", data);
+                if(data[1] !== 'PRODUCT_DOES_NOT_EXIST'){
+                    setEmojiState(true);
+                }
                 setEmojiData(data);
                 // console.log("data[0].user_id_id>> ", data[0].user_id_id);
                 // console.log("data[0].name>> ", data[0].name);
@@ -110,9 +113,6 @@ export default function MyPage(){
                 // setEmojiName(data[0].name);
                 // setEmojiImage(data[0].image);
                 // setEmoji(data[0]);
-
-                console.log("data[0].image[0]>>> ", data[0].image[0]);
-                console.log("data[0].image[1]>>> ", data[0].image[1]);
                 // 0번째 전체 데이터 불러오기: console.log("data[0]", data[0]);
             })
         } catch(err){
@@ -140,14 +140,16 @@ export default function MyPage(){
 
                 <TabPanel value={value} index={0}>
                     {/* 내가 했던 거지롱~😜 */}
-                    <DonePage/>
+                    {/* <DonePage/> */}
                     
                 </TabPanel>
                 <TabPanel value={value} index={1} >
                     {/* 내가 만든 거지롱~😜 */}
                     <Box>
-                       <Grid container spacing={3} style={{justifyContent: 'center'}}>
-                         {emojiData&&emojiData.map((e) => (
+                        {
+                        emojiState === true
+                       ? <Grid container spacing={3} style={{justifyContent: 'center'}}>
+                         {emojiData?.map((e) => (
                           <Grid item key={e.user_id_id} xs={12} sm={6} md={4}>  
                             <Button onClick={() => setOpen(true)}>
                               <Card sx={{width: 250, textAlign:'initial'}}>
@@ -173,6 +175,8 @@ export default function MyPage(){
                           </Grid>
                         ))}
                       </Grid>
+                      : null
+                        }
                       <Modal
                         aria-labelledby="modal-title"
                         aria-describedby="modal-description"
