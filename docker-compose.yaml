@@ -144,22 +144,22 @@ services:
   #   command: sh -c "python wait_mysql.py &&
   #                   celery -A backend worker --loglevel=info"
 
-  nginx:
-    build: ./nginx
-    ports:
-      - "80:80"
-    volumes:
-      - build_folder:/var/www/frontend
-    depends_on:
-      - backend
-      - client
+  # nginx:
+  #   build: ./nginx
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - build_folder:/var/www/frontend
+  #   depends_on:
+  #     - backend
+  #     - client
   
-  client:
-    container_name: client
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend/:/frontend
-      - build_folder:/frontend/build
-    tty: true
+  # client:
+  #   container_name: client
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./frontend/:/frontend
+  #     - build_folder:/frontend/build
+  #   tty: true

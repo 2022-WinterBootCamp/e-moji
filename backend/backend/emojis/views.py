@@ -1,9 +1,10 @@
-from django.http import JsonResponse
+import json
 
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
+from django.http import JsonResponse
 
 from .serializers import EmojisSerializer, ResultMadeSerialzer, EmojisMadeSerializer
 from datetime import datetime, timedelta
@@ -68,16 +69,21 @@ def mypage(request, number):
                 
             # 해당 유저 데이터 받아오기
 
+        get_data = {}
+        data_set = {}
+        count = 0
         emojiData = Emoji.objects.filter(user_id = user_id).values()
-        userName = User.objects.filter(id = user_id).values().first()
-        print(userName['alias'])
         for i in emojiData :
-            print(i['id'])
-            print(i['name'])
-            # print(emojiData[0]['name'])
-        get_result= EmojisMadeSerializer(emojiData, many=True).data
-        print(get_result)
-        return JsonResponse(get_result, status = 200, safe=False)
+            userName = User.objects.filter(id = i['user_id_id']).values().first()
+            # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
+            get_data.setdefault('id', i['id'])
+            get_data.setdefault('name', i['name'])
+            get_data.setdefault('alias',userName['alias'])
+            data_set[count] = get_data
+            get_data = {} # 딕셔너리 초기화 후 데이터 넣기
+            count += 1
+
+        return JsonResponse(data_set, status = 200, safe=False)
         # else:
         #     return JsonResponse({"message": "Token Error"}, status=401)
     
