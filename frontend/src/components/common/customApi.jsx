@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const DOMAIN = "localhost";
 export const API_BASE_URL = `http://${DOMAIN}:8080/api/v1`;
 

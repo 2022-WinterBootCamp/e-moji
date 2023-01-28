@@ -36,17 +36,18 @@ const style = {
 
 const btnstyle = {
   borderColor: "transparent",
-  backgroundColor: "#B0B09A",
+  backgroundColor: "#FFAB47",
   color: "#ffffff",
   height: "40px",
   width: "300px",
   marginTop: "25px",
   textAlign: "center",
   fontSize: "15px",
+  fontWeight: "bold",
+  fontFamily: "Itim",
   textDecoration: "none",
   borderRadius: 4,
   p: 1,
-  fontFamily: "Itim",
   "&:hover": { backgroundColor: "#737458", color: "#ffffff" },
 };
 
@@ -133,10 +134,17 @@ const Register = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }).catch((error) => {
-        // Handle error.
-        console.log("An error occurred:", error.response);
-      });
+      })
+        .then((response) => {
+          // Handle success.
+          handleOpen();
+
+          console.log("Well done!");
+        })
+        .catch((error) => {
+          // Handle error.
+          console.log("An error occurred:", error.response);
+        });
     };
 
     const passData = data.get("passData");
@@ -197,18 +205,6 @@ const Register = () => {
   return (
     <Container>
       <ThemeProvider theme={theme}>
-        <Button href="/">
-          <Typography
-            variant="h3"
-            color="inherit"
-            fontStyle="Inter"
-            fontWeight="800"
-            position="center"
-            sx={{ mt: 3, mb: 2, height: 50, color: "#FECD93" }}
-          >
-            IGE MOJI
-          </Typography>
-        </Button>
         <Container component="main" maxWidth="xs" sx={{ mb: 25, mt: 15 }}>
           <CssBaseline />
           <Box
@@ -235,7 +231,7 @@ const Register = () => {
               color="info.contrastText"
               onSubmit={handleSubmit}
               noValidate
-              sx={{ mt: 1, width: 396, marginTop: 5 }}
+              sx={{ mt: 1, width: 396, marginTop: 5, height: 500 }}
             >
               <UserInfoTf
                 margin="normal"
@@ -308,7 +304,7 @@ const Register = () => {
                   },
                 }}
               >
-                Submit
+                Sign Up
               </Button>
 
               <Modal
@@ -322,19 +318,19 @@ const Register = () => {
                   timeout: 700,
                 }}
               >
-                <Box>
+                <Box sx={style}>
                   <Typography
                     id="modal-title"
                     variant="h4"
                     fontWeight="bold"
                     component="h1"
-                    sx={{ mb: 3, color: "#737458", fontFamily: "Itim" }}
+                    sx={{ mb: 3, color: "#FECD93", fontFamily: "Itim" }}
                   >
                     WELCOME!
                   </Typography>
 
                   <Link href="/login" sx={btnstyle}>
-                    sign in &gt;
+                    LOGIN &gt;
                   </Link>
                 </Box>
               </Modal>

@@ -11,6 +11,7 @@ export default function Header() {
     window.location.pathname === "/register"
   )
     return null;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar

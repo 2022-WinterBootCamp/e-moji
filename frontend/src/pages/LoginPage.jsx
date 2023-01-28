@@ -79,18 +79,6 @@ function Login() {
   return (
     <Container>
       <ThemeProvider theme={theme}>
-        <Button href="/">
-          <Typography
-            variant="h3"
-            color="inherit"
-            fontStyle="Inter"
-            fontWeight="800"
-            position="center"
-            sx={{ mt: 3, mb: 2, height: 50, color: "#FECD93" }}
-          >
-            IGE MOJI
-          </Typography>
-        </Button>
         <Container component="main" maxWidth="xs" sx={{ mb: 25, mt: 20 }}>
           <CssBaseline />
           <Box

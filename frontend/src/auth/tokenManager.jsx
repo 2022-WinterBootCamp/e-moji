@@ -34,7 +34,7 @@ const getAccess = () => {
 // 로컬 스토리지에 있는 토큰을 clear
 const deleteToken = (clearToken) => {
   localStorage.removeItem(clearToken);
-  window.location.replace("/mainpage");
+  window.location.replace("/");
 };
 
 export { setAccessToken, getToken, getAccess, deleteToken };

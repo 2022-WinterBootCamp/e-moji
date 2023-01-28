@@ -1,6 +1,5 @@
 import axios from "axios";
-import { API_BASE_URL } from "src/utils/constants";
-import { rs } from "src/utils/types";
+import { API_BASE_URL } from "../components/common/customApi";
 import { getToken, setAccessToken, setRefreshToken } from "./tokenManager";
 
 // access_token의 만료일을 확인
