@@ -31,9 +31,10 @@ import NewEmoji from "../components/main/NewEmoji";
 import resultData from "../components/upload/resultData";
 
 import axios from 'axios';
+import lottie from 'lottie-web';
+import emoticon from '../lotties/emoticon.json';
 
 const theme = createTheme();
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const style = {
   position: "absolute",
@@ -77,6 +78,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
+
 function getSteps() {
   return ["Upload", "Uploading", "Result"];
 }
@@ -107,12 +110,20 @@ export default function MainPage() {
   // ResultPage
   const [emojiURL, setEmojiURL] = useState("");
   const [emojiKind, setEmojiKind] = useState("");
-  const [emojiColor, setEmojiColor] = useState("");
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
+
+  // MainPage
+  // const [emojiState, setEmojiState] = useState("");
+  const [emojiData, setEmojiData] = useState("");
+  const [emojiId, setEmojiId] = useState("");
+
+  useEffect(() => {
+    getMainData();
+  }, []); 
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -166,7 +177,7 @@ export default function MainPage() {
           const formData = new FormData();
 
           formData.append("user_id", 1);
-          formData.append("emoji_id", 1);
+          formData.append("emoji_id", emojiData);
           formData.append("image", image.image_file);
 
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -183,16 +194,12 @@ export default function MainPage() {
             .then((response) => {
               setEmojiURL(response.data.image);
               console.log("response >> ", response.data);
-              // console.log("response.data.kind>>> ", response.data.kind);
-              // console.log("resultData[5].kind>>> ", resultData[5]);
               
               var i = 0;
               for(i; i<6; i++){
                 if(response.data.kind == resultData[i].kind){
                   setEmojiKind(resultData[i].kind_name);
-                  setEmojiColor(resultData[i].kind_color);
                   console.log("이 이모지의 표정은 >>> ", emojiKind);
-                  console.log("이 이모지의 표정의 색상은 >>> ", emojiColor);
                 }
               }
               setImage({
@@ -208,8 +215,6 @@ export default function MainPage() {
           alert("사진을 등록하세요!");
         }
       };
-
-
 
       return(
         <center>
@@ -312,7 +317,7 @@ export default function MainPage() {
       const formData = new FormData();
 
       formData.append("user_id", 1);
-      formData.append("emoji_id", 1);
+      formData.append("emoji_id", emojiId);
       formData.append("image", image.image_file);
 
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -329,16 +334,12 @@ export default function MainPage() {
         .then((response) => {
           setEmojiURL(response.data.image);
           console.log("response >> ", response.data);
-          // console.log("response.data.kind>>> ", response.data.kind);
-          // console.log("resultData[5].kind>>> ", resultData[5]);
           
           var i = 0;
           for(i; i<6; i++){
             if(response.data.kind == resultData[i].kind){
               setEmojiKind(resultData[i].kind_name);
-              setEmojiColor(resultData[i].kind_color);
               console.log("이 이모지의 표정은 >>> ", emojiKind);
-              console.log("이 이모지의 표정의 색상은 >>> ", emojiColor);
             }
           }
           setImage({
@@ -354,6 +355,92 @@ export default function MainPage() {
       alert("사진을 등록하세요!");
     }
   };
+  
+  async function getMainData(){
+    try{
+        fetch('http://localhost:8080/api/v1/emojis/pages/1', {
+          method: 'GET'
+        })
+        .then((response) => {
+            // console.log(response);
+            return response.json();
+        })
+        .then((data) => {
+            // if(data[1] !== 'PRODUCT_DOES_NOT_EXIST'){
+            //     setEmojiState(true);
+            // }
+            setEmojiData(data);
+
+            console.log("data>>> ",data);
+            // console.log("data[0]>>> ", data[0]);
+            // console.log("data[0].name>>> ", data[0].name);
+            // console.log("data[0].alias>>> ", data[0].alias);
+            // console.log("data[0].image>>> ", data[0].image);
+        })
+    } catch(err){
+        console.log(err)
+    }
+  }
+
+  // 메인페이지 모든 이모지 List
+  function allEmojiList(){
+    var array = [];
+    
+    for (let index = 0; index < Object.keys(emojiData).length; index++) {
+        array.push(
+            <Grid item key={emojiData[index].id} xs={12} sm={6} md={4}>
+              <Card
+                sx={{
+                  height: "fit-content",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height='250px'
+                  image={emojiData[index].image[0]}
+                  alt="random"
+                />
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      mt: "-5px"
+                    }}
+                  >
+                    {emojiData[index].name}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      color: "#ADADAD",
+                      mt: '-8px',
+                      mb: '-5px'
+                    }}
+                  >
+                    made by {emojiData[index].alias}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button variant="outlined" fullWidth onClick={() => {handleOpen()}}>
+                    Use
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            )
+            setEmojiId(emojiData[index].id);
+        }
+    return array;
+}
 
   return (
     <ThemeProvider theme={theme}>
@@ -406,7 +493,7 @@ export default function MainPage() {
                   bgcolor: '#FECD93',
               },
             }}
-            onClick={handleOpen2}
+            onClick={() => {handleOpen2()}}
           >
             새로 만들기
           </Button>
@@ -417,56 +504,7 @@ export default function MainPage() {
 
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
-          {cards.map((card) => (
-            <Grid item key={card} xs={12} sm={6} md={4}>
-              <Card
-                sx={{
-                  height: "fit-content",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height='250px'
-                  image="https://images.mypetlife.co.kr/content/uploads/2019/08/09153141/hang-niu-Tn8DLxwuDMA-unsplash-e1565933329979.jpg"
-                  alt="random"
-                />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      mt: "-5px"
-                    }}
-                  >
-                    유미의 세포들
-                  </Typography>
-                  <Typography
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      color: "#ADADAD",
-                      mt: '-8px',
-                      mb: '-5px'
-                    }}
-                  >
-                    mojji
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button variant="outlined" fullWidth onClick={handleOpen}>
-                    Use
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+          {allEmojiList()}
         </Grid>
       </Container>
 

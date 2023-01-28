@@ -1,5 +1,5 @@
 {
-  "proxy" : "http://localhost:8080",
+  "proxy": "http://localhost:8080",
   "name": "2022-winter-package",
   "version": "0.1.0",
   "private": true,
@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.3",
     "formik": "^2.2.9",
+    "lottie-web": "^5.10.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
