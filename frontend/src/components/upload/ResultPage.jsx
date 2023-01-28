@@ -15,12 +15,6 @@ export default function ResultPage() {
   const [emojiKind, setEmojiKind] = useState("");
   const [emojiColor, setEmojiColor] = useState("");
 
-  const [image] = useState({
-    image_file: "",
-    preview_URL:
-      "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxOTA1MDNfMTE2%2FMDAxNTU2ODkwMzYyMTUz.Rb3YildousZDOdnH2LyZc0lG-V9y7KFny1KJvVgpKVYg.eAvpjQVu6T1M-49NmOx-aoHJhupAxT_E6POMujp2t9Qg.JPEG.studygir%2FlTIYlTfYY_%25282%2529.jpg&type=sc960_832"
-  });
-
   // async function getData(){
   //   try{
 

@@ -107,7 +107,7 @@ export default function MyPage(){
                 // console.log("data[0].user_id_id>> ", data[0].user_id_id);
                 // console.log("data[0].name>> ", data[0].name);
                 // console.log("data[0].image>> ", data[0].image);
-                // console.log("data[0]>> ", data[0]);
+                console.log("data[0]>> ", data[0]);
 
                 // setUserId(data[0].user_id_id);
                 // setEmojiName(data[0].name);
