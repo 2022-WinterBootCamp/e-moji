@@ -16,9 +16,7 @@ const setAccessToken = (accessToken, changeToken) => {
 // 로컬 스토리지에 있는 토큰을 확인
 const getToken = () => {
   const access = localStorage.getItem("access_token");
-  const refresh = localStorage.getItem("refresh_token");
-
-  return { access, refresh };
+  return access;
 };
 
 const getAccess = () => {

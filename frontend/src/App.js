@@ -22,7 +22,7 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Route>
 
-          <Route element={<AuthRouter authAble={false} />}>
+          <Route element={<AuthRouter authAble={true} />}>
             <Route path="/mainpage" element={<RankDrawer />} />
             <Route path="/mypage" element={<MyPage />} />
           </Route>
