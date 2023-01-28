@@ -20,6 +20,7 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import CloseIcon from '@mui/icons-material/Close';
 
 import EditPage from "../components/mypage/EditPage";
+import { useEffect } from "react";
 // import MadePage from '../components/mypage/MadePage';
 // import DonePage from '../components/mypage/DonePage';
 
@@ -75,22 +76,19 @@ export default function MyPage(){
     const handleClose = () => setOpen(false);
 
     const [value, setValue] = React.useState(0);
-    const [emojiData, setEmojiData] = useState([]);
+    const [emojiData, setEmojiData] = useState({});
+    const [emojiResult, setEmojiResult] = useState({});
     
     const [emojiState, setEmojiState] = useState(false);
-    
-    // const [userId, setUserId] = useState(null);
-    // const [emojiName, setEmojiName] = useState(null);
-    // const [emojiImage, setEmojiImage] = useState([]);
-    // const [emoji, setEmoji] = useState(null);
+    const [didState, setDidState] = useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
+    // 내가 만든 이모지 Api
     async function getAllData(){
         try{
-    
             const data = {user_id: 1};
             fetch(`http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`, {
               method: 'GET'
@@ -104,21 +102,118 @@ export default function MyPage(){
                     setEmojiState(true);
                 }
                 setEmojiData(data);
-                // console.log("data[0].user_id_id>> ", data[0].user_id_id);
-                // console.log("data[0].name>> ", data[0].name);
-                // console.log("data[0].image>> ", data[0].image);
-                console.log("data[0]>> ", data[0]);
 
-                // setUserId(data[0].user_id_id);
+                console.log("data>>> ",data);
+                console.log("data[0]>>> ", data[0]);
+                console.log("data[0].name>>> ", data[0].name);
+                console.log("data[0].alias>>> ", data[0].alias);
+                console.log("data[0].image[0]>>> ", data[0].image[0]);
                 // setEmojiName(data[0].name);
                 // setEmojiImage(data[0].image);
                 // setEmoji(data[0]);
                 // 0번째 전체 데이터 불러오기: console.log("data[0]", data[0]);
+
             })
         } catch(err){
             console.log(err)
         }
     }
+
+    // 내가 헸던 이모지 Api
+    async function getDidData(){
+        try{
+            const data = {user_id: 1};
+            fetch(`http://localhost:8080/api/v1/emojis/mypage/result?user_id=${data.user_id}`, {
+              method: 'GET'
+            })
+            .then((response) => {
+                // console.log(response);
+                return response.json();
+            })
+            .then((data) => {
+                if(data[1] !== 'PRODUCT_DOES_NOT_EXIST'){
+                    setDidState(true);
+                }
+                setEmojiResult(data);
+
+                console.log("data>>> ",data);
+                console.log("data[0]>>> ", data[0]);
+                console.log("data[0].name>>> ", data[0].name);
+                console.log("data[0].alias>>> ", data[0].alias);
+                console.log("data[0].image>>> ", data[0].image);
+            })
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    // 내가 만든 이모지
+    function madeList(){
+        var array = [];
+        
+        for (let index = 0; index < Object.keys(emojiData).length; index++) {
+            array.push(
+                <Grid item key={emojiData[index].id} xs={12} sm={6} md={4}>  
+                    {/* mui의 button은 자동 대문자화가 되기 떄문에 textTransform: 'none' 설정 */}
+                    <Button onClick={() => setOpen(true)} style={{textTransform: 'none'}}>
+                        <Card sx={{width: 250, textAlign:'initial'}}>
+                            <Toolbar>
+                                <div style={{marginLeft: '-30px'}}>
+                                    <CardHeader
+                                        avatar={
+                                            <Avatar><EmojiEmotionsIcon/></Avatar>
+                                        }
+                                        title={emojiData[index].name}
+                                        subheader={`made by ${emojiData[index].alias}`}
+                                    />
+                                </div>
+                            </Toolbar>
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={emojiData[index].image[0]}
+                            />
+                        </Card>
+                    </Button>
+                </Grid>
+                )
+            }
+        return array;
+    }
+    // 내가 했던 이모지
+    function didList(){
+        var array = [];
+        
+        for (let index = 0; index < Object.keys(emojiResult).length; index++) {
+            array.push(
+                <Grid item key={emojiResult[index].id} xs={12} sm={6} md={4}>
+                    <Card sx={{width: 250, textAlign:'initial'}}>
+                            <Toolbar>
+                                <div style={{marginLeft: '-30px'}}>
+                                    <CardHeader
+                                        avatar={
+                                            <Avatar><EmojiEmotionsIcon/></Avatar>
+                                        }
+                                        title={emojiResult[index].name}
+                                        subheader={`made by ${emojiResult[index].alias}`}
+                                    />
+                                </div>
+                            </Toolbar>
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={emojiResult[index].image}
+                            />
+                        </Card>
+                </Grid>
+                )
+            }
+        return array;
+    }
+
+    useEffect(() => {
+        getDidData();
+    }, []);
 
     return(
         <Container maxWidth="md">
@@ -133,7 +228,7 @@ export default function MyPage(){
                         TabIndicatorProps={{style: {background: '#FECD93'}}}
                         textColor="inherit"
                     >
-                        <Tab label="내가 했던 이모지" {...a11yProps(0)}/>
+                        <Tab label="내가 했던 이모지" {...a11yProps(0)} onClick={getDidData}/>
                         <Tab label="내가 만든 이모지" {...a11yProps(1)} onClick={getAllData}/>
                     </Tabs>
                 </Box>
@@ -141,41 +236,85 @@ export default function MyPage(){
                 <TabPanel value={value} index={0}>
                     {/* 내가 했던 거지롱~😜 */}
                     {/* <DonePage/> */}
+                    {
+                        didState === true ?
+                            <Grid container spacing={3} direction="row" justifyContent="space-evenly" alignItems= 'c'>
+                                {didList()}
+                            </Grid>
+                        : null
+                    }
                     
                 </TabPanel>
                 <TabPanel value={value} index={1} >
                     {/* 내가 만든 거지롱~😜 */}
                     <Box>
                         {
-                        emojiState === true
-                       ? <Grid container spacing={3} style={{justifyContent: 'center'}}>
-                         {emojiData?.map((e) => (
-                          <Grid item key={e.user_id_id} xs={12} sm={6} md={4}>  
-                            <Button onClick={() => setOpen(true)}>
-                              <Card sx={{width: 250, textAlign:'initial'}}>
-                                <Toolbar>
-                                  <div style={{marginLeft: '-30px'}}>
-                                    <CardHeader
-                                      avatar={    
-                                        <Avatar><EmojiEmotionsIcon/></Avatar>
-                                      }
-                                      title={e.name}
-                                      // subheader={e.image}
-                                    />
-                                  </div>
-                                </Toolbar>
+                            emojiState === true ?
+                            <Grid container spacing={3} direction="row" justifyContent="space-evenly" alignItems= 'c'>
+                                {madeList()}
+                            </Grid>
+                            : null
+                        }
+                    </Box>
+                    {/* <Box>
+                        {
+                            emojiState === true ?
+                                <Grid container spacing={3} style={{justifyContent: 'center'}}>
+                                    {emojiData?.map((e) => (
+                                    <Grid item key={emojiData[e].id} xs={12} sm={6} md={4}>  
+                                        <Button onClick={() => setOpen(true)}>
+                                        <Card sx={{width: 250, textAlign:'initial'}}>
+                                            <Toolbar>
+                                            <div style={{marginLeft: '-30px'}}>
+                                                <CardHeader
+                                                avatar={
+                                                    <Avatar><EmojiEmotionsIcon/></Avatar>
+                                                }
+                                                title={e.name}
+                                                subheader={e.alias}
+                                                />
+                                            </div>
+                                            </Toolbar>
 
-                                <CardMedia
-                                  component="img"
-                                  height="194"
-                                  image={e.image[0]}
-                                />
-                              </Card>
-                            </Button>
-                          </Grid>
-                        ))}
-                      </Grid>
-                      : null
+                                            <CardMedia
+                                            component="img"
+                                            height="194"
+                                            image={e.image[0]}
+                                            />
+                                        </Card>
+                                        </Button>
+                                    </Grid>
+                                    ))}
+                                </Grid>
+
+                                // <Grid container spacing={3} style={{justifyContent: 'center'}}>
+                                //     {emojiData?.map((e) => (
+                                //     <Grid item key={emojiData[e].id} xs={12} sm={6} md={4}>  
+                                //         <Button onClick={() => setOpen(true)}>
+                                //         <Card sx={{width: 250, textAlign:'initial'}}>
+                                //             <Toolbar>
+                                //             <div style={{marginLeft: '-30px'}}>
+                                //                 <CardHeader
+                                //                 avatar={
+                                //                     <Avatar><EmojiEmotionsIcon/></Avatar>
+                                //                 }
+                                //                 title={e.name}
+                                //                 subheader={e.alias}
+                                //                 />
+                                //             </div>
+                                //             </Toolbar>
+
+                                //             <CardMedia
+                                //             component="img"
+                                //             height="194"
+                                //             image={e.image[0]}
+                                //             />
+                                //         </Card>
+                                //         </Button>
+                                //     </Grid>
+                                //     ))}
+                                // </Grid>
+                            : null
                         }
                       <Modal
                         aria-labelledby="modal-title"
@@ -216,9 +355,49 @@ export default function MyPage(){
                           </Typography>
                         </Box>
                       </Modal>
-                    </Box>
+                    </Box> */}
                 </TabPanel>
             </Box>
+            <Modal
+                aria-labelledby="modal-title"
+                aria-describedby="modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+            >
+                <Box sx={style}>
+                <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    fontWeight="bold"
+                    component="h2"
+                    sx={{ mb: 3, color: "#737458", fontFamily: "Itim"}}
+                >
+                    <Toolbar sx={{mt: -4}}>
+                    <div style={{width: '120%', textAlign: 'right'}}>
+                        <Typography
+                        component="h1"
+                        variant='h5'
+                        textAlign='center'
+                        color='text.primary'
+                        gutterBottom
+                        fontStyle='bold'
+                        fontFamily='Itim'
+                        >
+                        이모지 수정
+                        </Typography>
+                    </div>
+                    <div style={{width: '0%',textAlign: 'right'}}>
+                        <IconButton onClick={() => setOpen(false)}>
+                        <CloseIcon fontWeight='300'/>
+                        </IconButton>
+                    </div>
+                    </Toolbar>
+
+                    <EditPage/>
+                </Typography>
+                </Box>
+            </Modal>
         </Container>
     );
 }
