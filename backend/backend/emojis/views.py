@@ -162,3 +162,26 @@ def recent_check(self, page_number):
         return JsonResponse(serializer.data, status = 201, safe = False)
     # else:
     #     return JsonResponse({"message": "Invalid_Token"}, status=401)
+
+
+# delete 기능 구현하기
+# 삭제 기능의 리턴 값에 시리얼라이저가 필요한가? 
+# CRUD는 GET 방식
+# active=False? 
+
+# @api_view(['GET'])
+# def emoji_delete(request, user_id):
+#     emoji = Emoji.objects.get(id=user_id)
+#     emoji.delete()
+#     return Response("test ok", status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def emoji_delete(request, user_id, **kwargs):
+    if kwargs.get('user_id') is None:
+        return Response("invalid request", status=status.HTTP_400_BAD_REQUEST)
+    else:
+        user_id = kwargs.get('user_id')
+        user_object = Emoji.objects.get(id=user_id)
+        user_object.delete()
+        return Response("test ok", status=status.HTTP_200_OK)
+
