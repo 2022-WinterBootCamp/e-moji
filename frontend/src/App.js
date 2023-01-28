@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/common/Header";
 import RankDrawer from "./components/main/RankDrawer";
 import FirstPage from "./pages/FirstPage";
-import SignupPage from "./pages/SignupPage";
+import Register from "./pages/Register";
 import MyPage from "./pages/MyPage";
 
 import ExamplePage from "./pages/ExamplePage";
@@ -16,8 +16,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<FirstPage />} />
-          <Route path="/LoginPage" element={<LoginPage />} />
-          <Route path="/Signuppage" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/mainpage" element={<RankDrawer />} />
           <Route path="/mypage" element={<MyPage />} />
         </Routes>

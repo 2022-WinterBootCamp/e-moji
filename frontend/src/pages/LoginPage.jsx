@@ -1,16 +1,13 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
-  Divider,
   Button,
   CssBaseline,
   TextField,
   Box,
   Typography,
   Container,
-  Link,
   Grid,
 } from "@mui/material";
 import { setAccessToken } from "../auth/tokenManager";
@@ -32,10 +29,10 @@ const theme = createTheme({
     body1: {
       fontSize: 15,
       fontWeight: 50,
-      fontStyle: "italic",
+      fontStyle: "Inter",
     },
     Button: {
-      fontStyle: "italic",
+      fontStyle: "Inter",
     },
   },
 });
@@ -82,6 +79,18 @@ function Login() {
   return (
     <Container>
       <ThemeProvider theme={theme}>
+        <Button href="/">
+          <Typography
+            variant="h3"
+            color="inherit"
+            fontStyle="Inter"
+            fontWeight="800"
+            position="center"
+            sx={{ mt: 3, mb: 2, height: 50, color: "#FECD93" }}
+          >
+            IGE MOJI
+          </Typography>
+        </Button>
         <Container component="main" maxWidth="xs" sx={{ mb: 25, mt: 20 }}>
           <CssBaseline />
           <Box
@@ -91,18 +100,16 @@ function Login() {
               alignItems: "center",
             }}
           >
-            <Button href="/">
-              <Typography
-                variant="h2"
-                color="inherit"
-                fontStyle="Inter"
-                fontWeight="800"
-                position="center"
-                sx={{ color: "#FECD93" }}
-              >
-                IGE MOJI
-              </Typography>
-            </Button>
+            <Typography
+              variant="h2"
+              color="inherit"
+              fontStyle="Inter"
+              fontWeight="800"
+              position="center"
+              sx={{ color: "#FECD93" }}
+            >
+              Login
+            </Typography>
             <Box
               component="form"
               color="info.contrastText"
@@ -115,7 +122,7 @@ function Login() {
                 required
                 fullWidth
                 id="userId"
-                label="email"
+                label="Email"
                 name="email"
                 autoComplete="name"
                 autoFocus
@@ -126,7 +133,7 @@ function Login() {
                 required
                 fullWidth
                 name="password"
-                label="PW"
+                label="Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -152,7 +159,7 @@ function Login() {
                 }}
                 onHandle={handleClick}
               >
-                Sign In
+                Login
               </Button>
             </Box>
             <Grid container>
@@ -161,6 +168,7 @@ function Login() {
                   variant="overline"
                   fontStyle="Inter"
                   fontWeight="550"
+                  sx={{ fontWeight: "bold", fontFamily: "Itim" }}
                 >
                   {" "}
                   회원이 아니신가요?
@@ -173,7 +181,7 @@ function Login() {
                   fontStyle="Inter"
                   fontWeight="550"
                 >
-                  <Button href="/Examplepage"> 회원가입</Button>{" "}
+                  <Button href="/register"> 회원가입</Button>{" "}
                 </Typography>
               </Grid>
             </Grid>
