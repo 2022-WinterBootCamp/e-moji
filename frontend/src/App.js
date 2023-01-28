@@ -7,8 +7,7 @@ import SignupPage from "./pages/SignupPage";
 import MyPage from "./pages/MyPage";
 
 import ExamplePage from "./pages/ExamplePage";
-// import Login from "./pages/Login";
-import LoginApi from "./pages/LoginApi";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -17,7 +16,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<FirstPage />} />
-          <Route path="/LoginApi" element={<LoginApi />} />
+          <Route path="/LoginPage" element={<LoginPage />} />
           <Route path="/Signuppage" element={<SignupPage />} />
           <Route path="/mainpage" element={<RankDrawer />} />
           <Route path="/mypage" element={<MyPage />} />
