@@ -23,16 +23,16 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
-import StepOne from "../components/upload/Upload";
-import StepTwo from "../components/upload/LoadingPage";
+// import StepOne from "../components/upload/Upload";
+// import StepTwo from "../components/upload/LoadingPage";
 import StepFinal from "../components/upload/ResultPage";
 
 import NewEmoji from "../components/main/NewEmoji";
 import resultData from "../components/upload/resultData";
 
 import axios from 'axios';
-import lottie from 'lottie-web';
-import emoticon from '../lotties/emoticon.json';
+// import lottie from 'lottie-web';
+// import emoticon from '../lotties/emoticon.json';
 
 const theme = createTheme();
 
@@ -91,7 +91,7 @@ export default function MainPage() {
       "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif"
   });
 
-  let inputRef;
+  // let inputRef;
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -121,9 +121,11 @@ export default function MainPage() {
   const [emojiData, setEmojiData] = useState("");
   const [emojiId, setEmojiId] = useState("");
 
-  useEffect(() => {
-    getMainData();
-  }, []); 
+  // useEffect(() => {
+  //   return () => {
+  //     getMainData();
+  //   }
+  // }, []); 
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -157,111 +159,66 @@ export default function MainPage() {
     switch (step) {
       case 0:
         // return <StepOne />;
-      let inputRef;
-      const saveImage = (e) => {
-        e.preventDefault();
-        if (e.target.files[0]) {
-          // 새로운 이미지를 올리면 createObjectURL()을 통해 생성한 기존 URL을 폐기
-          URL.revokeObjectURL(image.preview_URL);
-          const preview_URL = URL.createObjectURL(e.target.files[0]);
-          setImage(() => ({
-            image_file: e.target.files[0],
-            preview_URL: preview_URL
-          }));
-        }
-      };
-
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (image.image_file) {
-          const formData = new FormData();
-
-          formData.append("user_id", 1);
-          formData.append("emoji_id", emojiData);
-          formData.append("image", image.image_file);
-
-          setActiveStep((prevActiveStep) => prevActiveStep + 1);
-
-          try{
-            await axios({
-              method: "POST",
-              url: "/api/v1/faces/",
-              data: formData,
-              headers: {
-                "Content-Type": "multipart/form-data",
-              }
-            })
-            .then((response) => {
-              setEmojiURL(response.data.image);
-              console.log("response >> ", response.data);
-              
-              var i = 0;
-              for(i; i<6; i++){
-                if(response.data.kind == resultData[i].kind){
-                  setEmojiKind(resultData[i].kind_name);
-                  console.log("이 이모지의 표정은 >>> ", emojiKind);
-                }
-              }
-              setImage({
-                image_file: "",
-                preview_URL:
-                  "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif"
-              });
-            });
-          }catch(err){
-            console.log(err);
+        let inputRef;
+        const saveImage = (e) => {
+          e.preventDefault();
+          if (e.target.files[0]) {
+            // 새로운 이미지를 올리면 createObjectURL()을 통해 생성한 기존 URL을 폐기
+            URL.revokeObjectURL(image.preview_URL);
+            const preview_URL = URL.createObjectURL(e.target.files[0]);
+            setImage(() => ({
+              image_file: e.target.files[0],
+              preview_URL: preview_URL
+            }));
           }
-        } else {
-          alert("사진을 등록하세요!");
-        }
-      };
-
-      return(
-        <center>
-          <form onSubmit={handleSubmit}>
-            <Typography
-                component="h1"
-                fontSize='2rem'
-                align='center'
-                color='text.primary'
-                gutterBottom
-                fontStyle='bold'
-                fontFamily='Itim'
-                sx={{mt: 3, mb: 3}}
-            >
-                지금 당신의 표정을 넣어주세요!
-            </Typography>
-            <input
-                type="file"
-                accept="image/*"
-                onChange={saveImage}
-                // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
-                // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
-                onClick={(e) => (e.target.value = null)}
-                ref={(refParam) => (inputRef = refParam)}
-                style={{ display: "none"}}
-            />
-            <div style={{/*borderStyle: 'dashed', */borderRadius: '15px'}}>
-              <Button>
-                <img style={{height: '300px', width: '520px', borderRadius: '15px'}} textAlign src={image.preview_URL} 
-                onClick={() => inputRef.click()}/>
-                </Button>
-            </div>
-    
-            <Button style={{textAlign: 'center', position: 'absolute', bottom: '50px', left: '35%', width: '200px', height: '35px',
-              backgroundColor: "#FECD93", color: '#FFFFFF', borderColor: '#FECD93',
-              borderRadius: '30px'
-              }}
-              variant="contained"
-              type="submit"
-              value="Upload"
-            >
-                Upload
-            </Button>
-            
-          </form>
-        </center>
-      );
+        };
+      
+        return(
+          <center>
+            <form onSubmit={handleResultSubmit}>
+              <Typography
+                  component="h1"
+                  fontSize='2rem'
+                  align='center'
+                  color='text.primary'
+                  gutterBottom
+                  fontStyle='bold'
+                  fontFamily='Itim'
+                  sx={{mt: 3, mb: 3}}
+              >
+                  지금 당신의 표정을 넣어주세요!
+              </Typography>
+              <input
+                  type="file"
+                  accept="image/*"
+                  onChange={saveImage}
+                  // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
+                  // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
+                  onClick={(e) => (e.target.value = null)}
+                  ref={(refParam) => (inputRef = refParam)}
+                  style={{ display: "none"}}
+              />
+              <div style={{/*borderStyle: 'dashed', */borderRadius: '15px'}}>
+                <Button>
+                  <img style={{height: '300px', width: '520px', borderRadius: '15px'}} textAlign src={image.preview_URL} 
+                  onClick={() => inputRef.click()}/>
+                  </Button>
+              </div>
+      
+              <Button style={{textAlign: 'center', position: 'absolute', bottom: '50px', left: '35%', width: '200px', height: '35px',
+                backgroundColor: "#FECD93", color: '#FFFFFF', borderColor: '#FECD93',
+                borderRadius: '30px'
+                }}
+                variant="contained"
+                type="submit"
+                value="Upload"
+              >
+                  Upload
+              </Button>
+              
+            </form>
+          </center>
+        );
 
       case 1:
         return (
@@ -337,7 +294,7 @@ export default function MainPage() {
           
           var i = 0;
           for(i; i<6; i++){
-            if(response.data.kind == resultData[i].kind){
+            if(response.data.kind === resultData[i].kind){
               setEmojiKind(resultData[i].kind_name);
               console.log("이 이모지의 표정은 >>> ", emojiKind);
             }
@@ -356,36 +313,28 @@ export default function MainPage() {
     }
   };
   
-  async function getMainData(){
-    try{
-        fetch('http://localhost:8080/api/v1/emojis/pages/1', {
-          method: 'GET'
-        })
-        .then((response) => {
-            // console.log(response);
-            return response.json();
-        })
-        .then((data) => {
-            // if(data[1] !== 'PRODUCT_DOES_NOT_EXIST'){
-            //     setEmojiState(true);
-            // }
-            setEmojiData(data);
-
-            console.log("data>>> ",data);
-            // console.log("data[0]>>> ", data[0]);
-            // console.log("data[0].name>>> ", data[0].name);
-            // console.log("data[0].alias>>> ", data[0].alias);
-            // console.log("data[0].image>>> ", data[0].image);
-        })
-    } catch(err){
-        console.log(err)
-    }
+  // 메인페이지 모든 이모지 API
+  function getMainData(e) {
+      try{
+          fetch('http://localhost:8080/api/v1/emojis/pages/1', {
+            method: 'GET'
+          })
+          .then((response) => {
+              // console.log(response);
+              return response.json();
+          })
+          .then((data) => {
+              setEmojiData(data);
+              console.log("data>>> ",data);
+          })
+      } catch(err){
+          console.log(err)
+      }
   }
 
   // 메인페이지 모든 이모지 List
   function allEmojiList(){
     var array = [];
-    
     for (let index = 0; index < Object.keys(emojiData).length; index++) {
         array.push(
             <Grid item key={emojiData[index].id} xs={12} sm={6} md={4}>
@@ -449,6 +398,7 @@ export default function MainPage() {
           bgcolor: "background.paper",
           pt: 8,
           pb: 6,
+          mt: 15,
         }}
       >
         <Container maxWidth="sm">
@@ -471,6 +421,9 @@ export default function MainPage() {
             이모지를 만들고, 다양한 이모지를 체험해보세요~
           </Typography>
         </Container>
+        <Button variant='contained' onClick={getMainData}>
+          이모지 보기
+        </Button>
       </Box>
       
       <Toolbar sx={{mt: 5}}>
@@ -503,7 +456,7 @@ export default function MainPage() {
       <Divider/>
 
       <Container sx={{ py: 8 }} maxWidth="md">
-        <Grid container spacing={4}>
+        <Grid container spacing={4} direction="row" justifyContent="space-evenly">
           {allEmojiList()}
         </Grid>
       </Container>
@@ -567,7 +520,7 @@ export default function MainPage() {
                         // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
                         // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
                         onClick={(e) => (e.target.value = null)}
-                        ref={(refParam) => (inputRef = refParam)}
+                        // ref={(refParam) => (inputRef = refParam)}
                         style={{ display: "none"}}
                       />
                       <div style={{textAlign: 'center'}}>

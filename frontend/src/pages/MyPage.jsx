@@ -104,10 +104,6 @@ export default function MyPage(){
                 setEmojiData(data);
 
                 console.log("data>>> ",data);
-                console.log("data[0]>>> ", data[0]);
-                console.log("data[0].name>>> ", data[0].name);
-                console.log("data[0].alias>>> ", data[0].alias);
-                console.log("data[0].image[0]>>> ", data[0].image[0]);
                 // setEmojiName(data[0].name);
                 // setEmojiImage(data[0].image);
                 // setEmoji(data[0]);
@@ -137,10 +133,6 @@ export default function MyPage(){
                 setEmojiResult(data);
 
                 console.log("data>>> ",data);
-                console.log("data[0]>>> ", data[0]);
-                console.log("data[0].name>>> ", data[0].name);
-                console.log("data[0].alias>>> ", data[0].alias);
-                console.log("data[0].image>>> ", data[0].image);
             })
         } catch(err){
             console.log(err)
@@ -256,106 +248,6 @@ export default function MyPage(){
                             : null
                         }
                     </Box>
-                    {/* <Box>
-                        {
-                            emojiState === true ?
-                                <Grid container spacing={3} style={{justifyContent: 'center'}}>
-                                    {emojiData?.map((e) => (
-                                    <Grid item key={emojiData[e].id} xs={12} sm={6} md={4}>  
-                                        <Button onClick={() => setOpen(true)}>
-                                        <Card sx={{width: 250, textAlign:'initial'}}>
-                                            <Toolbar>
-                                            <div style={{marginLeft: '-30px'}}>
-                                                <CardHeader
-                                                avatar={
-                                                    <Avatar><EmojiEmotionsIcon/></Avatar>
-                                                }
-                                                title={e.name}
-                                                subheader={e.alias}
-                                                />
-                                            </div>
-                                            </Toolbar>
-
-                                            <CardMedia
-                                            component="img"
-                                            height="194"
-                                            image={e.image[0]}
-                                            />
-                                        </Card>
-                                        </Button>
-                                    </Grid>
-                                    ))}
-                                </Grid>
-
-                                // <Grid container spacing={3} style={{justifyContent: 'center'}}>
-                                //     {emojiData?.map((e) => (
-                                //     <Grid item key={emojiData[e].id} xs={12} sm={6} md={4}>  
-                                //         <Button onClick={() => setOpen(true)}>
-                                //         <Card sx={{width: 250, textAlign:'initial'}}>
-                                //             <Toolbar>
-                                //             <div style={{marginLeft: '-30px'}}>
-                                //                 <CardHeader
-                                //                 avatar={
-                                //                     <Avatar><EmojiEmotionsIcon/></Avatar>
-                                //                 }
-                                //                 title={e.name}
-                                //                 subheader={e.alias}
-                                //                 />
-                                //             </div>
-                                //             </Toolbar>
-
-                                //             <CardMedia
-                                //             component="img"
-                                //             height="194"
-                                //             image={e.image[0]}
-                                //             />
-                                //         </Card>
-                                //         </Button>
-                                //     </Grid>
-                                //     ))}
-                                // </Grid>
-                            : null
-                        }
-                      <Modal
-                        aria-labelledby="modal-title"
-                        aria-describedby="modal-description"
-                        open={open}
-                        onClose={handleClose}
-                        closeAfterTransition
-                      >
-                        <Box sx={style}>
-                          <Typography
-                            id="modal-modal-title"
-                            variant="h6"
-                            fontWeight="bold"
-                            component="h2"
-                            sx={{ mb: 3, color: "#737458", fontFamily: "Itim"}}
-                          >
-                            <Toolbar sx={{mt: -4}}>
-                              <div style={{width: '120%', textAlign: 'right'}}>
-                                <Typography
-                                  component="h1"
-                                  variant='h5'
-                                  textAlign='center'
-                                  color='text.primary'
-                                  gutterBottom
-                                  fontStyle='bold'
-                                  fontFamily='Itim'
-                                >
-                                  이모지 수정
-                                </Typography>
-                              </div>
-                              <div style={{width: '0%',textAlign: 'right'}}>
-                                <IconButton onClick={() => setOpen(false)}>
-                                  <CloseIcon fontWeight='300'/>
-                                </IconButton>
-                              </div>
-                            </Toolbar>
-                            <EditPage/>
-                          </Typography>
-                        </Box>
-                      </Modal>
-                    </Box> */}
                 </TabPanel>
             </Box>
             <Modal
