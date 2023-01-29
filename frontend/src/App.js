@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import RankDrawer from "./pages/MainPage";
+import MainPage from "./pages/MainPage";
 import FirstPage from "./pages/FirstPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
