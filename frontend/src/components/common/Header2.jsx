@@ -122,15 +122,13 @@ function Header() {
             </Box>
           ) : (
             // if IsLogin is false
-            <Button>
+            <Button sx={{ marginRight: 2.5, marginBottom: 0.5 }}>
               <Link
                 href="/login"
                 sx={{
                   textDecoration: "none",
                   fontFamily: "Itim",
                   color: "#ffffff",
-                  marginRight: 2.5,
-                  marginBottom: 0.5,
                   fontSize: 25,
                   fontStyle: "bold",
                   fontWeight: "500",
