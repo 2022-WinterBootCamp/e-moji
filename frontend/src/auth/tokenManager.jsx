@@ -16,7 +16,10 @@ const setAccessToken = (accessToken, changeToken) => {
 // 로컬 스토리지에 있는 토큰을 확인
 const getToken = () => {
   const access = localStorage.getItem("access_token");
-  return access;
+  console.log("access", access);
+  if (access) {
+    return access;
+  } else return false;
 };
 
 const getAccess = () => {
@@ -31,7 +34,7 @@ const getAccess = () => {
 
 // 로컬 스토리지에 있는 토큰을 clear
 const deleteToken = (clearToken) => {
-  localStorage.removeItem(clearToken);
+  localStorage.clear(clearToken);
   window.location.replace("/");
 };
 

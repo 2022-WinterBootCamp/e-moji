@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDecodeData } from "../../auth/tokenDecoder";
+import { fetchDecodeData } from "../../auth/DecodeActions";
 import { deleteToken } from "../../auth/tokenManager";
 
 const theme = createTheme({
@@ -43,15 +43,10 @@ function Header() {
     }
   }, []);
 
-  function deleteToken() {
-    localStorage.clear();
-  }
-
   const logoutButton = (event) => {
     alert("로그아웃 완료!");
     event.preventDefault();
-    deleteToken();
-    return navigate("/");
+    deleteToken(token);
   };
 
   return (
@@ -70,18 +65,34 @@ function Header() {
           alignItems="flex-end"
           marginLeft="auto"
         >
-          <Button href="/">
-            <Typography
-              variant="h5"
-              color="inherit"
-              fontStyle="Inter"
-              fontWeight="800"
-              position="center"
-              sx={{ mb: 1, color: "#ffffff" }}
-            >
-              IGE MOJI
-            </Typography>
-          </Button>
+          {token ? (
+            <Button href="/mainpage">
+              <Typography
+                variant="h5"
+                color="inherit"
+                fontStyle="Inter"
+                fontWeight="800"
+                position="center"
+                sx={{ mb: 1, color: "#ffffff" }}
+              >
+                IGE MOJI
+              </Typography>
+            </Button>
+          ) : (
+            <Button href="/">
+              <Typography
+                variant="h5"
+                color="inherit"
+                fontStyle="Inter"
+                fontWeight="800"
+                position="center"
+                sx={{ mb: 1, color: "#ffffff" }}
+              >
+                IGE MOJI
+              </Typography>
+            </Button>
+          )}
+
           {token ? (
             // if IsLogin is true
             <div style={{ width: "80%", textAlign: "right" }}>

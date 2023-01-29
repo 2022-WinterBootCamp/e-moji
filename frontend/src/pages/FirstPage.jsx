@@ -7,6 +7,7 @@ import {
   createTheme,
   ThemeProvider,
   Typography,
+  Link,
 } from "@mui/material";
 import back from "../components/img/3.png";
 import a from "../components/img/5.png";
@@ -14,7 +15,28 @@ import front from "../components/img/6.png";
 import rainbow from "../components/img/rainbow.png";
 import heart from "../components/img/heart.png";
 
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDecodeData } from "../auth/DecodeActions";
+
 export default function FirstPage() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("access_token");
+
+  const dispatch = useDispatch();
+
+  const reduxToken = useSelector((state) => state.DecodeReducer);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchDecodeData(token));
+    } else {
+      console.log("header.js not token");
+    }
+  }, []);
+
   const theme = createTheme({
     typography: {
       subtitle1: {
@@ -134,28 +156,47 @@ export default function FirstPage() {
               >
                 지금 당신의 기분이 어떠신가요?
                 <br />
-                거울 속 당신의 표정을 이모지로 만들어 드립니다.
+                당신의 표정을 파악하여 얼굴을 이모지로 바꾸어 드립니다!
               </Typography>
             </Grid>
           </Grid>
-
-          <Button
-            variant="contained"
-            color="inherit"
-            size="large"
-            position="absolute"
-            sx={{
-              top: "-25%",
-              marginLeft: "35%",
-              color: "white",
-              right: "30%",
-              left: "20%",
-              bgcolor: "#FECD93",
-            }}
-            href="/login"
-          >
-            Click me!
-          </Button>
+          {token ? (
+            <Button
+              variant="contained"
+              color="inherit"
+              size="large"
+              position="absolute"
+              sx={{
+                top: "-25%",
+                marginLeft: "35%",
+                color: "white",
+                right: "30%",
+                left: "20%",
+                bgcolor: "#FECD93",
+              }}
+              href="/mainpage"
+            >
+              이모지 만들러 가기
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="inherit"
+              size="large"
+              position="absolute"
+              sx={{
+                top: "-25%",
+                marginLeft: "35%",
+                color: "white",
+                right: "30%",
+                left: "20%",
+                bgcolor: "#FECD93",
+              }}
+              href="/login"
+            >
+              로그인하러 가기
+            </Button>
+          )}
         </ThemeProvider>
       </Box>
     </Container>

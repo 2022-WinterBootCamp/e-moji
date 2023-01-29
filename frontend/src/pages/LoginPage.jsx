@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Button,
@@ -38,14 +37,6 @@ const theme = createTheme({
 });
 
 function Login() {
-  const userInfo = [];
-
-  const [saveInfo, setSaveInfo] = useState(userInfo);
-  const [active, setActive] = useState(false);
-  const handleClick = () => {
-    setActive(!active);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -60,7 +51,6 @@ function Login() {
         email: data.get("email"),
         password: data.get("password"),
       }).then((res) => res.data);
-      setSaveInfo(result);
       console.log("받아온 토큰", result);
 
       if (result.access_token !== null) {
@@ -145,7 +135,6 @@ function Login() {
                     color: "#838383",
                   },
                 }}
-                onHandle={handleClick}
               >
                 Login
               </Button>

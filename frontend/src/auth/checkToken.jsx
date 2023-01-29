@@ -2,10 +2,16 @@ import { getToken } from "./tokenManager";
 
 // access_token의 만료일을 확인
 const checkAccessToken = () => {
+  const isToken = getToken();
   const access_token = getToken().access;
   const token_active = true;
 
+  if (!isToken) {
+    return false;
+  }
+
   if (access_token) {
+    console.log("있는거?");
     const token = JSON.parse(access_token);
 
     const nowTime = new Date().getTime();

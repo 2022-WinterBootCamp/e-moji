@@ -9,7 +9,6 @@ const DecodeReducer = (
 ) => {
   switch (action.type) {
     case "DECODE_FAIL":
-      console.log("이건 뭐지?");
       return {
         ...state,
         success: false,

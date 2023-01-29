@@ -11,7 +11,6 @@ export const fetchDecodeData = (accessToken) => (dispatch) => {
       id: decoded.id, //반환된 데이터의 Email 값 사용
       alias: decoded.alias,
     };
-
     dispatch({
       type: "DECODE_SUCCESS",
       payload: data,

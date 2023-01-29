@@ -9,20 +9,18 @@ export function AuthRouter(authAble) {
       // 토큰이 로컬 스토리지에 없으면 로그아웃 상태이게끔
       // checkAccessToken 에서 확인을 해줌
       checkAccessToken();
-      console.log("뭔데 이거", authAble);
+      const isAble = authAble.authAble;
 
-      if (authAble === true) {
+      if (isAble === true) {
         const token = getToken().access;
         console.log("원래 토큰", token);
         if (!token) {
           window.location.replace("/login");
           alert("로그인이 필요합니다.");
         }
-      } else {
-        console.log("오류임?");
       }
     })();
-  }, [authAble]);
+  }, []);
   return <Outlet />;
 }
 
