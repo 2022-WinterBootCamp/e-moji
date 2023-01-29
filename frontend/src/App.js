@@ -7,9 +7,9 @@ import SignupPage from './pages/SignupPage';
 import Header from "./components/common/Header2";
 import MyPage from "./pages/MyPage";
 import AuthRouter from "./auth/AuthRouter";
+import Register from "./pages/Register";
 
 import ExamplePage from "./pages/ExamplePage";
-import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (

@@ -120,12 +120,9 @@ export default function MainPage() {
   // const [emojiState, setEmojiState] = useState("");
   const [emojiData, setEmojiData] = useState("");
   const [emojiId, setEmojiId] = useState("");
-  let i;
 
   useEffect(() => {
-    return () => {
-      getMainData();
-    }
+    getMainData();
   }, []); 
 
   const isStepSkipped = (step) => {
@@ -338,7 +335,6 @@ export default function MainPage() {
   function allEmojiList(){
     var array = [];
     for (let index = 0; index < Object.keys(emojiData).length; index++) {
-      i = 0;
         array.push(
             <Grid item key={emojiData[index].id} xs={12} sm={6} md={4}>
               <Card
@@ -389,7 +385,6 @@ export default function MainPage() {
               </Card>
             </Grid>
             )
-            console.log("이모지 업로드 emojiId>>>", emojiId);
         }
     return array;
 }
