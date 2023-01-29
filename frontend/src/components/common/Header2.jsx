@@ -64,16 +64,17 @@ function Header() {
           justifyContent="space-between"
           alignItems="flex-end"
           marginLeft="auto"
+          sx={{ height: "70px" }}
         >
           {token ? (
             <Button href="/mainpage">
               <Typography
-                variant="h5"
+                variant="h4"
                 color="inherit"
                 fontStyle="Inter"
                 fontWeight="800"
                 position="center"
-                sx={{ mb: 1, color: "#ffffff" }}
+                sx={{ ml: 1, mb: 1, color: "#ffffff" }}
               >
                 IGE MOJI
               </Typography>
@@ -81,12 +82,12 @@ function Header() {
           ) : (
             <Button href="/">
               <Typography
-                variant="h5"
+                variant="h4"
                 color="inherit"
                 fontStyle="Inter"
                 fontWeight="800"
                 position="center"
-                sx={{ mb: 1, color: "#ffffff" }}
+                sx={{ ml: 1, mb: 1, color: "#ffffff" }}
               >
                 IGE MOJI
               </Typography>
@@ -95,16 +96,15 @@ function Header() {
 
           {token ? (
             // if IsLogin is true
-            <div style={{ width: "80%", textAlign: "right" }}>
+            <Box sx={{ mb: 1 }}>
               <Link
-                sx={{ color: "#ffffff", fontWeight: "500" }}
+                sx={{ color: "#ffffff", fontWeight: "500", fontSize: "23px" }}
                 align="right"
-                variant="h6"
-                color="inherit"
+                variant="h5"
                 href="/mypage"
                 underline="none"
               >
-                <IconButton color="inherit" sx={{ mt: -0.6 }}>
+                <IconButton color="inherit" sx={{ ml: 1, mb: 0.6 }}>
                   <PersonIcon />
                 </IconButton>
                 {reduxToken.decodeInfo?.alias}님, 환영합니다!
@@ -113,13 +113,13 @@ function Header() {
                 <IconButton
                   onClick={logoutButton}
                   href="/"
-                  color="inherit"
-                  sx={{ ml: 2, mt: -0.6 }}
+                  style={{ color: "#ffffff" }}
+                  sx={{ ml: 1, mb: 1 }}
                 >
                   <LogoutIcon />
                 </IconButton>
               </Tooltip>
-            </div>
+            </Box>
           ) : (
             // if IsLogin is false
             <Button>
@@ -129,8 +129,9 @@ function Header() {
                   textDecoration: "none",
                   fontFamily: "Itim",
                   color: "#ffffff",
-                  margin: 1,
-                  fontSize: 20,
+                  marginRight: 2.5,
+                  marginBottom: 0.5,
+                  fontSize: 25,
                   fontStyle: "bold",
                   fontWeight: "500",
                 }}
