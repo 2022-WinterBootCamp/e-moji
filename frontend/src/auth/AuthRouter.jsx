@@ -12,7 +12,7 @@ export function AuthRouter(authAble) {
       const isAble = authAble.authAble;
 
       if (isAble === true) {
-        const token = getToken().access;
+        const token = getToken();
         console.log("원래 토큰", token);
         if (!token) {
           window.location.replace("/login");
