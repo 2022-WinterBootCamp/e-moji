@@ -93,7 +93,7 @@ export default function MainPage() {
 
   // let inputRef;
   const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
+  const [open_new, setOpen_new] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -104,8 +104,8 @@ export default function MainPage() {
         "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif"
     });
   };
-  const handleOpen2 = () => setOpen2(true);
-  const handleClose2 = () => setOpen2(false);
+  const handleOpen_new = () => setOpen_new(true);
+  const handleClose2 = () => setOpen_new(false);
 
   // ResultPage
   const [emojiURL, setEmojiURL] = useState("");
@@ -120,12 +120,13 @@ export default function MainPage() {
   // const [emojiState, setEmojiState] = useState("");
   const [emojiData, setEmojiData] = useState("");
   const [emojiId, setEmojiId] = useState("");
+  let i;
 
-  // useEffect(() => {
-  //   return () => {
-  //     getMainData();
-  //   }
-  // }, []); 
+  useEffect(() => {
+    return () => {
+      getMainData();
+    }
+  }, []); 
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -155,6 +156,7 @@ export default function MainPage() {
   //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
   // };
 
+  // Stepper 단계별
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -336,6 +338,7 @@ export default function MainPage() {
   function allEmojiList(){
     var array = [];
     for (let index = 0; index < Object.keys(emojiData).length; index++) {
+      i = 0;
         array.push(
             <Grid item key={emojiData[index].id} xs={12} sm={6} md={4}>
               <Card
@@ -379,14 +382,14 @@ export default function MainPage() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button variant="outlined" fullWidth onClick={() => {handleOpen()}}>
+                  <Button variant="outlined" fullWidth onClick={() => {handleOpen(); setEmojiId(emojiData[index].id)}}>
                     Use
                   </Button>
                 </CardActions>
               </Card>
             </Grid>
             )
-            setEmojiId(emojiData[index].id);
+            console.log("이모지 업로드 emojiId>>>", emojiId);
         }
     return array;
 }
@@ -421,9 +424,6 @@ export default function MainPage() {
             이모지를 만들고, 다양한 이모지를 체험해보세요~
           </Typography>
         </Container>
-        <Button variant='contained' onClick={getMainData}>
-          이모지 보기
-        </Button>
       </Box>
       
       <Toolbar sx={{mt: 5}}>
@@ -446,7 +446,7 @@ export default function MainPage() {
                   bgcolor: '#FECD93',
               },
             }}
-            onClick={() => {handleOpen2()}}
+            onClick={() => {handleOpen_new()}}
           >
             새로 만들기
           </Button>
@@ -587,7 +587,7 @@ export default function MainPage() {
       <Modal
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
-        open={open2}
+        open={open_new}
         onClose={handleClose2}
         closeAfterTransition
       >
@@ -615,7 +615,7 @@ export default function MainPage() {
                 </Typography>
               </div>
               <div style={{width: '0%',textAlign: 'right'}}>
-                <IconButton onClick={() => setOpen2(false)}>
+                <IconButton onClick={() => setOpen_new(false)}>
                   <CloseIcon fontWeight='300'/>
                 </IconButton>
               </div>
