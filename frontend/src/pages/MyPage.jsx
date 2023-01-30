@@ -107,7 +107,7 @@ export default function MyPage() {
         return response.data;
       })
       .then((data) => {
-        if (data[1] !== "PRODUCT_DOES_NOT_EXIST") {
+        if (data[myUserID] !== "PRODUCT_DOES_NOT_EXIST") {
           setEmojiState(true);
         }
         setEmojiData(data);
@@ -138,7 +138,7 @@ export default function MyPage() {
           return response.json();
         })
         .then((data) => {
-          if (data[1] !== "PRODUCT_DOES_NOT_EXIST") {
+          if (data[myUserID] !== "PRODUCT_DOES_NOT_EXIST") {
             setDidState(true);
           }
           setEmojiResult(data);
@@ -160,52 +160,14 @@ export default function MyPage() {
   function madeList() {
     var array = [];
 
-    if (emojiData !== "PRODUCT_DOES_NOT_EXIST") {
-      for (let index = 0; index < Object.keys(emojiData).length; index++) {
-        array.push(
-          <Grid item key={emojiData[index].id} xs={12} sm={6} md={4}>
-            {/* mui의 button은 자동 대문자화가 되기 떄문에 textTransform: 'none' 설정 */}
-            <Button
-              onClick={() => setOpen(true)}
-              style={{ textTransform: "none" }}
-            >
-              <Card sx={{ width: 250, textAlign: "initial" }}>
-                <Toolbar>
-                  <div style={{ marginLeft: "-30px" }}>
-                    <CardHeader
-                      avatar={
-                        <Avatar>
-                          <EmojiEmotionsIcon />
-                        </Avatar>
-                      }
-                      title={emojiData[index].name}
-                      subheader={`made by ${emojiData[index].alias}`}
-                    />
-                  </div>
-                </Toolbar>
-                <CardMedia
-                  component="img"
-                  height="194"
-                  image={emojiData[index].image[0]}
-                />
-              </Card>
-            </Button>
-          </Grid>
-        );
-      }
-    } else {
-      <Grid></Grid>;
-    }
-    return array;
-  }
-
-  // 내가 했던 이모지
-  function didList() {
-    var array = [];
-    if (emojiResult[myUserID] !== "PRODUCT_DOES_NOT_EXIST") {
-      for (let index = 0; index < Object.keys(emojiResult).length; index++) {
-        array.push(
-          <Grid item key={emojiResult[index].id} xs={12} sm={6} md={4}>
+    for (let index = 0; index < Object.keys(emojiData).length; index++) {
+      array.push(
+        <Grid item key={emojiData[index].id} xs={12} sm={6} md={4}>
+          {/* mui의 button은 자동 대문자화가 되기 떄문에 textTransform: 'none' 설정 */}
+          <Button
+            onClick={() => setOpen(true)}
+            style={{ textTransform: "none" }}
+          >
             <Card sx={{ width: 250, textAlign: "initial" }}>
               <Toolbar>
                 <div style={{ marginLeft: "-30px" }}>
@@ -215,22 +177,52 @@ export default function MyPage() {
                         <EmojiEmotionsIcon />
                       </Avatar>
                     }
-                    title={emojiResult[index].name}
-                    subheader={`made by ${emojiResult[index].alias}`}
+                    title={emojiData[index].name}
+                    subheader={`made by ${emojiData[index].alias}`}
                   />
                 </div>
               </Toolbar>
               <CardMedia
                 component="img"
                 height="194"
-                image={emojiResult[index].image}
+                image={emojiData[index].image[0]}
               />
             </Card>
-          </Grid>
-        );
-      }
-    } else {
-      <Grid></Grid>;
+          </Button>
+        </Grid>
+      );
+    }
+    return array;
+  }
+
+  // 내가 했던 이모지
+  function didList() {
+    var array = [];
+    for (let index = 0; index < Object.keys(emojiResult).length; index++) {
+      array.push(
+        <Grid item key={emojiResult[index].id} xs={12} sm={6} md={4}>
+          <Card sx={{ width: 250, textAlign: "initial" }}>
+            <Toolbar>
+              <div style={{ marginLeft: "-30px" }}>
+                <CardHeader
+                  avatar={
+                    <Avatar>
+                      <EmojiEmotionsIcon />
+                    </Avatar>
+                  }
+                  title={emojiResult[index].name}
+                  subheader={`made by ${emojiResult[index].alias}`}
+                />
+              </div>
+            </Toolbar>
+            <CardMedia
+              component="img"
+              height="194"
+              image={emojiResult[index].image}
+            />
+          </Card>
+        </Grid>
+      );
     }
     return array;
   }
