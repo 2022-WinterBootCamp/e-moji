@@ -1,15 +1,15 @@
-import React, {useState} from "react";
-import { 
-  Box, 
-  Button, 
-  Container, 
-  Typography 
-} from "@mui/material";
+import React, { useState } from "react";
+import { Box, Button, Container, Typography } from "@mui/material";
 
-import resultData from './resultData';
+import resultData from "./resultData";
 import { useEffect } from "react";
 
+import { getAccess } from "../../auth/tokenManager";
+import { ReduxModule } from "../../auth/ReduxModule";
+
 export default function ResultPage() {
+  const what = getAccess();
+  const userIdtoRedux = ReduxModule().decodeInfo?.id;
   let inputRef;
   const [emojiURL, setEmojiURL] = useState("");
   const [emojiKind, setEmojiKind] = useState("");
@@ -53,29 +53,32 @@ export default function ResultPage() {
   // }
 
   useEffect(() => {
-    try{
-        const data = {user_id: 1};
-        fetch(`http://localhost:8080/api/v1/faces/`, {
-          method: 'GET'
-        })
+    try {
+      const data = { user_id: userIdtoRedux };
+      fetch(`http://localhost:8080/api/v1/faces/`, {
+        method: "GET",
+      })
         .then((response) => {
-            return response.json();
+          return response.json();
         })
         .then((data) => {
-            setEmojiURL(data.image);
-            
-            var i = 0;
-            for(i; i<6 ; i++){
-              if(data.kind == resultData[i].kind){
-                setEmojiKind(resultData[i].kind_name);
-                setEmojiColor(resultData[i].kind_color);
-                console.log("이 이모지의 표정은 >>> ", resultData[i].kind_name);
-                console.log("이 이모지의 표정의 색상은 >>> ", resultData[i].kind_color);
-              }
+          setEmojiURL(data.image);
+
+          var i = 0;
+          for (i; i < 6; i++) {
+            if (data.kind == resultData[i].kind) {
+              setEmojiKind(resultData[i].kind_name);
+              setEmojiColor(resultData[i].kind_color);
+              console.log("이 이모지의 표정은 >>> ", resultData[i].kind_name);
+              console.log(
+                "이 이모지의 표정의 색상은 >>> ",
+                resultData[i].kind_color
+              );
             }
-        })
-    } catch(err){
-        console.log(err)
+          }
+        });
+    } catch (err) {
+      console.log(err);
     }
   });
 
@@ -113,21 +116,31 @@ export default function ResultPage() {
             // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
             onClick={(e) => (e.target.value = null)}
             ref={(refParam) => (inputRef = refParam)}
-            style={{ display: "none"}}
+            style={{ display: "none" }}
           />
-          <div style={{textAlign: 'center'}}>
-              <img style={{height: '350px', width: '500px', borderRadius: '15px'}} src={emojiURL}/>
+          <div style={{ textAlign: "center" }}>
+            <img
+              style={{ height: "350px", width: "500px", borderRadius: "15px" }}
+              src={emojiURL}
+            />
           </div>
 
-          <Button style={{textAlign: 'center', position: 'absolute', bottom: '50px', left: '35%', width: '200px'}}
+          <Button
+            style={{
+              textAlign: "center",
+              position: "absolute",
+              bottom: "50px",
+              left: "35%",
+              width: "200px",
+            }}
             variant="contained"
             sx={{
               bgcolor: "#FECD93",
-              ':hover':{
-                  bgcolor: '#FECD93',
+              ":hover": {
+                bgcolor: "#FECD93",
               },
-              borderRadius: '30px',
-            }}  
+              borderRadius: "30px",
+            }}
             type="submit"
           >
             저장하기

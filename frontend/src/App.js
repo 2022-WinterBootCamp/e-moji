@@ -3,13 +3,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import FirstPage from "./pages/FirstPage";
 import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
 import Header from "./components/common/Header2";
 import MyPage from "./pages/MyPage";
 import AuthRouter from "./auth/AuthRouter";
 import Register from "./pages/Register";
-
-import ExamplePage from "./pages/ExamplePage";
 
 function App() {
   return (
