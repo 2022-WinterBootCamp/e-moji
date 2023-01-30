@@ -59,9 +59,9 @@ def emoji_create(request):
 # else :
 #    return JsonResponse({"message": "Invalid_User"}, status=401)
 
-def emoji_check(request) :
-    emoji_id = request.GET.get('number', None)
-    emojiData = Emoji.objects.get(id = emoji_id)
+@api_view(['GET'])
+def emoji_check(request, emoji_number) :
+    emojiData = Emoji.objects.get(id = emoji_number)
     result = EmojisSerializer(emojiData).data
     return JsonResponse(result, status = 201)
 
