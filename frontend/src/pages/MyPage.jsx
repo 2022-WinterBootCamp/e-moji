@@ -95,30 +95,38 @@ export default function MyPage() {
 
   const myUserID = userIdtoRedux;
 
-  const getAllData = async () => {
-    const data = { user_id: myUserID };
-    await Api.get(`/emojis/mypage/upload?user_id=${data.user_id}`, {
-      headers: {
-        Authorization: `${what.value}`,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        return response.data;
-      })
-      .then((data) => {
-        if (data[myUserID] !== "PRODUCT_DOES_NOT_EXIST") {
-          setEmojiState(true);
+  async function getAllData() {
+    try {
+      const data = { user_id: myUserID };
+      fetch(
+        `http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `${what.value}`,
+          },
         }
-        setEmojiData(data);
+      )
+        .then((response) => {
+          console.log(response);
+          return response.json();
+        })
+        .then((data) => {
+          if (data[myUserID] !== "PRODUCT_DOES_NOT_EXIST") {
+            setEmojiState(true);
+          }
+          setEmojiData(data);
 
-        console.log("data>>> ", data);
-        // setEmojiName(data[0].name);
-        // setEmojiImage(data[0].image);
-        // setEmoji(data[0]);
-        // 0번째 전체 데이터 불러오기: console.log("data[0]", data[0]);
-      });
-  };
+          console.log("data>>> ", data);
+          // setEmojiName(data[0].name);
+          // setEmojiImage(data[0].image);
+          // setEmoji(data[0]);
+          // 0번째 전체 데이터 불러오기: console.log("data[0]", data[0]);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // 내가 헸던 이모지 Api
   async function getDidData() {
