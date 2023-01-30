@@ -20,6 +20,19 @@ class EmojisMadeSerializer(serializers.Serializer):
 class ResultMadeSerialzer(serializers.ModelSerializer) :
     class Meta:
         model = Result
+        fields = ("image",)
+
+
+class EmojisSerializer(serializers.ModelSerializer):
+
+    user_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Emoji
+        fields = ('user_id', 'name', 'user_count')
+
+        def get_user_count(self, obj):
+            return obj.image.count()
         fields = ("id","image",)
 
 class AllDataSerializer(serializers.Serializer) :
