@@ -188,6 +188,7 @@ export default function NewEmoji() {
           data: formData,
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `${what.value}`,
           },
         }).then((response) => {
           setEmojiState(true);

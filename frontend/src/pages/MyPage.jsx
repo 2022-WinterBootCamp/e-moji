@@ -23,6 +23,7 @@ import EditPage from "../components/mypage/EditPage";
 import { useEffect } from "react";
 import { getAccess } from "../auth/tokenManager";
 import { ReduxModule } from "../auth/ReduxModule";
+import Api from "../components/common/customApi";
 // import MadePage from '../components/mypage/MadePage';
 // import DonePage from '../components/mypage/DonePage';
 
@@ -91,43 +92,38 @@ export default function MyPage() {
   };
 
   // 내가 만든 이모지 Api
-  async function getAllData() {
-    try {
-      const data = { user_id: userIdtoRedux };
-      fetch(
-        `http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `${what.value}`,
-          },
-        }
-      )
-        .then((response) => {
-          // console.log(response);
-          return response.json();
-        })
-        .then((data) => {
-          if (data[1] !== "PRODUCT_DOES_NOT_EXIST") {
-            setEmojiState(true);
-          }
-          setEmojiData(data);
 
-          console.log("data>>> ", data);
-          // setEmojiName(data[0].name);
-          // setEmojiImage(data[0].image);
-          // setEmoji(data[0]);
-          // 0번째 전체 데이터 불러오기: console.log("data[0]", data[0]);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const myUserID = userIdtoRedux;
+
+  const getAllData = async () => {
+    const data = { user_id: myUserID };
+    await Api.get(`/emojis/mypage/upload?user_id=${data.user_id}`, {
+      headers: {
+        Authorization: `${what.value}`,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        return response.data;
+      })
+      .then((data) => {
+        if (data[1] !== "PRODUCT_DOES_NOT_EXIST") {
+          setEmojiState(true);
+        }
+        setEmojiData(data);
+
+        console.log("data>>> ", data);
+        // setEmojiName(data[0].name);
+        // setEmojiImage(data[0].image);
+        // setEmoji(data[0]);
+        // 0번째 전체 데이터 불러오기: console.log("data[0]", data[0]);
+      });
+  };
 
   // 내가 헸던 이모지 Api
   async function getDidData() {
     try {
-      const data = { user_id: userIdtoRedux };
+      const data = { user_id: myUserID };
       fetch(
         `http://localhost:8080/api/v1/emojis/mypage/result?user_id=${data.user_id}`,
         {
@@ -153,6 +149,12 @@ export default function MyPage() {
       console.log(err);
     }
   }
+
+  useEffect(() => {
+    if (what !== "") {
+      getDidData();
+    }
+  }, [myUserID]);
 
   // 내가 만든 이모지
   function madeList() {
@@ -224,10 +226,6 @@ export default function MyPage() {
     }
     return array;
   }
-
-  useEffect(() => {
-    getDidData();
-  }, []);
 
   return (
     <Container maxWidth="md">
