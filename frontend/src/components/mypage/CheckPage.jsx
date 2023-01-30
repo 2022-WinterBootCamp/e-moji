@@ -7,11 +7,12 @@ import {
   Box,
   TextField,
   Modal,
+  IconButton,
 } from '@mui/material';
 import axios from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function EditPage() {
-  let inputRef_profile, inputRef_angry, inputRef_disgust, inputRef_fear, inputRef_happy, inputRef_sad, inputRef_surprised;
+export default function CheckPage() {
   const [disable, setDisable] = React.useState(true);
 
   const [emoji_name, setEmojiName] = useState("");
@@ -44,88 +45,6 @@ export default function EditPage() {
     preview_URL: "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif"
   });
 
-  const nameOnChange = (e) => {
-    setEmojiName(e.target.value);
-  }
-  const angryOnChange = (e) => {
-    e.preventDefault();
-    if(e.target.files[0]){
-      URL.revokeObjectURL(emoji_angry.preview_URL);
-      const preview_URL = URL.createObjectURL(e.target.files[0]);
-      setEmoji_angry(() => ({
-        image_file: e.target.files[0],
-        preview_URL: preview_URL
-      }));
-    }
-  }
-  const disgustOnChange = (e) => {
-    e.preventDefault();
-    if(e.target.files[0]){
-      URL.revokeObjectURL(emoji_disgust.preview_URL);
-      const preview_URL = URL.createObjectURL(e.target.files[0]);
-      setEmoji_disgust(() => ({
-        image_file: e.target.files[0],
-        preview_URL: preview_URL
-      }));
-    }
-  }
-  const fearOnChange = (e) => {
-    e.preventDefault();
-    if(e.target.files[0]){
-      URL.revokeObjectURL(emoji_fear.preview_URL);
-      const preview_URL = URL.createObjectURL(e.target.files[0]);
-      setEmoji_fear(() => ({
-        image_file: e.target.files[0],
-        preview_URL: preview_URL
-      }));
-    }
-  }
-  const happyOnChange = (e) => {
-    e.preventDefault();
-    if(e.target.files[0]){
-      URL.revokeObjectURL(emoji_happy.preview_URL);
-      const preview_URL = URL.createObjectURL(e.target.files[0]);
-      setEmoji_happy(() => ({
-        image_file: e.target.files[0],
-        preview_URL: preview_URL
-      }));
-    }
-  }
-  const sadOnChange = (e) => {
-    e.preventDefault();
-    if(e.target.files[0]){
-      URL.revokeObjectURL(emoji_sad.preview_URL);
-      const preview_URL = URL.createObjectURL(e.target.files[0]);
-      setEmoji_sad(() => ({
-        image_file: e.target.files[0],
-        preview_URL: preview_URL
-      }));
-    }
-  }
-  const surprisedOnChange = (e) => {
-    e.preventDefault();
-    if(e.target.files[0]){
-      URL.revokeObjectURL(emoji_surprised.preview_URL);
-      const preview_URL = URL.createObjectURL(e.target.files[0]);
-      setEmoji_surpised(() => ({
-        image_file: e.target.files[0],
-        preview_URL: preview_URL
-      }));
-    }
-  }
-
-  const handleFileOnChange = (e) => {
-    e.preventDefault();
-    if(e.target.files[0]){
-      URL.revokeObjectURL(emoji_profile.preview_URL);
-      const preview_URL = URL.createObjectURL(e.target.files[0]);
-      setEmojiProfile(() => ({
-        image_file: e.target.files[0],
-        preview_URL: preview_URL
-      }));
-    }
-  }
-
   const handleSubmit = async(e) => {
     e.preventDefault();
     if(emoji_profile.image_file&&emoji_angry.image_file&&emoji_disgust.image_file&&emoji_fear.image_file&&emoji_happy.image_file&&emoji_sad.image_file&&emoji_surprised.image_file){
@@ -133,13 +52,6 @@ export default function EditPage() {
 
       formData.append("user_id", 1);
       formData.append("name", emoji_name);
-      formData.append("image", emoji_profile.image_file);
-      formData.append("image1", emoji_angry.image_file);
-      formData.append("image2", emoji_disgust.image_file);
-      formData.append("image3", emoji_fear.image_file);
-      formData.append("image4", emoji_happy.image_file);
-      formData.append("image5", emoji_sad.image_file);
-      formData.append("image6", emoji_surprised.image_file);
       try{
         await axios({
           method: "GET",
@@ -186,7 +98,6 @@ export default function EditPage() {
               이모지 이름
           </Typography>
           <TextField
-            disabled={disable}
             required
             id="outlined-required"
             size="small"
@@ -194,7 +105,6 @@ export default function EditPage() {
             sx={{ml: 3, width: 270}}
             type="text" 
             value={emoji_name} 
-            onChange={nameOnChange} 
             label="이모지 이름을 입력"
           />
         </Toolbar>
@@ -207,14 +117,12 @@ export default function EditPage() {
               프로필 사진
           </Typography>
           <input 
-            type="file" onChange={handleFileOnChange}
+            type="file"
             onClick={(e) => (e.target.value = null)}
-            ref={(refParam) => (inputRef_profile = refParam)}
             style={{ display: "none"}}
           />
-          <Button disabled={disable}>
-            <img style={{height: '140px', width: '270px', borderRadius: '15px'}} src={emoji_profile.preview_URL} 
-            onClick={() => inputRef_profile.click()}/>
+          <Button>
+            <img style={{height: '140px', width: '270px', borderRadius: '15px'}} src={emoji_profile.preview_URL} />
           </Button>
         </Toolbar>
         <Divider color="#FECD93" sx={{mt: '10px'}}/>
@@ -225,14 +133,12 @@ export default function EditPage() {
                 화남 😡
             </Typography>
             <input 
-              type="file" onChange={angryOnChange} 
+              type="file"
               onClick={(e) => (e.target.value = null)}
-              ref={(refParam) => (inputRef_angry = refParam)}
               style={{ display: "none"}}
             />
             <Button disabled={disable}>
-              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_angry.preview_URL} 
-              onClick={() => inputRef_angry.click()}/>
+              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_angry.preview_URL}/>
             </Button>
           </Box>
 
@@ -241,14 +147,12 @@ export default function EditPage() {
                 혐오 🤢
             </Typography>
             <input 
-              type="file" onChange={disgustOnChange} 
+              type="file"
               onClick={(e) => (e.target.value = null)}
-              ref={(refParam) => (inputRef_disgust = refParam)}
               style={{ display: "none"}}
             />
-            <Button disabled={disable}>
-              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_disgust.preview_URL} 
-              onClick={() => inputRef_disgust.click()}/>
+            <Button>
+              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_disgust.preview_URL}/>
             </Button>
           </Box>
 
@@ -256,15 +160,8 @@ export default function EditPage() {
             <Typography style={{textAlign: 'center'}}>
                 두려움 😬
             </Typography>
-            <input 
-              type="file" onChange={fearOnChange} 
-              onClick={(e) => (e.target.value = null)}
-              ref={(refParam) => (inputRef_fear = refParam)}
-              style={{ display: "none"}}
-            />
             <Button disabled={disable}>
-              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_fear.preview_URL} 
-              onClick={() => inputRef_fear.click()}/>
+              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_fear.preview_URL}/>
             </Button>
           </Box>
         </Toolbar>
@@ -274,14 +171,12 @@ export default function EditPage() {
                 기쁨 😁
             </Typography>
             <input 
-              type="file" onChange={happyOnChange} 
+              type="file"
               onClick={(e) => (e.target.value = null)}
-              ref={(refParam) => (inputRef_happy = refParam)}
               style={{ display: "none"}}
             />
-            <Button disabled={disable}>
-              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_happy.preview_URL} 
-              onClick={() => inputRef_happy.click()}/>
+            <Button>
+              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_happy.preview_URL}/>
             </Button>
           </Box>
           <Box style={{width: '210px', margin: '10px'}}>
@@ -289,14 +184,12 @@ export default function EditPage() {
                 슬픔 😭
             </Typography>
             <input 
-              type="file" onChange={sadOnChange} 
+              type="file"
               onClick={(e) => (e.target.value = null)}
-              ref={(refParam) => (inputRef_sad = refParam)}
               style={{ display: "none"}}
             />
-            <Button disabled={disable}>
-              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_sad.preview_URL} 
-              onClick={() => inputRef_sad.click()}/>
+            <Button>
+              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_sad.preview_URL} />
             </Button>
           </Box>
           <Box style={{width: '210px', margin: '10px'}}>
@@ -304,28 +197,27 @@ export default function EditPage() {
                 놀람 🫢
             </Typography>
             <input 
-              type="file" onChange={surprisedOnChange}
+              type="file"
               onClick={(e) => (e.target.value = null)}
-              ref={(refParam) => (inputRef_surprised = refParam)}
               style={{ display: "none"}}
             />
             <Button disabled={disable}>
-              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_surprised.preview_URL} 
-              onClick={() => inputRef_surprised.click()}/>
+              <img style={{height: '140px', width: '210px', borderRadius: '15px'}} src={emoji_surprised.preview_URL}/>
             </Button>
           </Box>
         </Toolbar>
         <Divider color="#FECD93" />
         <div style={{marginTop: '20px'}}>
-          <Button style={{textAlign: 'center', position: 'absolute', bottom: '25px', left: '35%', width: '200px'}}
-              variant="contained"
-              sx={{
-                  bgcolor: "#FECD93",
-                  ':hover':{
-                      bgcolor: '#FECD93',
-                  }, borderRadius: '30px',
-              }} onClick={() => setDisable(!disable)}>
-            {disable ? "수정하기" : "수정완료"}
+          <Button style={{textAlign: 'center', position: 'absolute', bottom: '25px', right: '5%', width: '200px', }}
+            variant="contained"
+            sx={{
+              bgcolor: "red",
+              ':hover':{
+                  bgcolor: "red",
+              }, borderRadius: '30px',
+          }}>
+            <DeleteIcon/>
+            이모지 삭제하기
           </Button>
         </div>
       </form>

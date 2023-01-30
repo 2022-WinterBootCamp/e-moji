@@ -19,8 +19,10 @@ import PropsTypes from 'prop-types';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import CloseIcon from '@mui/icons-material/Close';
 
-import EditPage from "../components/mypage/EditPage";
+import CheckPage from "../components/mypage/CheckPage";
 import { useEffect } from "react";
+import Lottie from 'lottie-react';
+import animationData from '../lotties/empty.json';
 // import MadePage from '../components/mypage/MadePage';
 // import DonePage from '../components/mypage/DonePage';
 
@@ -28,7 +30,7 @@ function TabPanel(props){
     const {children, value, index, ...other} = props;
 
     return(
-        <div
+        <Box
             role="tabpanel"
             hidden = {value !== index}
             id= {`simple-tabpannel-${index}`}
@@ -40,7 +42,7 @@ function TabPanel(props){
                     <Typography>{children}</Typography>
                 </Box>
             )}
-        </div>
+        </Box>
     );
 }
 
@@ -145,12 +147,14 @@ export default function MyPage(){
         
         for (let index = 0; index < Object.keys(emojiData).length; index++) {
             array.push(
-                <Grid item key={emojiData[index].id} xs={12} sm={6} md={4}>  
+                <Grid item key={emojiData[index].id} xs={12} sm={6} md={4} 
+                    sx={{ display: "flex", flexDirection: "column" }}
+                >  
                     {/* mui의 button은 자동 대문자화가 되기 떄문에 textTransform: 'none' 설정 */}
-                    <Button onClick={() => setOpen(true)} style={{textTransform: 'none'}}>
-                        <Card sx={{width: 250, textAlign:'initial'}}>
+                    <Button onClick={() => setOpen(true)} style={{textTransform: 'none'}} >
+                        <Card >
                             <Toolbar>
-                                <div style={{marginLeft: '-30px'}}>
+                                <Box style={{marginLeft: '-30px'}}>
                                     <CardHeader
                                         avatar={
                                             <Avatar><EmojiEmotionsIcon/></Avatar>
@@ -158,7 +162,7 @@ export default function MyPage(){
                                         title={emojiData[index].name}
                                         subheader={`made by ${emojiData[index].alias}`}
                                     />
-                                </div>
+                                </Box>
                             </Toolbar>
                             <CardMedia
                                 component="img"
@@ -179,24 +183,28 @@ export default function MyPage(){
         for (let index = 0; index < Object.keys(emojiResult).length; index++) {
             array.push(
                 <Grid item key={emojiResult[index].id} xs={12} sm={6} md={4}>
-                    <Card sx={{width: 250, textAlign:'initial'}}>
-                            <Toolbar>
-                                <div style={{marginLeft: '-30px'}}>
-                                    <CardHeader
-                                        avatar={
-                                            <Avatar><EmojiEmotionsIcon/></Avatar>
-                                        }
-                                        title={emojiResult[index].name}
-                                        subheader={`made by ${emojiResult[index].alias}`}
-                                    />
-                                </div>
-                            </Toolbar>
-                            <CardMedia
-                                component="img"
-                                height="194"
-                                image={emojiResult[index].image}
-                            />
-                        </Card>
+                    <Card sx={{
+                        height: "fit-content",
+                        display: "flex",
+                        flexDirection: "column",
+                    }}>
+                        <Toolbar>
+                            <Box style={{marginLeft: '-30px'}}>
+                                <CardHeader
+                                    avatar={
+                                        <Avatar><EmojiEmotionsIcon/></Avatar>
+                                    }
+                                    title={emojiResult[index].name}
+                                    subheader={`made by ${emojiResult[index].alias}`}
+                                />
+                            </Box>
+                        </Toolbar>
+                        <CardMedia
+                            component="img"
+                            height="194"
+                            image={emojiResult[index].image}
+                        />
+                    </Card>
                 </Grid>
                 )
             }
@@ -228,13 +236,24 @@ export default function MyPage(){
                 <TabPanel value={value} index={0}>
                     {/* 내가 했던 거지롱~😜 */}
                     {/* <DonePage/> */}
-                    {
-                        didState === true ?
-                            <Grid container spacing={3} direction="row" justifyContent="space-evenly" alignItems= 'c'>
-                                {didList()}
-                            </Grid>
-                        : null
-                    }
+                    <Box>
+                        {
+                            didState === true ?
+                                <Grid container spacing={4} direction="row" justifyContent="space-evenly">
+                                    {didList()}
+                                </Grid>
+                            : 
+                            <Box>
+                                <Lottie 
+                                    animationData={animationData}
+                                    style={{height: '200px', marginTop: 200}}
+                                />
+                                <Typography textAlign="center" style={{marginTop: -15, color: 'gray'}}>
+                                    내가 했던 이모지가 존재하지 않습니다.
+                                </Typography>
+                            </Box>
+                        }
+                    </Box>
                     
                 </TabPanel>
                 <TabPanel value={value} index={1} >
@@ -242,10 +261,19 @@ export default function MyPage(){
                     <Box>
                         {
                             emojiState === true ?
-                            <Grid container spacing={3} direction="row" justifyContent="space-evenly" alignItems= 'c'>
-                                {madeList()}
-                            </Grid>
-                            : null
+                                <Grid container spacing={4} direction="row" justifyContent="space-evenly" alignItems= 'c'>
+                                    {madeList()}
+                                </Grid>
+                            : 
+                            <Box>
+                                <Lottie 
+                                animationData={animationData}
+                                style={{height: '200px', marginTop: 200}}
+                                />
+                                <Typography textAlign="center" style={{marginTop: -15}}>
+                                    내가 만든 이모지가 존재하지 않습니다.
+                                </Typography>
+                            </Box>
                         }
                     </Box>
                 </TabPanel>
@@ -262,31 +290,29 @@ export default function MyPage(){
                     id="modal-modal-title"
                     variant="h6"
                     fontWeight="bold"
-                    component="h2"
                     sx={{ mb: 3, color: "#737458", fontFamily: "Itim"}}
                 >
                     <Toolbar sx={{mt: -4}}>
-                    <div style={{width: '120%', textAlign: 'right'}}>
-                        <Typography
-                        component="h1"
-                        variant='h5'
-                        textAlign='center'
-                        color='text.primary'
-                        gutterBottom
-                        fontStyle='bold'
-                        fontFamily='Itim'
-                        >
-                        이모지 수정
-                        </Typography>
-                    </div>
-                    <div style={{width: '0%',textAlign: 'right'}}>
-                        <IconButton onClick={() => setOpen(false)}>
-                        <CloseIcon fontWeight='300'/>
-                        </IconButton>
-                    </div>
+                        <Box style={{width: '120%', textAlign: 'right'}}>
+                            <Typography
+                                variant='h5'
+                                textAlign='center'
+                                color='text.primary'
+                                gutterBottom
+                                fontStyle='bold'
+                                fontFamily='Itim'
+                                sx={{mt: 3}}
+                            >
+                            이모지 조회
+                            </Typography>
+                        </Box>
+                        <Box style={{width: '0%',textAlign: 'right'}}>
+                            <IconButton onClick={() => setOpen(false)}>
+                                <CloseIcon fontWeight='300'/>
+                            </IconButton>
+                        </Box>
                     </Toolbar>
-
-                    <EditPage/>
+                    <CheckPage/>
                 </Typography>
                 </Box>
             </Modal>

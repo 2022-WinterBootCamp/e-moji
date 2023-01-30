@@ -13,9 +13,12 @@ import {
   IconButton,
   Divider,
   Toolbar,
+  Stack,
+  Pagination,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CloseIcon from '@mui/icons-material/Close';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -31,8 +34,11 @@ import NewEmoji from "../components/main/NewEmoji";
 import resultData from "../components/upload/resultData";
 
 import axios from 'axios';
-// import lottie from 'lottie-web';
-// import emoticon from '../lotties/emoticon.json';
+import Lottie from 'lottie-react';
+import animationData from '../lotties/emoticon.json';
+import TopEmoji from "../components/main/TopEmoji";
+
+// import banner from '../components/main/banner1.png';
 
 const theme = createTheme();
 
@@ -94,6 +100,7 @@ export default function MainPage() {
   // let inputRef;
   const [open, setOpen] = useState(false);
   const [open_new, setOpen_new] = useState(false);
+  const [open_top, setOpen_top] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
@@ -106,6 +113,9 @@ export default function MainPage() {
   };
   const handleOpen_new = () => setOpen_new(true);
   const handleClose2 = () => setOpen_new(false);
+
+  const handleOpen_top = () => setOpen_top(true);
+  const handleClose_top = () => setOpen_top(false);
 
   // ResultPage
   const [emojiURL, setEmojiURL] = useState("");
@@ -121,9 +131,11 @@ export default function MainPage() {
   const [emojiData, setEmojiData] = useState("");
   const [emojiId, setEmojiId] = useState("");
 
-  useEffect(() => {
-    getMainData();
-  }, []); 
+  // Pagination
+  const [page, setPage] = useState(1);
+  const [emojiCount, setEmojiCount] = useState(1);
+  let count;
+
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -149,10 +161,6 @@ export default function MainPage() {
     setSkipped(newSkipped);
   };
 
-  // const handleBack = () => {
-  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  // };
-
   // Stepper 단계별
   function getStepContent(step) {
     switch (step) {
@@ -173,7 +181,7 @@ export default function MainPage() {
         };
       
         return(
-          <center>
+          <Box textAlign="center">
             <form onSubmit={handleResultSubmit}>
               <Typography
                   component="h1"
@@ -216,49 +224,46 @@ export default function MainPage() {
               </Button>
               
             </form>
-          </center>
+          </Box>
         );
 
       case 1:
         return (
-          <center>
-            <Box
-              whiteSpace="pre-wrap"
-              sx={{
-                bgcolor: "background.paper",
-                pt: 8,
-                pb: 6,
-                mt: -5,
-              }}
-            >
-              <Container maxWidth="sm">
-                <Typography
-                  component="h1"
-                  variant="h4"
-                  align="center"
-                  color="text.primary"
-                  gutterBottom
-                  fontStyle="bold"
-                  fontFamily="Itim"
-                >
-                  AI가 당신의 표정을 분석 중이에요!
-                </Typography>
-                <Typography
-                  variant="h6"
-                  align="center"
-                  color="text.secondary"
-                  paragraph
-                >
-                  잠시만 기다려주세요...
-                </Typography>
-              </Container>
-            </Box>
-            {/* <Lottie
-                  options={defaultOptions}
-                  height={400}
-                  width={400}
-              /> */}
-          </center>
+          <Box
+            whiteSpace="pre-wrap"
+            sx={{
+              bgcolor: "background.paper",
+              pt: 8,
+              pb: 6,
+              mt: -5,
+            }}
+          >
+            <Container maxWidth="sm">
+              <Typography
+                component="h1"
+                variant="h4"
+                align="center"
+                color="text.primary"
+                gutterBottom
+                fontStyle="bold"
+                fontFamily="Itim"
+              >
+                AI가 당신의 표정을 분석 중이에요!
+              </Typography>
+              <Typography
+                variant="h6"
+                align="center"
+                color="text.secondary"
+                paragraph
+              >
+                잠시만 기다려주세요...
+              </Typography>
+            </Container>
+            <Lottie 
+              animationData={animationData}
+              style={{height: '350px', marginTop: -25}}
+            />
+          </Box>
         );
       case 2:
         return <StepFinal />;
@@ -313,9 +318,9 @@ export default function MainPage() {
   };
   
   // 메인페이지 모든 이모지 API
-  function getMainData(e) {
+  function getMainData(value) {
       try{
-          fetch('http://localhost:8080/api/v1/emojis/pages/1', {
+          fetch(`http://localhost:8080/api/v1/emojis/pages/${value}`, {
             method: 'GET'
           })
           .then((response) => {
@@ -323,20 +328,34 @@ export default function MainPage() {
               return response.json();
           })
           .then((data) => {
-              setEmojiData(data);
-              console.log("data>>> ",data);
+            setEmojiData(data);
+            console.log("data>>> ",data);
+
+            let n = data[0].id;
+            if(value === 1){
+              if(n % 8 === 0){
+                count = (n/8);
+              } else{
+                count = (n/8 + 1);
+              }
+              setEmojiCount(parseInt(count)); // pagination 개수 설정
+            }
           })
       } catch(err){
           console.log(err)
       }
   }
 
+  useEffect(() => {
+    getMainData(1);
+  }, []);
+
   // 메인페이지 모든 이모지 List
   function allEmojiList(){
     var array = [];
     for (let index = 0; index < Object.keys(emojiData).length; index++) {
         array.push(
-            <Grid item key={emojiData[index].id} xs={12} sm={6} md={4}>
+            <Grid item key={emojiData[index].id} xs={12} sm={6} md={4} lg={3}>
               <Card
                 sx={{
                   height: "fit-content",
@@ -378,7 +397,7 @@ export default function MainPage() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button variant="outlined" fullWidth onClick={() => {handleOpen(); setEmojiId(emojiData[index].id)}}>
+                  <Button variant="outlined" style={{color: "#FECD93", borderColor: "#FECD93"}} fullWidth onClick={() => {handleOpen(); setEmojiId(emojiData[index].id)}}>
                     Use
                   </Button>
                 </CardActions>
@@ -387,20 +406,57 @@ export default function MainPage() {
             )
         }
     return array;
-}
+  }
+
+  // pagination
+  const pageChange = (event, value) => {
+    getMainData(value);
+    setPage(value);
+  };
 
   return (
     <ThemeProvider theme={theme}>
-      <Box
+      {/* <Box style={{right: 50, top: "128px", position:"absolute"}}>
+        <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar
+                style={{ display:'block', justifyContent: 'center'}}
+                variant="rounded"
+                sx={{width: 200, height: 200}}
+                src="https://images.mypetlife.co.kr/content/uploads/2019/08/09153141/hang-niu-Tn8DLxwuDMA-unsplash-e1565933329979.jpg"
+              />
+            </ListItemAvatar>
+            <ListItemText
+              sx={{ml: 3}}
+              primary="냥이~"
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    sx={{ display: "inline" }}
+                    component="span"
+                    variant="body2"
+                  >
+                    made by mojji
+                  </Typography>
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+          <Divider
+          //variant="inset" component="li"
+          />
+        </List>
+      </Box> */}
+      
+      {/* <Box
         sx={{
           bgcolor: "background.paper",
           pt: 8,
           pb: 6,
-          mt: 15,
         }}
       >
         <Container maxWidth="sm">
-          
           <Typography
             component="h1"
             variant="h2"
@@ -408,7 +464,7 @@ export default function MainPage() {
             color="text.primary"
             gutterBottom
           >
-            IGE MOJI
+            IGEI MOJI
           </Typography>
           <Typography
             variant="h5"
@@ -419,41 +475,58 @@ export default function MainPage() {
             이모지를 만들고, 다양한 이모지를 체험해보세요~
           </Typography>
         </Container>
-      </Box>
-      
-      <Toolbar sx={{mt: 5}}>
-        <div style={{width: '40%', textAlign: 'left'}}>
-          <Typography
-            variant="h6"
-            color="text.primary"
-            textAlign='left'
-            fontWeight='700'
-          >
-            원하시는 이모지를 선택해주세요
-          </Typography>
-        </div>
-        
-        <div style={{width: '80%',textAlign: 'right'}}>
-          <Button variant='contained'
-            sx={{
-              bgcolor: "#FECD93",
-              ':hover':{
-                  bgcolor: '#FECD93',
-              },
-            }}
-            onClick={() => {handleOpen_new()}}
-          >
-            새로 만들기
-          </Button>
-        </div>
-      </Toolbar>
-      
-      <Divider/>
+      </Box> */}
+      <Container sx={{ py: 8, mt: -6 }}>
+        <Toolbar sx={{mb: -1}}>
+          <div style={{width: '50%', textAlign: 'left'}}>
+            <Typography
+              variant="h6"
+              color="text.primary"
+              textAlign='left'
+              fontWeight='700'
+              sx={{mb: -2}}
+            >
+              원하시는 이모지를 선택해주세요
+            </Typography>
+          </div>
 
-      <Container sx={{ py: 8 }} maxWidth="md">
+          
+          
+          <div style={{width: '70%',textAlign: 'right'}}>
+            <Button 
+              variant='contained' 
+              style={{backgroundColor: '#FECD93', ':hover': {backgroundColor: '#FECD93'}, color: '#FFFFFF', marginRight: 20, marginTop: 1}}
+              onClick={() => {handleOpen_top()}}
+            >
+              <EmojiEventsIcon style={{bgcolor: '#FECD93', marginTop: -1}}/>
+              <Typography style={{marginLeft: 7, fontWeight: 'bold', fontSize: 'inherit'}}>Top 3</Typography>
+            </Button>
+
+            <Button variant='contained'
+              sx={{
+                bgcolor: "#FECD93",
+                ':hover':{
+                    bgcolor: '#FECD93',
+                },
+              }}
+              onClick={() => {handleOpen_new()}}
+            >
+              이모지 생성
+            </Button>
+          </div>
+        </Toolbar>
+        
+        <Divider variant="fullWidth" sx={{mb: 6}} />
+        
         <Grid container spacing={4} direction="row" justifyContent="space-evenly">
           {allEmojiList()}
         </Grid>
+
+        <Box >
+          <Stack spacing={2}>
+            <Pagination style={{margin: 'auto', marginTop: 20}} count={emojiCount}  page={page} onChange={pageChange} />
+          </Stack>
+        </Box>
       </Container>
 
       <Modal
@@ -464,13 +537,11 @@ export default function MainPage() {
         closeAfterTransition
       >
         <Box sx={style}>
-          <Toolbar sx={{mt: -4}}>
-          <div style={{width: '0%',textAlign: 'right'}}>
+          <div style={{textAlign: 'right'}}>
             <IconButton onClick={() => {setOpen(false); handleReset();} }>
               <CloseIcon fontWeight='300'/>
             </IconButton>
           </div>
-          </Toolbar>
           <div className={classes.root}>
             <Stepper activeStep={activeStep}>
               {steps.map((label) => {
@@ -531,7 +602,7 @@ export default function MainPage() {
                           },
                           borderRadius: '30px',
                         }}  
-                        type="submit"
+                        // type="submit"
                       >
                         저장하기
                       </Button>
@@ -543,7 +614,7 @@ export default function MainPage() {
                   <Typography className={classes.instructions}>
                     {getStepContent(activeStep)}
                   </Typography>
-                  <div style={{textAlign: 'center', width: '85%', position: 'absolute', bottom: '30px'}}>
+                  <div style={{textAlign: 'center', width: '85%', position: 'absolute', bottom: '10px', marginLeft: 20}}>
                     {/* <Button
                       disabled={activeStep === 0}
                       onClick={handleBack}
@@ -579,6 +650,7 @@ export default function MainPage() {
         </Box>
       </Modal>
 
+      {/* 이모지 생성 Modal */}
       <Modal
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
@@ -606,7 +678,7 @@ export default function MainPage() {
                     fontStyle='bold'
                     fontFamily='Itim'
                   >
-                      이모지 생성
+                    이모지 생성
                 </Typography>
               </div>
               <div style={{width: '0%',textAlign: 'right'}}>
@@ -619,6 +691,50 @@ export default function MainPage() {
           </Typography>
         </Box>
       </Modal>
+
+      {/* Top 3 Modal */}
+      <Modal
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        open={open_top}
+        onClose={handleClose_top}
+        closeAfterTransition
+      >
+        <Box sx={newEmojistyle}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            fontWeight="bold"
+            component="h2"
+            sx={{ mb: 3, color: "#737458", fontFamily: "Itim"}}
+          >
+
+            <Toolbar sx={{mt: -2}}>
+              <div style={{width: '120%', textAlign: 'right'}}>
+                <Typography
+                    component="h1"
+                    variant='h5'
+                    textAlign='center'
+                    color='text.primary'
+                    gutterBottom
+                    fontStyle='bold'
+                    fontFamily='Itim'
+                  >
+                    Top 3
+                </Typography>
+              </div>
+              <div style={{width: '0%',textAlign: 'right'}}>
+                <IconButton onClick={() => setOpen_top(false)}>
+                  <CloseIcon fontWeight='300'/>
+                </IconButton>
+              </div>
+            </Toolbar>
+            <TopEmoji/>
+          </Typography>
+        </Box>
+      </Modal>
+
+
     </ThemeProvider>
   );
 }

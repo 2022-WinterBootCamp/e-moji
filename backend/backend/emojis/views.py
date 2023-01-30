@@ -150,7 +150,7 @@ def recent_check(self, page_number):
             count -= 1
             
         recent_filter = tuple(data_set.values())
-        paginator = Paginator(recent_filter, 12)
+        paginator = Paginator(recent_filter, 8)
         page = page_number
         try:
             data = paginator.page(page)
