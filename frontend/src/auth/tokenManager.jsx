@@ -23,13 +23,14 @@ const getToken = () => {
 };
 
 const getAccess = () => {
-  const stringAccess = getToken().access;
+  const stringAccess = getToken();
   if (stringAccess !== null) {
     const access = JSON.parse(stringAccess);
     return access;
-  }
-
-  return;
+  } else if (stringAccess === undefined) {
+    console.log("알 수 없는 오류");
+    return;
+  } else return;
 };
 
 // 로컬 스토리지에 있는 토큰을 clear
