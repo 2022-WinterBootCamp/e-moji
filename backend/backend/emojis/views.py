@@ -167,21 +167,22 @@ def recent_check(self, page_number):
 # delete 기능 구현하기
 # 삭제 기능의 리턴 값에 시리얼라이저가 필요한가? 
 # CRUD는 GET 방식
-# active=False? 
-
-# @api_view(['GET'])
-# def emoji_delete(request, user_id):
-#     emoji = Emoji.objects.get(id=user_id)
-#     emoji.delete()
-#     return Response("test ok", status=status.HTTP_200_OK)
+# delete() 함수를 사용하지 않고 숨기기 기능으로 구현?
+# active=0? 
 
 @api_view(['GET'])
-def emoji_delete(request, user_id, **kwargs):
-    if kwargs.get('user_id') is None:
-        return Response("invalid request", status=status.HTTP_400_BAD_REQUEST)
-    else:
-        user_id = kwargs.get('user_id')
-        user_object = Emoji.objects.get(id=user_id)
-        user_object.delete()
-        return Response("test ok", status=status.HTTP_200_OK)
+def emoji_delete(request, user_id):
+    emoji = Emoji.objects.get(id=user_id)
+    # emoji.delete()
+    return Response("test ok", status=status.HTTP_200_OK)
+
+# @api_view(['GET'])
+# def emoji_delete(request, user_id, **kwargs):
+#     if kwargs.get('user_id') is None:
+#         return Response("invalid request", status=status.HTTP_400_BAD_REQUEST)
+#     else:
+#         user_id = kwargs.get('user_id')
+#         user_object = Emoji.objects.get(id=user_id)
+#         user_object.delete()
+#         return Response("test ok", status=status.HTTP_200_OK)
 
