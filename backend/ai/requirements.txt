@@ -5,5 +5,8 @@ boto3
 celery
 opencv-python
 fer
-deepface
 Pillow
+numpy
+pandas
+tensorflow>=1.7
+gunicorn

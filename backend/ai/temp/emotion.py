@@ -4,6 +4,7 @@ import numpy as np
 import math
 from PIL import Image
 
+
 img = cv2.imread('bts_variety.jpeg')
 detector = FER(mtcnn=True) # MTCNN Facial Recognition
 

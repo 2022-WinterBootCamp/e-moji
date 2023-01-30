@@ -1,4 +1,3 @@
-from deepface import DeepFace
 from fer import FER
 from utils import emotions
 import cv2

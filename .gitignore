@@ -395,6 +395,7 @@ env.bak/
 venv.bak/
 dev.env
 prod.env
+env.py
 
 # Spyder project settings
 .spyderproject
