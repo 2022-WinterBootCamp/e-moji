@@ -10,4 +10,4 @@ class FaceAdmin(admin.ModelAdmin):
 @admin.register(Result)
 class ResultAdmin(admin.ModelAdmin):
 
-    list_display = ['id','user_id','face_id','emoji_id','kind','image']
+    list_display = ['id','user_id','face_id','emoji_id','image']

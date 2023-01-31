@@ -5,45 +5,45 @@ networks:
     driver: bridge
 
 volumes:
-  mysql_data:
+  # mysql_data:
   build_folder:
   # prometheus_data: {}
   # grafana_data: {}
 
 services:
-  mysqldb:
-    build: ./backend/db
-    env_file:
-      - "./backend/db/db.env"
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
+  # mysqldb:
+  #   build: ./backend/db
+  #   env_file:
+  #     - "./backend/db/db.env"
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
 
-  backend:
-    build: ./backend/backend
-    command: >
-      bash -c "python wait_mysql.py &&
-               python manage.py makemigrations &&
-               python manage.py migrate &&
-               python manage.py runserver 0.0.0.0:8080" &&
-               
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./backend/backend:/app
-    depends_on:
-      - mysqldb
-      - redis
-    links:
-      - mysqldb
+  # backend:
+  #   build: ./backend/backend
+  #   command: >
+  #     bash -c "python wait_mysql.py &&
+  #              python manage.py makemigrations &&
+  #              python manage.py migrate &&
+  #              python manage.py runserver 0.0.0.0:8080" &&
+
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./backend/backend:/app
+  #   depends_on:
+  #     - mysqldb
+  #     - redis
+  #   links:
+  #     - mysqldb
 
   ai_server:
     build: ./backend/ai
     ports:
       - "8000:8000"
     environment:
-      FLASK_DEBUG: 1 
+      FLASK_DEBUG: 1
     volumes:
       - ./backend/ai:/ai
 
@@ -107,7 +107,6 @@ services:
   #   depends_on:
   #     - prometheus
 
-
   redis:
     container_name: redis
     image: redis:latest
@@ -126,7 +125,7 @@ services:
   #     - "15672:15672" # For UI
   #   expose:
   #     - "15672"
-    
+
   # celery_worker:
   #   container_name: celery_worker
   #   build:
@@ -153,7 +152,7 @@ services:
   #   depends_on:
   #     - backend
   #     - client
-  
+
   # client:
   #   container_name: client
   #   build:

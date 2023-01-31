@@ -26,24 +26,23 @@ def faces(request):
 
     if (payload.get('id') == str(userData)):
         # img_url = get_img_url(image)
-        img_url = "aaaa"
+        img_url = "https://what-moji.s3.ap-northeast-2.amazonaws.com/aa47b87c-6622-42a5-ba4b-d445ce84ad4f.jpg"
 
         # 원본 사진 저장
         save_image = create_img(userID, img_url)
         data = PictureSerializer(save_image, many=False).data
-        face_id = PictureIDSerializer(save_image, many=False).data.get('id')
+        emojiID = Emoji.objects.get(id = emoji_id) # fk emoji_id
+        data["emoji"] = emojiID.image
 
         # ai서버에 api요청
         url = 'http://ai_server:8000/api/v1/images/'
         result = requests.post(url, json=data, verify=False).json()
 
         # 결과값 저장
+        face_id = PictureIDSerializer(save_image, many=False).data.get('id')
         faceID = Face.objects.get(id = face_id) # fk face_id
-        emojiID = Emoji.objects.get(id = emoji_id) # fk emoji_id
-            
-        result_img = get_result_emoji(emojiID.id,result.get('kind')) # 결과 사진
 
-        save_result = create_result(userID, faceID, emojiID, result.get('kind'), result_img)
+        save_result = create_result(userID, faceID, emojiID, result.get('result_img'))
         result_data = ResultSerializer(save_result, many=False).data
         return JsonResponse(result_data, status=201, safe=False)
     
