@@ -26,13 +26,13 @@ def faces(request):
 
     if (payload.get('id') == str(userData)):
         # img_url = get_img_url(image)
-        img_url = "aaaa"
+        img_url = "https://what-moji.s3.ap-northeast-2.amazonaws.com/aa47b87c-6622-42a5-ba4b-d445ce84ad4f.jpg"
 
         # 원본 사진 저장
         save_image = create_img(userID, img_url)
         data = PictureSerializer(save_image, many=False).data
         emojiID = Emoji.objects.get(id = emoji_id) # fk emoji_id
-        data["emoji_id"] = emojiID.image
+        data["emoji"] = emojiID.image
 
         # ai서버에 api요청
         url = 'http://ai_server:8000/api/v1/images/'
