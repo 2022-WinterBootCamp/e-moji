@@ -1,7 +1,7 @@
 import requests
 
 from django.http import JsonResponse
-
+from django.db.models import Count, Sum
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -13,6 +13,7 @@ from users.utils import user_token_to_data
 from users.models import User
 from faces.models import Face
 from emojis.models import Emoji
+from .models import Result
 
 @api_view(['POST'])
 def faces(request):
@@ -50,3 +51,10 @@ def faces(request):
     
     else :
         return JsonResponse({"message": "Invalid_User"}, status=401)
+
+api_view(['GET'])
+def rank(request):
+    Result.objects.all().annotate(user_count=Count('emoji_id'))
+    rank = Result.objects.all().annotate(user_count=Count('emoji_id')).order_by('user_count')
+
+    return Response(rank)

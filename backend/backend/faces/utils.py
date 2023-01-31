@@ -30,3 +30,6 @@ def create_result(user_id, face_id, emoji_id, image):
 def get_result_emoji(emoji_id, kind) :
     data = Emoji.objects.get(id=emoji_id).image
     return data[kind]
+
+
+

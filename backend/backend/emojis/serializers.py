@@ -23,7 +23,6 @@ class ResultMadeSerialzer(serializers.ModelSerializer) :
         fields = ("image",)
 
 
-class EmojisSerializer(serializers.ModelSerializer):
 
     user_count = serializers.SerializerMethodField()
 

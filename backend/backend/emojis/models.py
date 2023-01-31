@@ -1,7 +1,6 @@
 from django.db import models
 from django_mysql.models import ListCharField
 from users.models import User
-
 # Create your models here.
 
 class Emoji(models.Model): # django admin에서 보이는 s 수정
@@ -16,8 +15,8 @@ class Emoji(models.Model): # django admin에서 보이는 s 수정
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
-    user_count=models.IntegerField(default=0)
+    
+    
     class Meta:
         db_table = 'emoji'
-
 
