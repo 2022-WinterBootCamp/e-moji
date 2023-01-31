@@ -25,7 +25,7 @@ export default function EditPage() {
     inputRef_surprised;
   const [disable, setDisable] = React.useState(true);
 
-  const [emoji_name, setEmojiName] = useState(null);
+  const [emoji_name, setEmojiName] = useState("");
   const [emoji_profile, setEmojiProfile] = useState({
     image_file: "",
     preview_URL:

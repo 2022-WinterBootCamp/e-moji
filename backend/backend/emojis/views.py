@@ -59,10 +59,12 @@ def emoji_create(request):
     else :
         return JsonResponse({"message": "Invalid_User"}, status=401)
 
-def emoji_check(request) :
-    emoji_id = request.GET.get('number', None)
-    emojiData = Emoji.objects.get(id = emoji_id)
-    result = EmojisSerializer(emojiData).data
+@api_view(['GET'])
+def emoji_check(request, emoji_number) :
+    emojiData = Emoji.objects.get(id = emoji_number)
+    print(emojiData)
+    result = EmojisMadeSerializer(emojiData).data
+
     return JsonResponse(result, status = 201)
 
 
@@ -147,7 +149,7 @@ def recent_check(self, page_number):
             count -= 1
             
         recent_filter = tuple(data_set.values())
-        paginator = Paginator(recent_filter, 12)
+        paginator = Paginator(recent_filter, 8)
         page = page_number
         try:
             data = paginator.page(page)

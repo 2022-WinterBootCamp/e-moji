@@ -40,7 +40,7 @@ export default function NewEmoji() {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
 
-  const [emoji_name, setEmojiName] = useState(null);
+  const [emoji_name, setEmojiName] = useState("");
   const [emoji_profile, setEmojiProfile] = useState({
     image_file: "",
     preview_URL:

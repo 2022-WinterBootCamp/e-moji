@@ -19,6 +19,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchDecodeData } from "../../auth/DecodeActions";
 import { deleteToken } from "../../auth/tokenManager";
 
+import logo from './logo2.png';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -55,8 +57,7 @@ function Header() {
       <Container
         style={{
           backgroundColor: "#FECD93",
-          width: "100%",
-          maxWidth: "1920px",
+          maxWidth: "100%",
         }}
       >
         <Box
@@ -67,18 +68,21 @@ function Header() {
           sx={{ height: "70px" }}
         >
           {token ? (
-            <Button href="/mainpage">
-              <Typography
-                variant="h4"
-                color="inherit"
-                fontStyle="Inter"
-                fontWeight="800"
-                position="center"
-                sx={{ ml: 1, mb: 1, color: "#ffffff" }}
-              >
-                IGE MOJI
-              </Typography>
-            </Button>
+            <Box>
+              <Button href="/mainpage">
+                {/* <Typography
+                  variant="h4"
+                  color="inherit"
+                  fontStyle="Inter"
+                  fontWeight="800"
+                  position="center"
+                  sx={{ ml: 1, mb: 1, color: "#ffffff" }}
+                >
+                  IGE MOJI
+                </Typography> */}
+                <img height="45px" position="center" style={{margin: 6}} src={logo}/>
+              </Button>
+            </Box>
           ) : (
             <Button href="/">
               <Typography
@@ -96,7 +100,9 @@ function Header() {
 
           {token ? (
             // if IsLogin is true
-            <Box sx={{ mb: 1 }}>
+            <Box sx={{ mb: 0.5 }}>
+
+              
               <Link
                 sx={{ color: "#ffffff", fontWeight: "500", fontSize: "23px" }}
                 align="right"
