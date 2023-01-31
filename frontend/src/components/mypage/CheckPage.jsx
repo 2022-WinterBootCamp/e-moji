@@ -26,6 +26,7 @@ export default function CheckPage({emojiId}) {
       .then ((response) => {
         console.log("response.data >>", response.data);
         setEmojiData(response.data);
+        setEmojiState(true);
       })
     } catch(err){
       console.log(err);
@@ -38,7 +39,9 @@ export default function CheckPage({emojiId}) {
 
   return (
     <div>
-      <form>
+      {
+        emojiState === true ?
+        <form>
         <Toolbar style={{marginLeft: '50px', marginTop: '-10px'}}>
           <Typography
               fontStyle='solid'
@@ -127,7 +130,10 @@ export default function CheckPage({emojiId}) {
             이모지 삭제하기
           </Button>
         </div>
-      </form>
+        </form>
+        : null
+      }
+      
     </div>
   )
 }
