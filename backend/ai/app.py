@@ -13,13 +13,14 @@ def main():
 def ai_server():
     req = request.json
     user_id = req['user_id']
+    emoji_id = req['emoji_id']
     image = req["image"]
 
-    kind = ai_detect(image)
+    result_img = ai_detect(image)
     
     result = jsonify(
         user_id = user_id,
-        kind = kind
+        result_img = result_img
     )
 
     return result

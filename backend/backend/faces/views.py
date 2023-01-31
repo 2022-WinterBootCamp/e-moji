@@ -31,19 +31,19 @@ def faces(request):
         # 원본 사진 저장
         save_image = create_img(userID, img_url)
         data = PictureSerializer(save_image, many=False).data
-        face_id = PictureIDSerializer(save_image, many=False).data.get('id')
+        emojiID = Emoji.objects.get(id = emoji_id) # fk emoji_id
+        data["emoji_id"] = emojiID.image
 
         # ai서버에 api요청
         url = 'http://ai_server:8000/api/v1/images/'
         result = requests.post(url, json=data, verify=False).json()
+        print(result)
 
         # 결과값 저장
+        face_id = PictureIDSerializer(save_image, many=False).data.get('id')
         faceID = Face.objects.get(id = face_id) # fk face_id
-        emojiID = Emoji.objects.get(id = emoji_id) # fk emoji_id
-            
-        result_img = get_result_emoji(emojiID.id,result.get('kind')) # 결과 사진
 
-        save_result = create_result(userID, faceID, emojiID, result.get('kind'), result_img)
+        save_result = create_result(userID, faceID, emojiID, result.get('result_img'))
         result_data = ResultSerializer(save_result, many=False).data
         return JsonResponse(result_data, status=201, safe=False)
     

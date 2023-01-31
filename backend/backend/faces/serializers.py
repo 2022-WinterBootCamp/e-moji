@@ -9,7 +9,7 @@ class PictureSerializer(serializers.ModelSerializer):
 class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Result
-        fields = ("id","user_id", "face_id", "emoji_id", "kind", "image")
+        fields = ("id","user_id", "face_id", "emoji_id", "image")
 
 class PictureIDSerializer(serializers.ModelSerializer):
     class Meta:
