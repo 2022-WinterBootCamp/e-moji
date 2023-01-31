@@ -1,6 +1,5 @@
-import boto3 ,os
+import boto3
 from env import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
-import json
 from uuid import uuid4
 
 def upload_s3(img) :

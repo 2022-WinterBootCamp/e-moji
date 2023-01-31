@@ -4,8 +4,6 @@ import numpy as np
 import requests
 from utils import upload_s3
 
-from PIL import Image
-
 def ai_emoji(url, emoji) :
     url = 'https://file.mk.co.kr/meet/neds/2022/06/image_readtop_2022_521870_16552521075075658.jpg'
 
@@ -98,5 +96,5 @@ def ai_emoji(url, emoji) :
         fResult = "synthetic_image.jpg"
         cv2.imwrite(fResult, img)
     
-    result_img =upload_s3(fResult)
+    result_img = upload_s3(fResult)
     return result_img

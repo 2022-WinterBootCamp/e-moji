@@ -1,7 +1,4 @@
-from flask import Flask, jsonify, make_response, request
-from uuid import uuid4
-from flask import Response
-# from detect import ai_detect
+from flask import Flask, jsonify, request
 from detect import ai_emoji
 
 app = Flask(__name__)
@@ -14,9 +11,8 @@ def main():
 def ai_server():
     req = request.json
     user_id = req['user_id']
-    emoji_id = req['emoji_id']
-    image = req["image"]
-    emoji_data = req["emoji"]
+    image = req['image']
+    emoji_data = req['emoji']
 
     result_img = ai_emoji(image, emoji_data)
     

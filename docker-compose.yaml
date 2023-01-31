@@ -34,7 +34,7 @@ services:
       - ./backend/backend:/app
     depends_on:
       - mysqldb
-      - redis
+      # - redis
     links:
       - mysqldb
 
@@ -107,12 +107,12 @@ services:
   #   depends_on:
   #     - prometheus
 
-  redis:
-    container_name: redis
-    image: redis:latest
-    hostname: redis
-    ports:
-      - "6379:6379"
+  # redis:
+  #   container_name: redis
+  #   image: redis:latest
+  #   hostname: redis
+  #   ports:
+  #     - "6379:6379"
 
   # rabbitmq:
   #   container_name: rabbitmq

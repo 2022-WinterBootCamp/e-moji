@@ -33,6 +33,7 @@ def faces(request):
         data = PictureSerializer(save_image, many=False).data
         emojiID = Emoji.objects.get(id = emoji_id) # fk emoji_id
         data["emoji"] = emojiID.image
+        print(data)
 
         # ai서버에 api요청
         url = 'http://ai_server:8000/api/v1/images/'
