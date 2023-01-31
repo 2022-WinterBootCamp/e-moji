@@ -83,6 +83,7 @@ export default function MyPage(){
     
     const [emojiState, setEmojiState] = useState(false);
     const [didState, setDidState] = useState(false);
+    const [emojiId, setEmojiId] = useState(1);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -145,13 +146,13 @@ export default function MyPage(){
     function madeList(){
         var array = [];
         
-        for (let index = 0; index < Object.keys(emojiData).length; index++) {
+        for (let index = 0; index < Object.keys(emojiData).length; index++) {    
             array.push(
                 <Grid item key={emojiData[index].id} xs={12} sm={6} md={4} 
                     sx={{ display: "flex", flexDirection: "column" }}
                 >  
                     {/* mui의 button은 자동 대문자화가 되기 떄문에 textTransform: 'none' 설정 */}
-                    <Button onClick={() => setOpen(true)} style={{textTransform: 'none'}} >
+                    <Button onClick={() => {setOpen(true); setEmojiId(emojiData[index].id)}} style={{textTransform: 'none'}} >
                         <Card >
                             <Toolbar>
                                 <Box style={{marginLeft: '-30px'}}>
@@ -312,7 +313,7 @@ export default function MyPage(){
                             </IconButton>
                         </Box>
                     </Toolbar>
-                    <CheckPage/>
+                    <CheckPage emojiId = {emojiId}/>
                 </Typography>
                 </Box>
             </Modal>

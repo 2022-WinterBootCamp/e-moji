@@ -700,7 +700,7 @@ export default function MainPage() {
         onClose={handleClose_top}
         closeAfterTransition
       >
-        <Box sx={newEmojistyle}>
+        <Box sx={newEmojistyle} style={{backgroundColor: "#FECD93", borderColor: "#FECD93"}}>
           <Typography
             id="modal-modal-title"
             variant="h6"
@@ -709,26 +709,11 @@ export default function MainPage() {
             sx={{ mb: 3, color: "#737458", fontFamily: "Itim"}}
           >
 
-            <Toolbar sx={{mt: -2}}>
-              <div style={{width: '120%', textAlign: 'right'}}>
-                <Typography
-                    component="h1"
-                    variant='h5'
-                    textAlign='center'
-                    color='text.primary'
-                    gutterBottom
-                    fontStyle='bold'
-                    fontFamily='Itim'
-                  >
-                    Top 3
-                </Typography>
-              </div>
-              <div style={{width: '0%',textAlign: 'right'}}>
-                <IconButton onClick={() => setOpen_top(false)}>
-                  <CloseIcon fontWeight='300'/>
-                </IconButton>
-              </div>
-            </Toolbar>
+            <div style={{textAlign: 'right'}}>
+              <IconButton onClick={() => setOpen_top(false)}>
+                <CloseIcon fontWeight='300'/>
+              </IconButton>
+            </div>
             <TopEmoji/>
           </Typography>
         </Box>
