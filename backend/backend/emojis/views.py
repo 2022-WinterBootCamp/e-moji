@@ -61,7 +61,7 @@ def emoji_create(request):
 
 def emoji_check(request) :
     emoji_id = request.GET.get('number', None)
-    emojiData = Emoji.objects.get(id = emoji_id)
+    emojiData = Emoji.objects.get(id = emoji_id, active = 1)
     result = EmojisSerializer(emojiData).data
     return JsonResponse(result, status = 201)
 
@@ -129,6 +129,8 @@ def mypage(request, case):
     #     return JsonResponse({"message": "Invalid Token"}, status=403)
 
 
+# 페이지당 이모지 12개씩 조회 
+EMOJIS_PAGE_SIZE = 12
 @api_view(['GET'])
 def recent_check(self, page_number):
         get_data = {}
@@ -136,8 +138,10 @@ def recent_check(self, page_number):
     #  payload = user_token_to_data(
     #      request.headers.get('Authorization', None))
     # if (payload.get('id') == user_id):
-        recentData = Emoji.objects.filter(active=1).order_by('-created_at').values()
+        offset = (page_number-1)*EMOJIS_PAGE_SIZE
+        recentData = Emoji.objects.filter(active=1).order_by('-created_at')[offset:offset+EMOJIS_PAGE_SIZE].values()
         count = recentData.count()
+        print(count)
         for i in recentData :
             makerName = User.objects.filter(id = i['user_id_id']).values().first()
             # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
@@ -148,41 +152,16 @@ def recent_check(self, page_number):
             data_set[count] = get_data
             get_data = {} # 딕셔너리 초기화 후 데이터 넣기
             count -= 1
-            
-        recent_filter = tuple(data_set.values())
-        paginator = Paginator(recent_filter, 12)
-        page = page_number
-        try:
-            data = paginator.page(page)
-        except PageNotAnInteger:
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except EmptyPage:
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        serializer = AllDataSerializer(data, many=True)
-        return JsonResponse(serializer.data, status = 201, safe = False)
+
+        serializer = AllDataSerializer(data_set.values(), many=True)
+        return JsonResponse(serializer.data, safe = False)
     # else:
     #     return JsonResponse({"message": "Invalid_Token"}, status=401)
 
 
-# delete 기능 구현하기
-# 삭제 기능의 리턴 값에 시리얼라이저가 필요한가? 
-# CRUD는 GET 방식
-# delete() 함수를 사용하지 않고 숨기기 기능으로 구현?
-# active=0? 
-
-@api_view(['GET'])
-def emoji_delete(request, user_id):
-    emoji = Emoji.objects.get(id=user_id)
-    # emoji.delete()
+# 삭제 API 
+# 실제 DB에서는 삭제하지 않고 페이지 조회에서 보이지 않음
+@api_view(['DELETE'])
+def emoji_delete(request, emoji_id):
+    emoji = Emoji.objects.filter(id=emoji_id).update(active = 0)
     return Response("test ok", status=status.HTTP_200_OK)
-
-# @api_view(['GET'])
-# def emoji_delete(request, user_id, **kwargs):
-#     if kwargs.get('user_id') is None:
-#         return Response("invalid request", status=status.HTTP_400_BAD_REQUEST)
-#     else:
-#         user_id = kwargs.get('user_id')
-#         user_object = Emoji.objects.get(id=user_id)
-#         user_object.delete()
-#         return Response("test ok", status=status.HTTP_200_OK)
-
