@@ -1,7 +1,7 @@
 import requests
 
 from django.http import JsonResponse
-from django.db.models import Count, Sum
+from django.db.models import Count, remove
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -55,6 +55,15 @@ def faces(request):
 api_view(['GET'])
 def rank(request):
     Result.objects.all().annotate(user_count=Count('emoji_id'))
-    rank = Result.objects.all().annotate(user_count=Count('emoji_id')).order_by('user_count')
+    rank = Result.objects.all().annotate(user_count=Count('emoji_id')).order_by('-user_count')
+    
+    top_1 = max(rank)
+    rank.remove(top_1)
 
-    return Response(rank)
+    top_2 = max(rank)
+    rank.remove(top_2)
+
+    top_3 = max(rank)
+
+    
+    return Response(top_1, top_2, top_3)
