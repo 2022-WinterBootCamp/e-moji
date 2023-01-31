@@ -62,7 +62,9 @@ def emoji_create(request):
 @api_view(['GET'])
 def emoji_check(request, emoji_number) :
     emojiData = Emoji.objects.get(id = emoji_number)
-    result = EmojisSerializer(emojiData).data
+    print(emojiData)
+    result = EmojisMadeSerializer(emojiData).data
+
     return JsonResponse(result, status = 201)
 
 
