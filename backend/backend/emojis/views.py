@@ -59,10 +59,9 @@ def emoji_create(request):
     else :
         return JsonResponse({"message": "Invalid_User"}, status=401)
 
-def emoji_check(request) :
-    emoji_id = request.GET.get('number', None)
-    emojiData = Emoji.objects.get(id = emoji_id, active = 1)
-    result = EmojisSerializer(emojiData).data
+def emoji_check(request, emoji_number) :
+    emojiData = Emoji.objects.get(id = emoji_number, active = 1)
+    result = EmojisMadeSerializer(emojiData).data
     return JsonResponse(result, status = 201)
 
 
@@ -129,8 +128,8 @@ def mypage(request, case):
         return JsonResponse({"message": "Invalid Token"}, status=403)
 
 
-# 페이지당 이모지 12개씩 조회 
-EMOJIS_PAGE_SIZE = 12
+# 페이지당 이모지 8개씩 조회 
+EMOJIS_PAGE_SIZE = 8
 @api_view(['GET'])
 def recent_check(self, page_number):
         get_data = {}

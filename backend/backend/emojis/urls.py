@@ -5,6 +5,6 @@ urlpatterns = [
     path('', views.emojis),
     path('mypage/<case>', views.mypage),
     path('pages/<int:page_number>',views.recent_check),
-    path('delete/<int:emoji_id>',views.emoji_delete)
+    path('delete/<int:emoji_id>',views.emoji_delete),
     path('<int:emoji_number>',views.emoji_check)
 ]
