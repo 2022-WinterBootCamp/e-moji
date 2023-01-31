@@ -4,7 +4,7 @@ from fer import FER
 import cv2
 import numpy as np
 import requests
-from utils import get_img_url_png
+from utils import get_img_url, upload_s3
 
 from PIL import Image
 
@@ -97,13 +97,8 @@ def ai_final(url, emoji) :
             img[y1:y2, x1:x2, c] = (alpha_fore_img * fore_img[:, :, c] + alpha_l * img[y1:y2, x1:x2, c])
 
     # save the image
-        fResult = "synthetic_image.png"
+        fResult = "synthetic_image.jpg"
         cv2.imwrite(fResult, img)
-
-    # #png to jpg
-    # image_nparray_img = np.asarray(bytearray(requests.get(fResult).content), dtype=np.uint8)
-    # final_img = cv2.imdecode(image_nparray_img, cv2.IMREAD_COLOR)
-    # final_img = cv2.imread(fResult, cv2.IMREAD_COLOR)
-
-    real_result = get_img_url_png(fResult)
-    return real_result
+    
+    result_img =upload_s3(fResult)
+    return result_img

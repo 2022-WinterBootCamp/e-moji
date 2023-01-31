@@ -34,18 +34,14 @@ def get_img_url(img):
     image_url = image_url.replace(" ", "/")
     return image_url
 
-def get_img_url_png(img) :
-       s3_client = boto3.client(
-        's3',
-        aws_access_key_id=AWS_ACCESS_KEY_ID,
-        aws_secret_access_key=AWS_SECRET_ACCESS_KEY
-    )
-       image = img
-       image_type = "png"
-       image_uuid = str(uuid4())
-       s3_client.put_object(Body=image, Bucket='what-moji', Key=image_uuid + "." + image_type)
 
-       image_url = "http://what-moji.s3.ap-northeast-2.amazonaws.com/" + \
-                image_uuid + "." + image_type
-       image_url = image_url.replace(" ", "/")
+def upload_s3(img) :
+       bucket_name = "what-moji"
+       file_name = img
+       image_uuid = str(uuid4())
+       image_type = "jpg"
+       s3 = boto3.client('s3',aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+       s3.upload_file(file_name, bucket_name, image_uuid + "." + image_type)
+       image_url = "http://what-moji.s3.ap-northeast-2.amazonaws.com/" + image_uuid + "." + image_type
        return image_url
