@@ -711,7 +711,7 @@ export default function MainPage() {
 
             <div style={{textAlign: 'right'}}>
               <IconButton onClick={() => setOpen_top(false)}>
-                <CloseIcon fontWeight='300'/>
+                <CloseIcon fontWeight='300' style={{color: '#FFFFFF'}}/>
               </IconButton>
             </div>
             <TopEmoji/>

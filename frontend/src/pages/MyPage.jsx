@@ -107,11 +107,6 @@ export default function MyPage(){
                 setEmojiData(data);
 
                 console.log("data>>> ",data);
-                // setEmojiName(data[0].name);
-                // setEmojiImage(data[0].image);
-                // setEmoji(data[0]);
-                // 0번째 전체 데이터 불러오기: console.log("data[0]", data[0]);
-
             })
         } catch(err){
             console.log(err)
