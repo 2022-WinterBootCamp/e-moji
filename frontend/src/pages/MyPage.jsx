@@ -156,7 +156,7 @@ export default function MyPage() {
     if (what !== "") {
       getDidData();
     }
-  }, []);
+  }, [myUserID]);
 
   // 내가 만든 이모지
   function madeList() {
