@@ -40,8 +40,6 @@ import Lottie from "lottie-react";
 import animationData from "../lotties/emoticon.json";
 import TopEmoji from "../components/main/TopEmoji";
 
-// import banner from '../components/main/banner1.png';
-
 const theme = createTheme();
 
 const style = {
@@ -435,66 +433,6 @@ export default function MainPage() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <Box style={{right: 50, top: "128px", position:"absolute"}}>
-        <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar
-                style={{ display:'block', justifyContent: 'center'}}
-                variant="rounded"
-                sx={{width: 200, height: 200}}
-                src="https://images.mypetlife.co.kr/content/uploads/2019/08/09153141/hang-niu-Tn8DLxwuDMA-unsplash-e1565933329979.jpg"
-              />
-            </ListItemAvatar>
-            <ListItemText
-              sx={{ml: 3}}
-              primary="냥이~"
-              secondary={
-                <React.Fragment>
-                  <Typography
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body2"
-                  >
-                    made by mojji
-                  </Typography>
-                </React.Fragment>
-              }
-            />
-          </ListItem>
-          <Divider
-          //variant="inset" component="li"
-          />
-        </List>
-      </Box> */}
-
-      {/* <Box
-        sx={{
-          bgcolor: "background.paper",
-          pt: 8,
-          pb: 6,
-        }}
-      >
-        <Container maxWidth="sm">
-          <Typography
-            component="h1"
-            variant="h2"
-            align="center"
-            color="text.primary"
-            gutterBottom
-          >
-            IGEI MOJI
-          </Typography>
-          <Typography
-            variant="h5"
-            align="center"
-            color="text.secondary"
-            paragraph
-          >
-            이모지를 만들고, 다양한 이모지를 체험해보세요~
-          </Typography>
-        </Container>
-      </Box> */}
       <Container sx={{ py: 8, mt: -6 }}>
         <Toolbar sx={{ mb: -1 }}>
           <div style={{ width: "50%", textAlign: "left" }}>
@@ -689,20 +627,6 @@ export default function MainPage() {
                       marginLeft: 20,
                     }}
                   >
-                    {/* <Button
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      className={classes.button}
-                      sx={{
-                        color: "#FECD93",
-                        ':hover':{
-                          color: '#FECD93',
-                        },
-                      }}  
-                    >
-                      Back
-                    </Button> */}
-
                     <Button
                       variant="contained"
                       sx={{
@@ -775,7 +699,7 @@ export default function MainPage() {
       >
         <Box
           sx={newEmojistyle}
-          style={{ backgroundColor: "#FECD93", borderColor: "#FECD93" }}
+          style={{ backgroundColor: "#FECD93", borderColor: "#FEC9C4" }}
         >
           <Typography
             id="modal-modal-title"

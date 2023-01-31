@@ -16,28 +16,13 @@ import second from "./2nd.png";
 import third from "./3rd.png";
 
 export default function TopEmoji() {
-  // function topData() {
-  //     console.log('data.length>>> ', data.length);
-  //     for(let i=0; i<data.length;i++){
-  //         <Box
-  //             width='500px'
-  //             style={{backgroundColor: '#FFFFFF', textAlign: '-webkit-center', borderRadius: 13, marginLeft: 'auto', marginRight: 'auto'}}
-  //         >
-  //             <Typography variant='h5' style={{fontWeight: 'bold'}}>
-  //                 ss
-  //             </Typography>
-  //         </Box>
-  //     }
-  // }
-
   return (
     <Box style={{ textAlign: "center" }}>
-      <Box style={{ textAlign: "-webkit-center", marginTop: -15 }}>
+      <Box style={{ textAlign: "-webkit-center", marginTop: -30 }}>
         <Typography
           variant="h3"
           style={{
             color: "#FFFFFF",
-            backgroundColor: "#FE76B9",
             maxWidth: 300,
             textAlign: "center",
             fontWeight: 500,
@@ -53,7 +38,6 @@ export default function TopEmoji() {
           variant="h4"
           style={{
             color: "#FFFFFF",
-            backgroundColor: "#61BEE1",
             maxWidth: 500,
             textAlign: "center",
             fontWeight: 500,
@@ -71,7 +55,7 @@ export default function TopEmoji() {
           backgroundColor: "#FFFFFF",
           textAlign: "-webkit-center",
           borderRadius: 30,
-          marginTop: -30,
+          marginTop: -20,
           marginLeft: "auto",
           marginRight: "auto",
         }}
