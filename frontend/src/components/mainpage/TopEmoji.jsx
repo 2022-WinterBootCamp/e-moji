@@ -1,43 +1,36 @@
 import React from "react";
-import { Box, Container, Typography, Avatar, Toolbar } from "@mui/material";
+import { 
+  Box, 
+  Typography, 
+  Avatar, 
+  Toolbar 
+} from "@mui/material";
 import {
   ComposedChart,
-  Line,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
-  Area,
 } from "recharts";
-import first from "./1st.png";
-import second from "./2nd.png";
-import third from "./3rd.png";
+import first from "../img/top3/1st.png";
+import second from "../img/top3/2nd.png";
+import third from "../img/top3/3rd.png";
 
 export default function TopEmoji() {
-  // function topData() {
-  //     console.log('data.length>>> ', data.length);
-  //     for(let i=0; i<data.length;i++){
-  //         <Box
-  //             width='500px'
-  //             style={{backgroundColor: '#FFFFFF', textAlign: '-webkit-center', borderRadius: 13, marginLeft: 'auto', marginRight: 'auto'}}
-  //         >
-  //             <Typography variant='h5' style={{fontWeight: 'bold'}}>
-  //                 ss
-  //             </Typography>
-  //         </Box>
-  //     }
-  // }
+  function place() {
+    console.log("[MainPage - TopEmoji] 메인페이지에서 Top 3를 보여주는 컴포넌트입니다.")
+  }
 
   return (
     <Box style={{ textAlign: "center" }}>
-      <Box style={{ textAlign: "-webkit-center", marginTop: -15 }}>
+      {place()}
+      <Box style={{ textAlign: "-webkit-center", marginTop: -30 }}>
         <Typography
           variant="h3"
           style={{
             color: "#FFFFFF",
-            backgroundColor: "#FE76B9",
             maxWidth: 300,
             textAlign: "center",
             fontWeight: 500,
@@ -53,7 +46,6 @@ export default function TopEmoji() {
           variant="h4"
           style={{
             color: "#FFFFFF",
-            backgroundColor: "#61BEE1",
             maxWidth: 500,
             textAlign: "center",
             fontWeight: 500,
@@ -71,7 +63,7 @@ export default function TopEmoji() {
           backgroundColor: "#FFFFFF",
           textAlign: "-webkit-center",
           borderRadius: 30,
-          marginTop: -30,
+          marginTop: -20,
           marginLeft: "auto",
           marginRight: "auto",
         }}

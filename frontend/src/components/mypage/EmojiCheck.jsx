@@ -11,11 +11,32 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
+import MyPage from '../../pages/MyPage';
 
-export default function CheckPage({emojiId}) {
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  height: 300,
+  width: 500,
+  bgcolor: "background.paper",
+  border: "2px solid #FFFFFF",
+  borderRadius: "25px",
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function EmojiCheck({emojiId}) {
   const [emojiData, setEmojiData] = useState({});
   const [emojiState, setEmojiState] = useState(false);
 
+  // 이모지 삭제 확인 Modal 창
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => setOpen(false);
+
+  // 이모지 조회 API
   async function handleSubmit() {
     console.log('emojiId>>> ', emojiId);
     try{
@@ -27,6 +48,22 @@ export default function CheckPage({emojiId}) {
         console.log("response.data >>", response.data);
         setEmojiData(response.data);
         setEmojiState(true);
+      })
+    } catch(err){
+      console.log(err);
+    }
+  }
+
+  // 이모지 삭제 API
+  async function handleDelete() {
+    try{
+      await axios({
+        method: "DELETE",
+        url: `/api/v1/emojis/delete/${emojiId}`,
+      })
+      .then ((response) => {
+        alert("이모지가 성공적으로 삭제되었습니다!");
+        console.log("response.data >>", response.data);
       })
     } catch(err){
       console.log(err);
@@ -124,8 +161,9 @@ export default function CheckPage({emojiId}) {
               bgcolor: "red",
               ':hover':{
                   bgcolor: "red",
-              }, borderRadius: '30px',
-          }}>
+              }, borderRadius: '30px'}}
+            onClick={() => setOpen(true)}
+          >
             <DeleteIcon/>
             이모지 삭제하기
           </Button>
@@ -133,7 +171,77 @@ export default function CheckPage({emojiId}) {
         </form>
         : null
       }
-      
+
+      {/* 이모지 삭제 확인 Modal 창 */}
+      <Modal
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            fontWeight="bold"
+            component="h2"
+            sx={{ mb: 3, color: "#737458", fontFamily: "Itim" }}
+          >
+            <Toolbar sx={{ mt: -2 }}>
+              <div style={{ width: "120%", textAlign: "right", marginBottom: 50}}>
+                <Typography
+                  component="h1"
+                  variant="h5"
+                  textAlign="center"
+                  color="text.primary"
+                  gutterBottom
+                  fontStyle="bold"
+                  fontFamily="Itim"
+                  marginTop="80px"
+                >
+                  이 이모지를 진짜 삭제하시겠습니까?
+                </Typography>
+              </div>
+            </Toolbar>
+          </Typography>
+          <Button
+            style={{
+              textAlign: "center",
+              bottom: "15px",
+              left: '10%',
+              width: "150px",
+              height: "30px",
+              backgroundColor: "gray",
+              color: "#FFFFFF",
+              borderColor: "#FECD93",
+              borderRadius: "30px",
+            }}
+            onClick={() => setOpen(false)}
+            variant="contained"
+          >
+            취소
+          </Button>
+          <Button
+            style={{
+              textAlign: "center",
+              bottom: "15px",
+              left: "20%",
+              width: "150px",
+              height: "30px",
+              backgroundColor: "red",
+              color: "#FFFFFF",
+              borderColor: "#FECD93",
+              borderRadius: "30px",
+            }}
+            variant="contained"
+            onClick={handleDelete}
+            href='/mypage'
+          >
+            삭제하기
+          </Button>
+        </Box>
+      </Modal>
     </div>
   )
 }

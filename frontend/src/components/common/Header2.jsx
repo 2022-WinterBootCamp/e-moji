@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Button,
   Container,
@@ -19,7 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchDecodeData } from "../../auth/DecodeActions";
 import { deleteToken } from "../../auth/tokenManager";
 
-import logo from './logo2.png';
+import logo from './Logo.png';
 
 const theme = createTheme({
   palette: {
@@ -70,31 +70,12 @@ function Header() {
           {token ? (
             <Box>
               <Button href="/mainpage">
-                {/* <Typography
-                  variant="h4"
-                  color="inherit"
-                  fontStyle="Inter"
-                  fontWeight="800"
-                  position="center"
-                  sx={{ ml: 1, mb: 1, color: "#ffffff" }}
-                >
-                  IGE MOJI
-                </Typography> */}
-                <img height="45px" position="center" style={{margin: 6}} src={logo}/>
+                <img height="40px" position="center" style={{margin: 10}} src={logo}/>
               </Button>
             </Box>
           ) : (
             <Button href="/">
-              <Typography
-                variant="h4"
-                color="inherit"
-                fontStyle="Inter"
-                fontWeight="800"
-                position="center"
-                sx={{ ml: 1, mb: 1, color: "#ffffff" }}
-              >
-                IGE MOJI
-              </Typography>
+              <img height="40px" position="center" style={{margin: 10}} src={logo}/>
             </Button>
           )}
 
