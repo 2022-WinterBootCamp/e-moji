@@ -8,50 +8,66 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 
 from .serializers import PictureSerializer, ResultSerializer, PictureIDSerializer, ResultRankSerializer
-from .utils import get_img_url, create_img, create_result, get_result_emoji
+from .utils import get_img_url, create_img, create_result
 from users.utils import user_token_to_data
 from users.models import User
 from faces.models import Face
 from emojis.models import Emoji
 from .models import Result
 from datetime import datetime, timedelta
+from .tasks import ai_task
+from celery.result import AsyncResult
 
 @api_view(['POST'])
-def faces(request):
+def get_task_id(request):
     emoji_id = request.data['emoji_id']
     user_id = request.data['user_id']
     image = request.data['image']
 
     userID= User.objects.get(id = user_id) # fk user_id
-    userData = userID.id
-    payload = user_token_to_data(request.headers.get('Authorization', None))
 
-    if (payload.get('id') == str(userData)):
+    payload = user_token_to_data(request.headers.get('Authorization', None))
+    if (payload.get('id') == str(user_id)):
         # img_url = get_img_url(image)
-        img_url = "https://what-moji.s3.ap-northeast-2.amazonaws.com/aa47b87c-6622-42a5-ba4b-d445ce84ad4f.jpg"
+        image = "https://upload.wikimedia.org/wikipedia/commons/7/73/BTS_during_a_White_House_press_conference_May_31%2C_2022_%28cropped%29.jpg"
 
         # 원본 사진 저장
-        save_image = create_img(userID, img_url)
+        save_image = create_img(userID, image)
         data = PictureSerializer(save_image, many=False).data
         emojiID = Emoji.objects.get(id = emoji_id) # fk emoji_id
+        data["emoji_id"] = emojiID.id
         data["emoji"] = emojiID.image
-        print(data)
+        task = ai_task.delay(data)
+        return JsonResponse({"task_id": task.id})
+    else:
+        return JsonResponse({"message": "Invalid_Token"}, status=401)
 
-        # ai서버에 api요청
-        url = 'http://ai_server:8000/api/v1/images/'
-        result = requests.post(url, json=data, verify=False).json()
-        print(result)
 
-        # 결과값 저장
-        face_id = PictureIDSerializer(save_image, many=False).data.get('id')
-        faceID = Face.objects.get(id = face_id) # fk face_id
+@api_view(['GET'])
+def get_task_result(request, task_id):
+    task = AsyncResult(task_id)
+    if not task.ready():  # 작업이 완료되지 않았을 경우
+        return JsonResponse({"ai_result": "notyet"})
 
-        save_result = create_result(userID, faceID, emojiID, result.get('result_img'))
-        result_data = ResultSerializer(save_result, many=False).data
-        return JsonResponse(result_data, status=201, safe=False)
+    ai_results = task.get("ai_results") # ai_result값 받기
+    resultData = task.get("result")["result"] # result값 받아오기 (배열값)
+    user_id = resultData['user_id']
+    face_id = resultData['face_id']
+    emoji_id =resultData['emoji_id']
+    image_url = resultData['result_img']
+
+    if ai_results['ai_results'] == 0:  # AI가 판별하지 못한 경우
+        return JsonResponse({"ai_result": "false"})
     
-    else :
-        return JsonResponse({"message": "Invalid_User"}, status=401)
+    faceID = Face.objects.get(id = face_id) # fk face_id
+    userID = User.objects.get(id = user_id) # fk user_id
+    emojiID = Emoji.objects.get(id = emoji_id) # fk emoji_id
+
+    save_result = create_result(userID, faceID, emojiID, image_url)
+    result_data = ResultSerializer(save_result, many=False).data
+    return JsonResponse(result_data, status=201, safe=False)
+    
+
 
 @api_view(['GET'])
 def get_ranking(request):

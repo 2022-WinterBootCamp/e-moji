@@ -8,8 +8,6 @@ import bcrypt
 def user_find_email(email):
     return User.objects.filter(email=email)
 
-
-
 def create_salt_hashed_password(password):
     password=str(password).encode('utf-8')
     salt=bcrypt.gensalt()
