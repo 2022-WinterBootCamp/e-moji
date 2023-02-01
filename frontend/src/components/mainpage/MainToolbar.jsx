@@ -80,11 +80,12 @@ export default function MainToolbar() {
                         이모지 생성
                     </Button>
                 </Box>
+                {/* Top 3 Modal */}
+                <TopEmojiModal open_top={open_top} handleClose_top={handleClose_top} setOpen_top={setOpen_top}/>
+                
                 {/* 이모지 생성 Modal */}
                 <NewEmojiModal open_new={open_new} handleClose_new={handleClose_new} setOpen_new={setOpen_new}/>
 
-                {/* Top 3 Modal */}
-                <TopEmojiModal open_top={open_top} handleClose_top={handleClose_top} setOpen_top={setOpen_top}/>
             </Toolbar>
             <Divider variant="fullWidth" sx={{ mb: 6 }} />
         </Box>

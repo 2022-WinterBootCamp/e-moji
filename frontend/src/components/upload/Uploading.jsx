@@ -32,8 +32,9 @@ export default function Uploading({ taskId, aiState }) {
         .then((data) => {
           if (data.ai_result !== "notyet") {
             setAiState_result(2);
-            setEmojiResult(data);
+            setEmojiResult(data.image); 
             console.log("[getResultData]data>>> ", data);
+            console.log("[getResultData]data.image>>> ", data.image);
             polling = "Done";
           }
           console.log("[getResultData-로딩중]data>>> ", data);
@@ -84,7 +85,7 @@ export default function Uploading({ taskId, aiState }) {
           </Typography>
           <Lottie
             animationData={animationData}
-            style={{ height: "350px", marginTop: -25 }}
+            style={{ height: "350px", marginTop: 60 }}
           />
         </Container>
       ) : aiState_result === 2 ? (

@@ -17,7 +17,6 @@ export default function Upload({emojiId}) {
   const userIdtoRedux = ReduxModule().decodeInfo?.id;
   const [aiState, setAiState] = useState(0);
   const [taskId, setTaskId] = useState("");
-  // const [emojiResult, setEmojiResult] = useState("");
 
   const [image, setImage] = useState({
     image_file: "",
@@ -52,7 +51,7 @@ export default function Upload({emojiId}) {
       try {
         await axios({
           method: "POST",
-          url: "/api/v1/faces/results/tasks",
+          url: "http://localhost:8080/api/v1/faces/results/tasks",
           data: formData,
           headers: {
             "Content-Type": "multipart/form-data",
@@ -96,13 +95,13 @@ export default function Upload({emojiId}) {
         ? <form onSubmit={handleSubmit}>
             <Typography
               component="h1"
-              fontSize="2rem"
+              variant="h4"
               align="center"
               color="text.primary"
               gutterBottom
               fontStyle="bold"
               fontFamily="Itim"
-              sx={{ mt: 3, mb: 3 }}
+              sx={{ mt: 4, mb: 7 }}
             >
               지금 당신의 표정을 넣어주세요!
             </Typography>
@@ -135,10 +134,10 @@ export default function Upload({emojiId}) {
               style={{
                 textAlign: "center",
                 position: "absolute",
-                bottom: "50px",
+                bottom: "70px",
                 left: "35%",
                 width: "200px",
-                height: "35px",
+                height: "38px",
                 backgroundColor: "#FECD93",
                 color: "#FFFFFF",
                 borderColor: "#FECD93",
