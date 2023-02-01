@@ -6,11 +6,26 @@ import { Button,
   createTheme, 
   ThemeProvider, 
   Typography} from '@mui/material';
-import back from '../components/img/3.png';
-import a from '../components/img/5.png';
-import front from '../components/img/6.png';
-import rainbow from '../components/img/rainbow.png';
-import heart from '../components/img/heart.png';
+  
+import cam from '../components/img/cam.png';
+import sim from '../components/img/sim.png';
+import simH from '../components/img/simH.png';
+import light from '../components/img/light.png';
+import film from '../components/img/film.png';
+import logo from '../components/img/logo.png';
+import logo_1 from '../components/img/logo_1.png';
+import smile_1 from '../components/img/smile_1.png';
+import sad from '../components/img/sad.png';
+import angry from '../components/img/angry.png';
+
+import { motion } from "framer-motion";
+
+const variants ={
+  hidden: {opacity: 0},
+  visible: {opacity: 1},
+  
+}
+
 
 export default function FirstPage() {
   const theme = createTheme({
@@ -20,132 +35,191 @@ export default function FirstPage() {
         fontWeight: 700,
         fontStyle:'Inter',
         
+        
       },
       body1: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: 50,
-        fontStyle: 'italic',
+        fontStyle: 'Arial',
       },
       Button: {
         fontStyle: 'italic',
       },
     },
   });
-
+ 
   return(
-    <Container>
+   
+    <Container> 
       <Box sx={{
          width: '100%',
          height: '100%',
          position: 'absolute',
          backgroundColor: '#FECD93',
          top: '0%',
-         right: '10%',
+         right: '0%',
          left: '0%',
-      }}>  
-        <Box 
+      }}> 
+          <motion.div
+          initial= "visible"
+          animate="hidden"
+            transition={{ duration: 5, times: [0,1, 0, 0, 0]}}
+            variants= {variants}>
+          <Box 
           sx={{ 
             position: 'absolute',
-            top: '13%',
-            left: '27%',
+            top: '0%',
+            left: '35%',
+           
         }}>
-          <img src={heart} />
-        </Box> 
+          <img src={sim} /> </Box>
+        <Box
+            color="inherit" 
+            size="large" 
+            position= 'absolute' 
+            sx={{
+              bgcolor: '#FECD93',
+            mt:"8%",
+            left: '37%'}
+            }>
+          <img src={simH} /> </Box></motion.div>
+          <motion.div
+          initial={{ opacity: 1}}
+          animate={{ opacity: 1,  scale: [1 ,1, 1, 1, 1], y:[0,-150]}}
+          transition={{
+            duration: 0.8,
+            delay:6,
+            ease: [0, 0.71, 0.2, 1.01]
+          }}
+          >
 
-        <Box 
+          <Box 
           sx={{ 
             position: 'absolute',
-            top: '69%',
-            left: '72%',
+            top: '28%',
+            left: '35%',
         }}>
-          <img src={a} />
-        </Box> 
+          <img src={cam} /></Box></motion.div>
 
-        <Box 
+          <motion.div
+        
+        initial={{ opacity: 0, y:150}}
+        animate={{ opacity: 1, y: 200}}
+          transition= {{ delay: 7 , duration: 6, times: [0, 1, 1,0]}}
+          
+       
+      >
+        
+         <Box 
           sx={{ 
             position: 'absolute',
-            top: '-5%',
-            left: '60%',
+            top: '-30%',
+            left: '38.5%',
         }}>
-          <img src={rainbow} />
-        </Box>
-      </Box>
+      <img src={film}/>
       
       <Box 
         sx={{
           bgcolor: 'white', 
-          height: '60vh', 
-          width: '50%',
+          height: '89%', 
+          width: '90%',
           position: 'absolute',
-          top: '23%',
-          right: '28.5%',
-          left: '27%',
-          borderRadius: '70px',}}
-      > 
-     
-        <Box 
+          top: '5%',
+          right: '0%',
+          left: '5%',
+          }}
+      >
+         <Box 
           sx={{ 
             position: 'absolute',
-            top: '-39%',
-            left: '-17.5%',
+            top: '5%',
+            left: '6%',
         }}>
-          <img src={back} />
-        </Box>
+          <img src={logo} /></Box>
+          <Box 
+          sx={{ 
+            position: 'absolute',
+            top: '73%',
+            left: '6%',
+        }}>
+          <img src={logo_1} /></Box>
+    
 
-        <Box 
-          sx={{ 
-            position: 'absolute',
-            top: '55%',
-            left: '-5.5%',      
-        }}>
-          <img src={front} /> 
-        </Box>
-    
-    
         <ThemeProvider theme={theme}>
           <Grid container>
-            <Grid item xs={2}>
-              <Typography 
-                variant="subtitle1" 
-                sx={{top:"18%", 
-                marginLeft: "-13%", 
-                height: '50vh',
-                position: 'absolute',
-                right: '30%',
-                left: '30%',}}
-              >
-                IGE <br/>MOJI
-              </Typography>
-            </Grid>
-     
-            <Grid item xs={10}>
-              <Typography sx={{mt:"35%", 
-                marginLeft: "35%",
-                right: '30%',
-                left: '40%',
-              }}>
-                지금 당신의 기분이 어떠신가요?<br/>
-                거울 속 당신의 표정을 이모지로 만들어 드립니다.
-              </Typography>
-            </Grid>
-          </Grid>
+        
+              <Box 
+          sx={{ 
+            position: 'absolute',
+            top: '28%',
+            left: '6%',
+        }}>
+          <img src={smile_1} /></Box>
+
+          <Box 
+          sx={{ 
+            position: 'absolute',
+            top: '33%',
+            left: '33%',
+        }}>
+          <img src={sad} /></Box>
+
+
+          <Box 
+          sx={{ 
+            position: 'absolute',
+            top: '30%',
+            left: '70%',
+        }}>
+          <img src={angry} /></Box>
 
           <Button 
             variant= "contained" 
             color="inherit" 
             size="large" 
             position= 'absolute' 
-            sx={{top: "-25%", 
-            marginLeft: "35%", 
+            sx={{
+            marginLeft: "14%", 
+            mt:"85%",
             color:'white',
-            right: '30%',
-            left: '20%', 
+            right: '28%',
+            left: '21%', 
             bgcolor: '#FECD93'
             }} 
-            href="/Loginpage" 
+            href="/LoginPage" 
           >Click me!</Button>
-        </ThemeProvider>
-      </Box>
-    </Container>
+          
+         
+              
+            
+          </Grid>
+          </ThemeProvider>
+          
+          </Box>
+          </Box>
+          </motion.div> 
+
+         
+          <motion.div
+         
+          initial={{ opacity: 5, scale: 0.5, y:200, }}
+            animate={{opacity: 5, y:300,
+            scale: [0, 0, 1, 0, 0],
+            rotate: [0, 0, 0, 0, 0]}}
+            transition={{ duration: 3, times: [0, 1, 1]}}>
+          <Box  
+          sx={{position: 'absolute',
+            top: '30%',
+            left: '20%',
+           
+        }}>
+          <img src={light} /> </Box></motion.div>
+
+       
+   
+      
+          </Box>
+          </Container>
+    
   );
 }
