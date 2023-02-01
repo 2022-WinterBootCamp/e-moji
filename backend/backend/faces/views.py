@@ -1,19 +1,20 @@
 import requests
 
 from django.http import JsonResponse
-from django.db.models import Count, remove
+from django.db.models import Count
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 
-from .serializers import PictureSerializer, ResultSerializer, PictureIDSerializer
+from .serializers import PictureSerializer, ResultSerializer, PictureIDSerializer, ResultRankSerializer
 from .utils import get_img_url, create_img, create_result, get_result_emoji
 from users.utils import user_token_to_data
 from users.models import User
 from faces.models import Face
 from emojis.models import Emoji
 from .models import Result
+from datetime import datetime, timedelta
 
 @api_view(['POST'])
 def faces(request):
@@ -52,18 +53,26 @@ def faces(request):
     else :
         return JsonResponse({"message": "Invalid_User"}, status=401)
 
-api_view(['GET'])
-def rank(request):
-    Result.objects.all().annotate(user_count=Count('emoji_id'))
-    rank = Result.objects.all().annotate(user_count=Count('emoji_id')).order_by('-user_count')
+@api_view(['GET'])
+def get_ranking(request):
+    start_date = datetime.today() + timedelta(days=-6)
+    end_date = datetime.today() + timedelta(days=1)
+    queryset = Result.objects.filter(created_at__range=(start_date, end_date)).values(
+        'emoji_id').annotate(cnt=Count('emoji_id')).order_by('-cnt') # django db에서 제공해주는 Count, 이미 값을 세고 있었다..
+    ranking = ResultRankSerializer(queryset, many=True).data 
+
+    #ranking은 emoji_id로 되어있어서 emoji name을 가져와야함.
+    get_data = {}
+    data_set= {}
+    count = 0
+    for i in ranking:
+            EmojiName = Emoji.objects.filter(id = i['emoji_id']).values().first()
+            # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
+            get_data.setdefault('name',EmojiName['name'])
+            get_data.setdefault('cnt',i['cnt'])
+            data_set[count] = get_data
+            get_data = {} # 딕셔너리 초기화 후 데이터 넣기
+            count += 1
+    print(data_set)
     
-    top_1 = max(rank)
-    rank.remove(top_1)
-
-    top_2 = max(rank)
-    rank.remove(top_2)
-
-    top_3 = max(rank)
-
-    
-    return Response(top_1, top_2, top_3)
+    return Response(data_set)
