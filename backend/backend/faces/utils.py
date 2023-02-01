@@ -5,6 +5,7 @@ from .models import Result
 from .models import Emoji
 import json
 from uuid import uuid4
+import requests
 
 def get_img_url(img):
     s3_client = boto3.client(
@@ -27,9 +28,10 @@ def create_img(user_id, image):
 def create_result(user_id, face_id, emoji_id, image):
     return Result.objects.create(user_id = user_id, face_id = face_id, emoji_id = emoji_id, image = image)
 
-def get_result_emoji(emoji_id, kind) :
-    data = Emoji.objects.get(id=emoji_id).image
-    return data[kind]
+def get_ai_result(data): # ai 서버에 api 요청 후 결과 받아오기
+    print(data)
+    url = 'http://ai_server:8000/api/v1/images/'
+    result = requests.post(url, json=data, verify=False).json()
+    ai_results = "done"
 
-
-
+    return {"ai_results":' '.join(ai_results), "result" : result}
