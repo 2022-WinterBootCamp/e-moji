@@ -22,6 +22,7 @@ class ResultMadeSerialzer(serializers.ModelSerializer) :
         model = Result
         fields = ("id","image",)
 
+
 class AllDataSerializer(serializers.Serializer) :
     id = serializers.IntegerField()
     name = serializers.CharField(max_length=20)

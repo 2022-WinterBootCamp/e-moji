@@ -95,6 +95,7 @@ def ai_emoji(url, emoji) :
     # save the image
         fResult = "synthetic_image.jpg"
         cv2.imwrite(fResult, img)
-    
-    result_img = upload_s3(fResult)
+
+    result_img = "synthetic_image.jpg"
+    # result_img = upload_s3(fResult)
     return result_img
