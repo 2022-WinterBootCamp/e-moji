@@ -1,32 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
   Tabs,
   Tab,
   Container,
-  Card,
-  CardHeader,
-  CardMedia,
-  Button,
-  Grid,
-  Toolbar,
-  Avatar,
-  Modal,
-  IconButton,
 } from "@mui/material";
 import PropsTypes from "prop-types";
-import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
-import CloseIcon from "@mui/icons-material/Close";
 
-import CheckPage from "../components/mypage/CheckPage";
-import { useEffect } from "react";
 import { getAccess } from "../auth/tokenManager";
 import { ReduxModule } from "../auth/ReduxModule";
-import Lottie from "lottie-react";
-import animationData from "../lotties/empty.json";
-// import MadePage from '../components/mypage/MadePage';
-// import DonePage from '../components/mypage/DonePage';
+
+import MadePage from '../components/mypage/MadePage';
+import DonePage from '../components/mypage/DonePage';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,15 +64,12 @@ const style = {
 export default function MyPage() {
   const what = getAccess();
   const userIdtoRedux = ReduxModule().decodeInfo?.id;
-  const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
 
   const [value, setValue] = React.useState(0);
   const [emojiData, setEmojiData] = useState({});
   const [emojiResult, setEmojiResult] = useState({});
-  const [emojiId, setEmojiId] = useState(1);
 
-  const [emojiState, setEmojiState] = useState(false);
+  const [doneState, setDoneState] = useState(false);
   const [didState, setDidState] = useState(false);
 
   const handleChange = (event, newValue) => {
@@ -112,7 +95,7 @@ export default function MyPage() {
         })
         .then((data) => {
           if (data[myUserID] !== "PRODUCT_DOES_NOT_EXIST") {
-            setEmojiState(true);
+            setDoneState(true);
           }
           setEmojiData(data);
           console.log("data>>> ", data);
@@ -158,93 +141,6 @@ export default function MyPage() {
     }
   }, [myUserID]);
 
-  // 내가 만든 이모지
-  function madeList() {
-    var array = [];
-
-    for (let index = 0; index < Object.keys(emojiData).length; index++) {
-      array.push(
-        <Grid
-          item
-          key={emojiData[index].id}
-          xs={12}
-          sm={6}
-          md={4}
-          sx={{ display: "flex", flexDirection: "column" }}
-        >
-          {/* mui의 button은 자동 대문자화가 되기 떄문에 textTransform: 'none' 설정 */}
-          <Button
-            onClick={() => {
-              setOpen(true);
-              setEmojiId(emojiData[index].id);
-            }}
-            style={{ textTransform: "none" }}
-          >
-            <Card>
-              <Toolbar>
-                <Box style={{ marginLeft: "-30px" }}>
-                  <CardHeader
-                    avatar={
-                      <Avatar>
-                        <EmojiEmotionsIcon />
-                      </Avatar>
-                    }
-                    title={emojiData[index].name}
-                    subheader={`made by ${emojiData[index].alias}`}
-                  />
-                </Box>
-              </Toolbar>
-              <CardMedia
-                component="img"
-                height="194"
-                image={emojiData[index].image[0]}
-              />
-            </Card>
-          </Button>
-        </Grid>
-      );
-    }
-    return array;
-  }
-  // 내가 했던 이모지
-  function didList() {
-    var array = [];
-
-    for (let index = 0; index < Object.keys(emojiResult).length; index++) {
-      array.push(
-        <Grid item key={emojiResult[index].id} xs={12} sm={6} md={4}>
-          <Card
-            sx={{
-              height: "fit-content",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Toolbar>
-              <Box style={{ marginLeft: "-30px" }}>
-                <CardHeader
-                  avatar={
-                    <Avatar>
-                      <EmojiEmotionsIcon />
-                    </Avatar>
-                  }
-                  title={emojiResult[index].name}
-                  subheader={`made by ${emojiResult[index].alias}`}
-                />
-              </Box>
-            </Toolbar>
-            <CardMedia
-              component="img"
-              height="194"
-              image={emojiResult[index].image}
-            />
-          </Card>
-        </Grid>
-      );
-    }
-    return array;
-  }
-
   return (
     <Container maxWidth="md">
       <Box sx={{ width: "100%", mt: 13 }}>
@@ -275,100 +171,14 @@ export default function MyPage() {
         </Box>
 
         <TabPanel value={value} index={0}>
-          {/* 내가 했던 거지롱~😜 */}
-          {/* <DonePage/> */}
-          <Box>
-            {didState === true ? (
-              <Grid
-                container
-                spacing={4}
-                direction="row"
-                justifyContent="space-evenly"
-              >
-                {didList()}
-              </Grid>
-            ) : (
-              <Box>
-                <Lottie
-                  animationData={animationData}
-                  style={{ height: "200px", marginTop: 200 }}
-                />
-                <Typography
-                  textAlign="center"
-                  style={{ marginTop: -15, color: "gray" }}
-                >
-                  내가 했던 이모지가 존재하지 않습니다.
-                </Typography>
-              </Box>
-            )}
-          </Box>
+          {/* 내가 했던 이모지 */}
+          <DonePage didState={didState} emojiResult={emojiResult}/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          {/* 내가 만든 거지롱~😜 */}
-          <Box>
-            {emojiState === true ? (
-              <Grid
-                container
-                spacing={4}
-                direction="row"
-                justifyContent="space-evenly"
-                alignItems="c"
-              >
-                {madeList()}
-              </Grid>
-            ) : (
-              <Box>
-                <Lottie
-                  animationData={animationData}
-                  style={{ height: "200px", marginTop: 200 }}
-                />
-                <Typography textAlign="center" style={{ marginTop: -15 }}>
-                  내가 만든 이모지가 존재하지 않습니다.
-                </Typography>
-              </Box>
-            )}
-          </Box>
+          {/* 내가 만든 이모지 */}
+          <MadePage doneState={doneState} emojiData={emojiData}/>
         </TabPanel>
       </Box>
-      <Modal
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-      >
-        <Box sx={style}>
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            fontWeight="bold"
-            component="h2"
-            sx={{ mb: 3, color: "#737458", fontFamily: "Itim" }}
-          >
-            <Toolbar sx={{ mt: -4 }}>
-              <Box style={{ width: "120%", textAlign: "right" }}>
-                <Typography
-                  variant="h5"
-                  textAlign="center"
-                  color="text.primary"
-                  gutterBottom
-                  fontStyle="bold"
-                  fontFamily="Itim"
-                  sx={{ mt: 3 }}
-                >
-                  이모지 조회
-                </Typography>
-              </Box>
-              <Box style={{ width: "0%", textAlign: "right" }}>
-                <IconButton onClick={() => setOpen(false)}>
-                  <CloseIcon fontWeight="300" />
-                </IconButton>
-              </Box>
-            </Toolbar>
-            <CheckPage emojiId={emojiId} />
-          </Typography>
-        </Box>
-      </Modal>
     </Container>
   );
 }

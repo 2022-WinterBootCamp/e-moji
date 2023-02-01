@@ -4,7 +4,6 @@ boto3
 
 celery
 opencv-python
-fer
-Pillow
+fer==22.4.0
 pandas
 tensorflow

@@ -26,6 +26,8 @@ const style = {
   p: 4,
 };
 
+const preview_URL="https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif"
+
 export default function NewEmoji() {
   const what = getAccess();
   const userIdtoRedux = ReduxModule().decodeInfo?.id;
@@ -41,41 +43,13 @@ export default function NewEmoji() {
   const handleClose = () => setOpen(false);
 
   const [emoji_name, setEmojiName] = useState("");
-  const [emoji_profile, setEmojiProfile] = useState({
-    image_file: "",
-    preview_URL:
-      "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif",
-  });
-  const [emoji_angry, setEmoji_angry] = useState({
-    image_file: "",
-    preview_URL:
-      "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif",
-  });
-  const [emoji_disgust, setEmoji_disgust] = useState({
-    image_file: "",
-    preview_URL:
-      "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif",
-  });
-  const [emoji_fear, setEmoji_fear] = useState({
-    image_file: "",
-    preview_URL:
-      "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif",
-  });
-  const [emoji_happy, setEmoji_happy] = useState({
-    image_file: "",
-    preview_URL:
-      "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif",
-  });
-  const [emoji_sad, setEmoji_sad] = useState({
-    image_file: "",
-    preview_URL:
-      "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif",
-  });
-  const [emoji_surprised, setEmoji_surpised] = useState({
-    image_file: "",
-    preview_URL:
-      "https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif",
-  });
+  const [emoji_profile, setEmojiProfile] = useState({image_file: "", preview_URL: preview_URL});
+  const [emoji_angry, setEmoji_angry] = useState({image_file: "", preview_URL: preview_URL});
+  const [emoji_disgust, setEmoji_disgust] = useState({image_file: "", preview_URL: preview_URL});
+  const [emoji_fear, setEmoji_fear] = useState({image_file: "", preview_URL: preview_URL});
+  const [emoji_happy, setEmoji_happy] = useState({image_file: "", preview_URL: preview_URL});
+  const [emoji_sad, setEmoji_sad] = useState({image_file: "", preview_URL: preview_URL});
+  const [emoji_surprised, setEmoji_surpised] = useState({image_file: "", preview_URL: preview_URL});
 
   const nameOnChange = (e) => {
     setEmojiName(e.target.value);
@@ -161,15 +135,15 @@ export default function NewEmoji() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      emoji_profile.image_file &&
-      emoji_angry.image_file &&
-      emoji_disgust.image_file &&
-      emoji_fear.image_file &&
-      emoji_happy.image_file &&
-      emoji_sad.image_file &&
-      emoji_surprised.image_file
-    ) {
+    // if (
+    //   emoji_profile.image_file &&
+    //   emoji_angry.image_file &&
+    //   emoji_disgust.image_file &&
+    //   emoji_fear.image_file &&
+    //   emoji_happy.image_file &&
+    //   emoji_sad.image_file &&
+    //   emoji_surprised.image_file
+    // ) {
       const formData = new FormData();
 
       formData.append("user_id", userIdtoRedux);
@@ -192,15 +166,14 @@ export default function NewEmoji() {
           },
         }).then((response) => {
           setEmojiState(true);
-          // alert("이모지 생성이 완료되었습니다.");
           console.log("Response >>", response.data);
         });
       } catch (err) {
         console.log(err);
       }
-    } else {
-      alert("모든 사진을 등록해주세요!");
-    }
+    // } else {
+    //   alert("모든 사진을 등록해주세요!");
+    // }
   };
 
   useEffect(() => {

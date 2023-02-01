@@ -3,7 +3,6 @@ from utils import emotions
 import cv2
 import numpy as np
 import os
-from PIL import Image
 
 def ai_detect(url):
 

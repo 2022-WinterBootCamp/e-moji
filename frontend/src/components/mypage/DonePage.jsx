@@ -7,29 +7,83 @@ import {
     Avatar,
     Box,
     Toolbar,
+    Typography,
 } from '@mui/material';
+import Lottie from "lottie-react";
+import animationData from "../../lotties/empty.json";
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 
-const cards = [1, 2, 3, 4, 5, 6];
+export default function DonePage({didState, emojiResult}) {
+    function place() {
+        console.log("[DonePage] 내가 했던 이모지 페이지입니다.")
+        console.log("emojiResult", emojiResult);
+    }
 
-export default function DonePage() {
-  return (
-    <Box>
-        <Grid container spacing={3} style={{justifyContent: 'center'}}>
-            {cards.map((card) => (
-                <Grid item key={card} xs={12} sm={6} md={4}>
-                    <Card sx={{/*maxWidth: 345, */ width: 250, textAlign:'initial', borderRadius: '20px'}}>
-                        <CardMedia
-                            component="img"
-                            height="194"
-                            image="https://mblogthumb-phinf.pstatic.net/MjAyMTEwMjRfNTIg/MDAxNjM1MDU3NDU2NzQ0.yiSnrU_Ax6Y9jT1k3qkFPfP_UOr9zYB1vMfLLVBOwgMg.wDFvOoUEMfjvoQVwO5Ix0m9f9yZxnC_W0Jo3brhbC10g.PNG.eugenius1231/image.png?type=w800"
-                            alt="Paella dish"
-                        />
-                        
-                    </Card>
+    // 내가 했던 이모지 List
+    function didList() {
+        var array = [];
+    
+        for (let index = 0; index < Object.keys(emojiResult).length; index++) {
+          array.push(
+            <Grid item key={emojiResult[index].id} xs={12} sm={6} md={4}>
+              <Card
+                sx={{
+                  height: "fit-content",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Toolbar>
+                  <Box style={{ marginLeft: "-30px" }}>
+                    <CardHeader
+                      avatar={
+                        <Avatar>
+                          <EmojiEmotionsIcon />
+                        </Avatar>
+                      }
+                      title={emojiResult[index].name}
+                      subheader={`made by ${emojiResult[index].alias}`}
+                    />
+                  </Box>
+                </Toolbar>
+                <CardMedia
+                  component="img"
+                  height="194"
+                  image={emojiResult[index].image}
+                />
+              </Card>
+            </Grid>
+          );
+        }
+        return array;
+    }
+    
+    return (
+        <Box>
+            {place()}
+            {didState === true ? (
+                <Grid
+                container
+                spacing={4}
+                direction="row"
+                justifyContent="space-evenly"
+                >
+                    {didList()}
                 </Grid>
-            ))}
-        </Grid>
-    </Box>
-  );
+            ) : (
+                <Box>
+                <Lottie
+                    animationData={animationData}
+                    style={{ height: "200px", marginTop: 200 }}
+                />
+                <Typography
+                    textAlign="center"
+                    style={{ marginTop: -15, color: "gray" }}
+                >
+                    내가 했던 이모지가 존재하지 않습니다.
+                </Typography>
+                </Box>
+            )}
+        </Box>
+    );
 }

@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
+import MyPage from '../../pages/MyPage';
 
 const style = {
   position: "absolute",
@@ -26,7 +27,7 @@ const style = {
   p: 4,
 };
 
-export default function CheckPage({emojiId}) {
+export default function EmojiCheck({emojiId}) {
   const [emojiData, setEmojiData] = useState({});
   const [emojiState, setEmojiState] = useState(false);
 
@@ -61,6 +62,7 @@ export default function CheckPage({emojiId}) {
         url: `/api/v1/emojis/delete/${emojiId}`,
       })
       .then ((response) => {
+        alert("이모지가 성공적으로 삭제되었습니다!");
         console.log("response.data >>", response.data);
       })
     } catch(err){
@@ -234,7 +236,7 @@ export default function CheckPage({emojiId}) {
             }}
             variant="contained"
             onClick={handleDelete}
-            href="/mypage"
+            href='/mypage'
           >
             삭제하기
           </Button>

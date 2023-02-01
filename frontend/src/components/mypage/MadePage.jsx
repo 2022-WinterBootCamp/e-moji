@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Card,
   Grid,
@@ -11,26 +11,20 @@ import {
   Modal,
   Typography,
   Button,
-  TextField,
-  Divider,
 } from "@mui/material";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import CloseIcon from "@mui/icons-material/Close";
-import EditPage from "./EditPage";
-import madeData from "./madeData";
-import axios from "axios";
-import { getAccess } from "../../auth/tokenManager";
-import { ReduxModule } from "../../auth/ReduxModule";
-
-// const cards = [1, 2, 3, 4, 5, 6];
+import Lottie from "lottie-react";
+import animationData from "../../lotties/empty.json";
+import CheckPage from "./EmojiCheck";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  height: 700,
-  width: 650,
+  height: 750,
+  width: 700,
   bgcolor: "background.paper",
   border: "2px solid #FFFFFF",
   borderRadius: "25px",
@@ -38,178 +32,132 @@ const style = {
   p: 4,
 };
 
-export default function MadePage() {
-  const what = getAccess();
-  const userIdtoRedux = ReduxModule().decodeInfo?.id;
-
+export default function MadePage({doneState, emojiData}) {
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
 
-  const [userId, setUserId] = useState(null);
-  const [images, setImages] = useState([]);
+  const [emojiId, setEmojiId] = useState(1);
 
-  //   async function getAllData(){
-  //     try{
+  function place() {
+    console.log("[MadePage] 내가 만든 이모지 페이지입니다.")
+    console.log("emojiData>> ", emojiData);
+  }
 
-  //         const data = {user_id: 1};
-  //         fetch(`http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`, {
-  //           method: 'GET'
-  //         })
-  //         .then((response) => {
-  //             console.log(response);
-  //             console.log("user id >>> ", `${response.user_id.user_id_id}`);
-  //             console.log("name >>> ", `${response.user_id.name}`);
-  //             console.log("image >>> ", `${response.user_id.image}`);
-  //             // console.log("name >>", name)
-  //             setName(response.name);
-  //         });
-  //     } catch(err){
-  //         console.log(err)
-  //     }
-  // }
-  useEffect(() => {
-    const EmojiInfo = async () => {
-      try {
-        const data = { user_id: userIdtoRedux };
-        await fetch(
-          `http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`,
-          {
-            method: "GET",
-          }
-        )
-          .then((res) => {
-            return res.data;
-          })
-          .then((data) => {
-            console.log("data>>> ", data);
-            setImages(data);
-          });
-      } catch (err) {
-        console.log(err);
-      }
-      EmojiInfo();
-    };
-  }, []);
+  // 내가 만든 이모지 List
+  function madeList() {
+    var array = [];
+
+    for (let index = 0; index < Object.keys(emojiData).length; index++) {
+      array.push(
+        <Grid
+          item
+          key={emojiData[index].id}
+          xs={12}
+          sm={6}
+          md={4}
+          sx={{ display: "flex", flexDirection: "column" }}
+        >
+          {/* mui의 button은 자동 대문자화가 되기 떄문에 textTransform: 'none' 설정 */}
+          <Button
+            onClick={() => {
+              setOpen(true);
+              setEmojiId(emojiData[index].id);
+            }}
+            style={{ textTransform: "none" }}
+          >
+            <Card>
+              <Toolbar>
+                <Box style={{ marginLeft: "-30px" }}>
+                  <CardHeader
+                    avatar={
+                      <Avatar>
+                        <EmojiEmotionsIcon />
+                      </Avatar>
+                    }
+                    title={emojiData[index].name}
+                    subheader={`made by ${emojiData[index].alias}`}
+                  />
+                </Box>
+              </Toolbar>
+              <CardMedia
+                component="img"
+                height="194"
+                image={emojiData[index].image[0]}
+              />
+            </Card>
+          </Button>
+        </Grid>
+      );
+    }
+    return array;
+  }
 
   return (
-    <>
-      <Typography>이모지 INFO</Typography>
-      {/* <TextField value={name}/> */}
-      {/* <Typography value={name}/> */}
-      {/* <Button onClick={getAllData}>
-          Get All Data
-      </Button> */}
-      {/* {images.map((image) => {
-        <div key={image[0]}>
-          <h2>{image[1]}</h2>
-          <p>{image[2]}</p>
-        </div>
-      })} */}
-      <h2>{userId}</h2>
-
-      <Box>
-        <Grid container spacing={3} style={{ justifyContent: "center" }}>
-          {images.map((e) => (
-            <Grid item key={e.user_id_id} xs={12} sm={6} md={4}>
-              <Button onClick={() => setOpen(true)}>
-                <Card sx={{ width: 250, textAlign: "initial" }}>
-                  <Toolbar>
-                    <div style={{ marginLeft: "-30px" }}>
-                      <CardHeader
-                        avatar={
-                          <Avatar>
-                            <EmojiEmotionsIcon />
-                          </Avatar>
-                        }
-                        title={e.name}
-                        // subheader={e.image}
-                      />
-                    </div>
-                  </Toolbar>
-
-                  <CardMedia
-                    component="img"
-                    height="194"
-                    image="https://mblogthumb-phinf.pstatic.net/MjAyMTEwMjRfNTIg/MDAxNjM1MDU3NDU2NzQ0.yiSnrU_Ax6Y9jT1k3qkFPfP_UOr9zYB1vMfLLVBOwgMg.wDFvOoUEMfjvoQVwO5Ix0m9f9yZxnC_W0Jo3brhbC10g.PNG.eugenius1231/image.png?type=w800"
-                    alt="Paella dish"
-                  />
-                </Card>
-              </Button>
-            </Grid>
-          ))}
+    <Box>
+      {place()}
+      {doneState === true ? (
+        <Grid
+          container
+          spacing={4}
+          direction="row"
+          justifyContent="space-evenly"
+          alignItems="c"
+        >
+          {madeList()}
         </Grid>
-      </Box>
-    </>
+      ) : (
+        <Box>
+          <Lottie
+            animationData={animationData}
+            style={{ height: "200px", marginTop: 200 }}
+          />
+          <Typography textAlign="center" style={{ marginTop: -15 }}>
+            내가 만든 이모지가 존재하지 않습니다.
+          </Typography>
+        </Box>
+      )}
 
-    // <Box>
-    //   <Grid container spacing={3} style={{justifyContent: 'center'}}>
-    //     {madeData.map((e) => (
-    //       <Grid item key={e.user_id_id} xs={12} sm={6} md={4}>
-    //         <Button onClick={() => setOpen(true)}>
-    //           <Card sx={{width: 250, textAlign:'initial'}}>
-    //             <Toolbar>
-    //               <div style={{marginLeft: '-30px'}}>
-    //                 <CardHeader
-    //                   avatar={
-    //                     <Avatar><EmojiEmotionsIcon/></Avatar>
-    //                   }
-    //                   title={e.name}
-    //                   // subheader={e.image}
-    //                 />
-    //               </div>
-    //             </Toolbar>
-
-    //             <CardMedia
-    //               component="img"
-    //               height="194"
-    //               image="https://mblogthumb-phinf.pstatic.net/MjAyMTEwMjRfNTIg/MDAxNjM1MDU3NDU2NzQ0.yiSnrU_Ax6Y9jT1k3qkFPfP_UOr9zYB1vMfLLVBOwgMg.wDFvOoUEMfjvoQVwO5Ix0m9f9yZxnC_W0Jo3brhbC10g.PNG.eugenius1231/image.png?type=w800"
-    //               alt="Paella dish"
-    //             />
-    //           </Card>
-    //         </Button>
-    //       </Grid>
-    //     ))}
-    //   </Grid>
-    //   <Modal
-    //     aria-labelledby="modal-title"
-    //     aria-describedby="modal-description"
-    //     open={open}
-    //     onClose={handleClose}
-    //     closeAfterTransition
-    //   >
-    //     <Box sx={style}>
-    //       <Typography
-    //         id="modal-modal-title"
-    //         variant="h6"
-    //         fontWeight="bold"
-    //         component="h2"
-    //         sx={{ mb: 3, color: "#737458", fontFamily: "Itim"}}
-    //       >
-    //         <Toolbar sx={{mt: -4}}>
-    //           <div style={{width: '120%', textAlign: 'right'}}>
-    //             <Typography
-    //               component="h1"
-    //               variant='h5'
-    //               textAlign='center'
-    //               color='text.primary'
-    //               gutterBottom
-    //               fontStyle='bold'
-    //               fontFamily='Itim'
-    //             >
-    //               이모지 수정
-    //             </Typography>
-    //           </div>
-    //           <div style={{width: '0%',textAlign: 'right'}}>
-    //             <IconButton onClick={() => setOpen(false)}>
-    //               <CloseIcon fontWeight='300'/>
-    //             </IconButton>
-    //           </div>
-    //         </Toolbar>
-
-    //         <EditPage/>
-    //       </Typography>
-    //     </Box>
-    //   </Modal>
-    // </Box>
+      {/* 이모지 조회 Modal 창 */}
+      <Modal
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            fontWeight="bold"
+            component="h2"
+            sx={{ mb: 3, color: "#737458", fontFamily: "Itim" }}
+          >
+            <Toolbar sx={{ mt: -4 }}>
+              <Box style={{ width: "120%", textAlign: "right" }}>
+                <Typography
+                  variant="h5"
+                  textAlign="center"
+                  color="text.primary"
+                  gutterBottom
+                  fontStyle="bold"
+                  fontFamily="Itim"
+                  sx={{ mt: 3 }}
+                >
+                  이모지 조회
+                </Typography>
+              </Box>
+              <Box style={{ width: "0%", textAlign: "right" }}>
+                <IconButton onClick={() => setOpen(false)}>
+                  <CloseIcon fontWeight="300" />
+                </IconButton>
+              </Box>
+            </Toolbar>
+            {/* 이모지 조회 Page */}
+            <CheckPage emojiId={emojiId} />
+          </Typography>
+        </Box>
+      </Modal>
+    </Box>
   );
 }

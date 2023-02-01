@@ -1,23 +1,31 @@
 import React from "react";
-import { Box, Container, Typography, Avatar, Toolbar } from "@mui/material";
+import { 
+  Box, 
+  Typography, 
+  Avatar, 
+  Toolbar 
+} from "@mui/material";
 import {
   ComposedChart,
-  Line,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
-  Area,
 } from "recharts";
-import first from "./1st.png";
-import second from "./2nd.png";
-import third from "./3rd.png";
+import first from "../img/top3/1st.png";
+import second from "../img/top3/2nd.png";
+import third from "../img/top3/3rd.png";
 
 export default function TopEmoji() {
+  function place() {
+    console.log("[MainPage - TopEmoji] 메인페이지에서 Top 3를 보여주는 컴포넌트입니다.")
+  }
+
   return (
     <Box style={{ textAlign: "center" }}>
+      {place()}
       <Box style={{ textAlign: "-webkit-center", marginTop: -30 }}>
         <Typography
           variant="h3"
