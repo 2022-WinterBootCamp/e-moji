@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { 
   Box, 
   Typography, 
@@ -22,6 +22,28 @@ export default function TopEmoji() {
   function place() {
     console.log("[MainPage - TopEmoji] 메인페이지에서 Top 3를 보여주는 컴포넌트입니다.")
   }
+
+  // Top 3 Api
+  async function getTopData() {
+    try {
+      fetch('http://localhost:8080/api/v1/faces/ranking', {
+        method: "GET",
+      })
+        .then((response) => {
+          // console.log(response);
+          return response.json();
+        })
+        .then((data) => {
+          console.log("[TopEmoji]data>>> ", data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getTopData()
+  }, [])
 
   return (
     <Box style={{ textAlign: "center" }}>

@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchDecodeData } from "../../auth/DecodeActions";
 import { deleteToken } from "../../auth/tokenManager";
 
-import logo from "./Logo.png";
+import logo from "./logo.png";
 
 const theme = createTheme({
   palette: {
