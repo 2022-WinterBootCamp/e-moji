@@ -7,13 +7,17 @@ import {
 import axios from "axios";
 import { getAccess } from "../../auth/tokenManager";
 import { ReduxModule } from "../../auth/ReduxModule";
+import Uploading from "./Uploading";
 
 const preview_URL = 'https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif';
 
-export default function Upload({emojiId, handleNext}) {
+export default function Upload({emojiId}) {
   let inputRef;
   const what = getAccess();
   const userIdtoRedux = ReduxModule().decodeInfo?.id;
+  const [aiState, setAiState] = useState(0);
+  const [taskId, setTaskId] = useState("");
+  // const [emojiResult, setEmojiResult] = useState("");
 
   const [image, setImage] = useState({
     image_file: "",
@@ -43,12 +47,12 @@ export default function Upload({emojiId, handleNext}) {
       formData.append("emoji_id", emojiId);
       formData.append("image", image.image_file);
 
-      {handleNext()}
+      setAiState(1)
       
       try {
         await axios({
           method: "POST",
-          url: "/api/v1/faces/",
+          url: "/api/v1/faces/results/tasks",
           data: formData,
           headers: {
             "Content-Type": "multipart/form-data",
@@ -56,6 +60,7 @@ export default function Upload({emojiId, handleNext}) {
           },
         }).then((response) => {
           console.log("response >> ", response.data);
+          setTaskId(response.data.task_id)
 
           setImage({
             image_file: "",
@@ -71,6 +76,28 @@ export default function Upload({emojiId, handleNext}) {
     }
   };
 
+  // 사진 결과 Api
+  // async function getResultData() {
+  //   fetch(
+  //     `http://localhost:8080/api/v1/faces/results/tasks/${taskId}`,
+  //     {
+  //       method: "GET",
+  //     }
+  //   )
+  //     .then((response) => {
+  //       // console.log(response);
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       if(data.ai_result !== 'notyet'){
+  //         setAiState(2)
+  //         setEmojiResult(data);
+  //         console.log("[getResultData]data>>> ", data);
+  //       }
+  //       console.log("[getResultData-로딩중]data>>> ", data);
+  //     });
+  // }
+
   function place() {
     console.log("[MainPage - Upload] 업로드 페이지입니다.")
   }
@@ -80,69 +107,76 @@ export default function Upload({emojiId, handleNext}) {
     return () => {
       URL.revokeObjectURL(image.preview_URL);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Box textAlign="center">
       {place()}
-      <form onSubmit={handleSubmit}>
-        <Typography
-          component="h1"
-          fontSize="2rem"
-          align="center"
-          color="text.primary"
-          gutterBottom
-          fontStyle="bold"
-          fontFamily="Itim"
-          sx={{ mt: 3, mb: 3 }}
-        >
-          지금 당신의 표정을 넣어주세요!
-        </Typography>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={saveImage}
-          // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
-          // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
-          onClick={(e) => (e.target.value = null)}
-          ref={(refParam) => (inputRef = refParam)}
-          style={{ display: "none" }}
-        />
-        <Box style={{ borderRadius: "15px" }}>
-          <Button>
-            <img
-              style={{
-                height: "300px",
-                width: "520px",
-                borderRadius: "15px",
-              }}
-              textAlign
-              src={image.preview_URL}
-              onClick={() => inputRef.click()}
+      {
+        aiState === 0
+        ? <form onSubmit={handleSubmit}>
+            <Typography
+              component="h1"
+              fontSize="2rem"
+              align="center"
+              color="text.primary"
+              gutterBottom
+              fontStyle="bold"
+              fontFamily="Itim"
+              sx={{ mt: 3, mb: 3 }}
+            >
+              지금 당신의 표정을 넣어주세요!
+            </Typography>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={saveImage}
+              // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
+              // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
+              onClick={(e) => (e.target.value = null)}
+              ref={(refParam) => (inputRef = refParam)}
+              style={{ display: "none" }}
             />
-          </Button>
-        </Box>
+            <Box style={{ borderRadius: "15px" }}>
+              <Button>
+                <img
+                  style={{
+                    height: "300px",
+                    width: "520px",
+                    borderRadius: "15px",
+                  }}
+                  textAlign
+                  src={image.preview_URL}
+                  onClick={() => inputRef.click()}
+                />
+              </Button>
+            </Box>
 
-        <Button
-          style={{
-            textAlign: "center",
-            position: "absolute",
-            bottom: "50px",
-            left: "35%",
-            width: "200px",
-            height: "35px",
-            backgroundColor: "#FECD93",
-            color: "#FFFFFF",
-            borderColor: "#FECD93",
-            borderRadius: "30px",
-          }}
-          variant="contained"
-          type="submit"
-          value="Upload"
-        >
-          Upload
-        </Button>
-      </form>
+            <Button
+              style={{
+                textAlign: "center",
+                position: "absolute",
+                bottom: "50px",
+                left: "35%",
+                width: "200px",
+                height: "35px",
+                backgroundColor: "#FECD93",
+                color: "#FFFFFF",
+                borderColor: "#FECD93",
+                borderRadius: "30px",
+              }}
+              variant="contained"
+              type="submit"
+              value="Upload"
+            >
+              Upload
+            </Button>
+          </form>
+        : (aiState === 1)
+          ? <Uploading taskId={taskId} aiState={aiState}/>
+          : null
+      }
     </Box>
   );
 }

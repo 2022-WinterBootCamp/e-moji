@@ -111,7 +111,7 @@ export default function MadePage({doneState, emojiData}) {
             animationData={animationData}
             style={{ height: "200px", marginTop: 200 }}
           />
-          <Typography textAlign="center" style={{ marginTop: -15 }}>
+          <Typography textAlign="center" style={{ marginTop: -15, color: "gray"  }}>
             내가 만든 이모지가 존재하지 않습니다.
           </Typography>
         </Box>

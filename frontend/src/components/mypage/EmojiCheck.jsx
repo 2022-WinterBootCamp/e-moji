@@ -70,6 +70,7 @@ export default function EmojiCheck({ emojiId }) {
 
   useEffect(() => {
     handleSubmit();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
