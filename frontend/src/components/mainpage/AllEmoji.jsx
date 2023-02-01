@@ -19,9 +19,9 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
 
-import StepOne from "../upload/Upload";
-import StepTwo from "../upload/Uploading";
-import StepFinal from "../upload/UploadResult";
+import Upload from "../upload/Upload";
+import Uploading from "../upload/Uploading";
+import UploadResult from "../upload/UploadResult";
 
 const style = {
     position: "absolute",
@@ -80,11 +80,11 @@ export default function AllEmoji({emojiData}) {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <StepOne emojiId={emojiId} handleNext={handleNext}/>
+        return <Upload emojiId={emojiId}/>
+    //   case 1:
+    //     return <Uploading/>;
       case 1:
-        return <StepTwo/>;
-      case 2:
-        return <StepFinal />;
+        return <UploadResult/>;
       default:
         return "Unknown step";
     }
@@ -159,8 +159,8 @@ export default function AllEmoji({emojiData}) {
                             style={{ color: "#FECD93", borderColor: "#FECD93" }}
                             fullWidth
                             onClick={() => {
-                            handleOpen();
-                            setEmojiId(emojiData[index].id);
+                                handleOpen();
+                                setEmojiId(emojiData[index].id);
                             }}
                         >
                             Use
@@ -206,7 +206,7 @@ export default function AllEmoji({emojiData}) {
                     </IconButton>
                 </div>
                 <div className={classes.root}>
-                    <Stepper activeStep={activeStep}>
+                    {/* <Stepper activeStep={activeStep}>
                     {steps.map((label) => {
                         const stepProps = {};
                         const labelProps = {};
@@ -216,16 +216,16 @@ export default function AllEmoji({emojiData}) {
                         </Step>
                         );
                     })}
-                    </Stepper>
+                    </Stepper> */}
                     <div>
                     {activeStep === steps.length - 1 ? (
-                        <StepFinal/>
+                        <Upload/>
                     ) : (
                         <div>
                         <Typography className={classes.instructions}>
                             {getStepContent(activeStep)}
                         </Typography>
-                        <div
+                        {/* <div
                             style={{
                             textAlign: "center",
                             width: "85%",
@@ -247,7 +247,7 @@ export default function AllEmoji({emojiData}) {
                             >
                             {activeStep === steps.length - 1 ? "Finish" : "Next"}
                             </Button>
-                        </div>
+                        </div> */}
                         </div>
                     )}
                     </div>
