@@ -5,21 +5,11 @@ networks:
     driver: bridge
 
 volumes:
-  mysql_data:
   build_folder:
   # prometheus_data: {}
   # grafana_data: {}
 
 services:
-  mysqldb:
-    build: ./backend/db
-    env_file:
-      - "./backend/db/db.env"
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-
   backend:
     build: ./backend/backend
     command: >
@@ -33,10 +23,7 @@ services:
     volumes:
       - ./backend/backend:/app
     depends_on:
-      - mysqldb
       - redis
-    links:
-      - mysqldb
 
   ai_server:
     build: ./backend/ai
