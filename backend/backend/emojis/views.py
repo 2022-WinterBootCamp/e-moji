@@ -105,7 +105,7 @@ def mypage(request, case):
 
         # 내가 했던 이모지
         elif case == 'result' :
-            if not Result.objects.filter(user_id=userId).exists():
+            if not Result.objects.filter(user_id=userId, active=1).exists():
                 return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
             resultMyData = Result.objects.filter(user_id = user_id).values()
 
@@ -154,7 +154,7 @@ def recent_check(self, page_number):
 
 # 삭제 API 
 # 실제 DB에서는 삭제하지 않고 페이지 조회에서 보이지 않음
-@api_view(['DELETE'])
+@api_view(['PUT'])
 def emoji_delete(request, emoji_id):
-    emoji = Emoji.objects.filter(id=emoji_id).update(active = 0)
+    Emoji.objects.filter(id=emoji_id).update(active = 0)
     return Response("test ok", status=status.HTTP_200_OK)
