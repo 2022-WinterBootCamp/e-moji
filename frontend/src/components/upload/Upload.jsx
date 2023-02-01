@@ -76,28 +76,6 @@ export default function Upload({emojiId}) {
     }
   };
 
-  // 사진 결과 Api
-  // async function getResultData() {
-  //   fetch(
-  //     `http://localhost:8080/api/v1/faces/results/tasks/${taskId}`,
-  //     {
-  //       method: "GET",
-  //     }
-  //   )
-  //     .then((response) => {
-  //       // console.log(response);
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       if(data.ai_result !== 'notyet'){
-  //         setAiState(2)
-  //         setEmojiResult(data);
-  //         console.log("[getResultData]data>>> ", data);
-  //       }
-  //       console.log("[getResultData-로딩중]data>>> ", data);
-  //     });
-  // }
-
   function place() {
     console.log("[MainPage - Upload] 업로드 페이지입니다.")
   }
