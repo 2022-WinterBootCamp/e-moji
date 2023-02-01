@@ -82,9 +82,14 @@ def get_ranking(request):
     data_set= {}
     count = 0
     for i in ranking:
-            EmojiName = Emoji.objects.filter(id = i['emoji_id']).values().first()
+            EmojiName = Emoji.objects.filter(id = i['emoji_id'], active = 1).values().first()
+            if(EmojiName == None) : continue # 삭제된 Emoji는 continue
             # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
+            UserName = User.objects.filter(emoji = EmojiName['id']).values().first()
+            get_data.setdefault('id',EmojiName['id'])
             get_data.setdefault('name',EmojiName['name'])
+            get_data.setdefault('user',UserName['alias'])
+            get_data.setdefault('image',EmojiName['image'][0])
             get_data.setdefault('cnt',i['cnt'])
             data_set[count] = get_data
             get_data = {} # 딕셔너리 초기화 후 데이터 넣기
