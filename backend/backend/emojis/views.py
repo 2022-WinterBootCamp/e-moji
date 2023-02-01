@@ -101,16 +101,22 @@ def mypage(request, case):
                     data_set[count] = get_data
                     get_data = {} # 딕셔너리 초기화 후 데이터 넣기
                     count += 1
+
+                if(data_set == {}) : # 데이터를 다 지웠을때
+                    return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
                 return JsonResponse(data_set, status = 200, safe=False)
 
         # 내가 했던 이모지
         elif case == 'result' :
-            if not Result.objects.filter(user_id=userId, active=1).exists():
+            if not Result.objects.filter(user_id=userId).exists():
                 return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
             resultMyData = Result.objects.filter(user_id = user_id).values()
 
             for i in resultMyData :
                 userEmoji = Emoji.objects.filter(id = i['emoji_id_id'], active=1).values().first()
+                print(userEmoji)
+                if(userEmoji == None) :
+                    continue
                 makerName = User.objects.filter(id = userEmoji['user_id_id']).values().first()
                 # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
                 get_data.setdefault('id', i['id'])
@@ -120,6 +126,9 @@ def mypage(request, case):
                 data_set[count] = get_data
                 get_data = {} # 딕셔너리 초기화 후 데이터 넣기
                 count += 1
+                
+            if(data_set == {}) : # 데이터를 다 지웠을때
+                return JsonResponse({userId: 'PRODUCT_DOES_NOT_EXIST'}, status=404)
             return JsonResponse(data_set, status = 200, safe=False)
             
         else :

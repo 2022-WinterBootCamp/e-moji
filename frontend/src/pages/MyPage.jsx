@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Typography,
-  Tabs,
-  Tab,
-  Container,
-} from "@mui/material";
+import { Box, Typography, Tabs, Tab, Container } from "@mui/material";
 import PropsTypes from "prop-types";
 
 import { getAccess } from "../auth/tokenManager";
 import { ReduxModule } from "../auth/ReduxModule";
 
-import MadePage from '../components/mypage/MadePage';
-import DonePage from '../components/mypage/DonePage';
+import MadePage from "../components/mypage/MadePage";
+import DonePage from "../components/mypage/DonePage";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -123,6 +117,7 @@ export default function MyPage() {
           return response.json();
         })
         .then((data) => {
+          console.log(data);
           if (data[myUserID] !== "PRODUCT_DOES_NOT_EXIST") {
             setDidState(true);
           }
@@ -172,11 +167,11 @@ export default function MyPage() {
 
         <TabPanel value={value} index={0}>
           {/* 내가 했던 이모지 */}
-          <DonePage didState={didState} emojiResult={emojiResult}/>
+          <DonePage didState={didState} emojiResult={emojiResult} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           {/* 내가 만든 이모지 */}
-          <MadePage doneState={doneState} emojiData={emojiData}/>
+          <MadePage doneState={doneState} emojiData={emojiData} />
         </TabPanel>
       </Box>
     </Container>
