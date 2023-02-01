@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 
-from .serializers import EmojisSerializer, ResultMadeSerialzer, EmojisMadeSerializer, AllDataSerializer
+from .serializers import EmojisSerializer, EmojisMadeSerializer, AllDataSerializer
 from datetime import datetime, timedelta
 from .utils import create_emoji
 from faces.utils import get_img_url

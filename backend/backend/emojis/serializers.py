@@ -17,12 +17,6 @@ class EmojisMadeSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
     image = serializers.ListField(child=serializers.CharField())
 
-class ResultMadeSerialzer(serializers.ModelSerializer) :
-    class Meta:
-        model = Result
-        fields = ("id","image",)
-
-
 class AllDataSerializer(serializers.Serializer) :
     id = serializers.IntegerField()
     name = serializers.CharField(max_length=20)
