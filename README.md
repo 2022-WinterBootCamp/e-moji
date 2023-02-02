@@ -72,18 +72,16 @@
     - `GET` : 토큰 인증 요청
     - `POST` : 로그인
   <br></br>
-  ```
-  Bcrypt : 데이터베이스에 유저의 정보를 저장할 때, 비밀번호와 같이 암호화가 필요한 데이터를 쉽게 다룰 수 있도록 해주는 password hashing 라이브러리다.
-  ```
+  
 - ***api/v1/users/mypage/?case=${type}*** <br></br>
   - `GET` : 마이페이지 데이터 조회 <br></br>
     > case1 : 내가 했던 이모지<br>case2 : 내가 만든 이모지
 
 ### **faces api**
-- ***/api/v1/faces/***
-    
-    - `POST` : 얼굴 사진 업로드
-    - `GET` : 얼굴 사진 AI 결과
+- ***/api/v1/faces/results/tasks/***
+    - `POST` : 사용자가 업로드한 사진 비동기 처리
+
+- ***faces 
 
 
 ### **emojis api**
