@@ -25,7 +25,7 @@ export default function MainToolbar() {
     }
     return (
         <Box>
-            <Toolbar sx={{ mb: -1 }}>
+            <Toolbar sx={{ marginTop: 15 }}>
                 {place()}
                 <Box style={{ width: "50%", textAlign: "left" }}>
                     <Typography
@@ -53,16 +53,15 @@ export default function MainToolbar() {
                     >
                         <EmojiEventsIcon style={{ bgcolor: "#FECD93", marginTop: -1 }} />
                         <Typography
-                        style={{
-                            marginLeft: 7,
-                            fontWeight: "bold",
-                            fontSize: "inherit",
-                        }}
+                            style={{
+                                marginLeft: 7,
+                                fontWeight: "bold",
+                                fontSize: "inherit",
+                            }}
                         >
                         Top 3
                         </Typography>
                     </Button>
-
                     <Button
                         variant="contained"
                         sx={{

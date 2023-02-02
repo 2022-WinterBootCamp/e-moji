@@ -7,6 +7,8 @@ import Header from "./components/common/Header";
 import MyPage from "./pages/MyPage";
 import AuthRouter from "./auth/AuthRouter";
 import Register from "./pages/Register";
+import FirstExample from "./pages/FirstExample";
+import Video from "./components/firstpage/Video";
 
 function App() {
   return (
@@ -14,9 +16,10 @@ function App() {
       <Header />
       <Routes>
         <Route element={<AuthRouter authAble={false} />}>
-          <Route path="/" element={<FirstPage />} />
+          <Route path="/" element={<FirstExample />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/video" element={<Video/>}/>
         </Route>
 
         <Route element={<AuthRouter authAble={true} />}>

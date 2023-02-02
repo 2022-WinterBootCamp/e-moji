@@ -149,7 +149,7 @@ export default function MyPage() {
             aria-label="basic tabs example"
             centered
             variant="fullWidth"
-            TabIndicatorProps={{ style: { background: "#FECD93" } }}
+            TabIndicatorProps={{ style: { background: "#FEDE29" } }}
             textColor="inherit"
           >
             <Tab

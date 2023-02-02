@@ -202,17 +202,6 @@ export default function AllEmoji({emojiData}) {
                     </IconButton>
                 </div>
                 <div className={classes.root}>
-                    {/* <Stepper activeStep={activeStep}>
-                    {steps.map((label) => {
-                        const stepProps = {};
-                        const labelProps = {};
-                        return (
-                        <Step key={label} {...stepProps}>
-                            <StepLabel {...labelProps}>{label}</StepLabel>
-                        </Step>
-                        );
-                    })}
-                    </Stepper> */}
                     <div>
                     {activeStep === steps.length - 1 ? (
                         <Upload/>
@@ -221,29 +210,6 @@ export default function AllEmoji({emojiData}) {
                         <Typography className={classes.instructions}>
                             {getStepContent(activeStep)}
                         </Typography>
-                        {/* <div
-                            style={{
-                            textAlign: "center",
-                            width: "85%",
-                            position: "absolute",
-                            bottom: "10px",
-                            marginLeft: 20,
-                            }}
-                        >
-                            <Button
-                            variant="contained"
-                            sx={{
-                                bgcolor: "#FECD93",
-                                ":hover": {
-                                bgcolor: "#FECD93",
-                                },
-                            }}
-                            onClick={handleNext}
-                            className={classes.button}
-                            >
-                            {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                            </Button>
-                        </div> */}
                         </div>
                     )}
                     </div>
