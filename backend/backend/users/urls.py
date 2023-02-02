@@ -4,6 +4,6 @@ from . import views
 # user/urls.py
 urlpatterns = [
     path('', views.user),
-    path('test',views.user_test),
     path('auth',views.login),
+    path('mypage/<case>', views.mypage),
 ]
