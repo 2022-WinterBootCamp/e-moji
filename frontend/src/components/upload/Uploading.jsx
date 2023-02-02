@@ -32,7 +32,7 @@ export default function Uploading({ taskId, aiState }) {
         .then((data) => {
           if (data.ai_result !== "notyet") {
             setAiState_result(2);
-            setEmojiResult(data);
+            setEmojiResult(data.image);
             console.log("[getResultData]data>>> ", data);
             polling = "Done";
           }
