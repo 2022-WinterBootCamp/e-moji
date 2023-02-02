@@ -5,6 +5,10 @@
 <br></br>
 ## ABOUT
  >원하는 이모지를 **선택**, 얼굴 사진을 **업로드**하고 AI가 얼굴 표정을 **분석**하여 선택한 이모지에 맞는 얼굴 **표정**을 사진에 **붙여넣어주는** 서비스
+<p align="center">
+<img width="49%" alt="스크린샷 2023-02-03 오전 12 13 15" src="https://user-images.githubusercontent.com/121562023/216372047-a2112514-5ded-4c64-a070-c6a314a8ff20.png"><img width="48%" alt="스크린샷 2023-02-03 오전 12 14 00" src="https://user-images.githubusercontent.com/121562023/216372543-caa878d8-4a62-4e85-9cea-3b520bf39f9a.png">
+
+</p>
 
 <br></br>
 <br></br>
@@ -17,6 +21,13 @@
 - 보편적으로 한개의 Framework 로 여러개의 서버를 구축하는 경우와 달리 한개의 서버가 다운 됐을 때 독립적으로 구동할 수 있으며 영향을 비교적 덜 받는다.
 
 <br></br>
+
+## Features
+ - Main Feature : 사용자가 업로드한 이미지속 사람의 표정을 AI가 분석하여 이모지를 생성
+ - Additional Feature : 생성한 이모지를 공유
+
+
+
 <div align=left><h1>📚 STACKS</h1></div>
 
 
