@@ -43,11 +43,9 @@ export default function MainToolbar() {
                     <Button
                         variant="contained"
                         style={{
-                        backgroundColor: "#FECD93",
-                        ":hover": { backgroundColor: "#FECD93" },
-                        color: "#FFFFFF",
-                        marginRight: 20,
-                        marginTop: 1,
+                            backgroundColor: "#e38e8e",
+                            marginRight: 20,
+                            marginTop: 1,
                         }}
                         onClick={() => {
                         handleOpen_top();
@@ -82,7 +80,6 @@ export default function MainToolbar() {
                 </Box>
                 {/* Top 3 Modal */}
                 <TopEmojiModal open_top={open_top} handleClose_top={handleClose_top} setOpen_top={setOpen_top}/>
-                
                 {/* 이모지 생성 Modal */}
                 <NewEmojiModal open_new={open_new} handleClose_new={handleClose_new} setOpen_new={setOpen_new}/>
 

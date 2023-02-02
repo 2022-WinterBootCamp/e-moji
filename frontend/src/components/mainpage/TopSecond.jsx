@@ -10,14 +10,16 @@ export default function TopSecond({topEmoji}) {
   return (
     <Box
         width="200px"
-        height="200px"
+        height="220px"
         style={{
         backgroundColor: "#FFFFFF",
         textAlign: "-webkit-center",
         borderRadius: 30,
         marginLeft: "auto",
-        marginRight: "110px",
-        marginTop: 10,
+        marginRight: "428px",
+        marginTop: -355,
+        border: 'inset #FECD93',
+        position: 'absolute', 
         }}
     >
         <Box>
@@ -25,9 +27,10 @@ export default function TopSecond({topEmoji}) {
             style={{
             color: "#FFFFFF",
             fontWeight: "900",
-            backgroundColor: "silver",
+            backgroundColor: "#FECD93",
             width: "70px",
             borderRadius: 10,
+            marginTop: 10
             }}
         >
             Top 2

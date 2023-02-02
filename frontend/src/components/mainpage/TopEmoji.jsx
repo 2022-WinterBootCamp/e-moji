@@ -2,20 +2,17 @@ import React, {useEffect, useState} from "react";
 import { 
   Box, 
   Typography,
-  Toolbar 
 } from "@mui/material";
-import {
-  ComposedChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
 import TopFirst from "./TopFirst";
 import TopSecond from "./TopSecond";
 import TopThird from "./TopThird";
+import TopEmojiDetail from "./TopEmojiDetail";
+
+import stage from './stage.png';
+import top3_logo from './top3_logo.png';
+
+import Lottie from "lottie-react";
+import animationData from "../../lotties/prize.json";
 
 export default function TopEmoji() {
   const [topEmoji, setTopEmoji] = useState({});
@@ -68,63 +65,49 @@ export default function TopEmoji() {
         topState === true
         ? <Box>
             {changeName()}
-            <Box style={{ textAlign: "-webkit-center", marginTop: -30 }}>
-            <Typography
+            <Lottie
+              animationData={animationData}
+              style={{ position: 'absolute', width: '500px', marginLeft: 70, marginTop: 100 }}
+            />
+            <Box style={{ textAlign: "-webkit-center", marginTop: 30 }}>
+            {/* <Typography
               variant="h3"
               style={{
-                color: "#FFFFFF",
                 maxWidth: 300,
                 textAlign: "center",
                 fontWeight: 500,
               }}
             >
-              이모지 <span style={{ fontWeight: "900" }}>TOP 3</span>
-            </Typography>
-          </Box>
+              이모지 <span style={{ fontWeight: "900", color: '#e38e8e' }}>TOP 3</span>
+            </Typography> */}
+            <img style={{height: 90, marginTop: -40, marginBottom: -15}} src={top3_logo} />
+            </Box>
           <Box
             style={{ textAlign: "-webkit-center", marginTop: 10, marginBottom: 50 }}
           >
             <Typography
               variant="h4"
               style={{
-                color: "#FFFFFF",
                 maxWidth: 500,
                 textAlign: "center",
                 fontWeight: 500,
               }}
             >
               최근 7일간{" "}
-              <span style={{ fontWeight: "900" }}>가장 인기 있는 이모지!</span>
+              <span style={{ fontWeight: "900", color: '#743531' }}>가장 인기 있는 이모지!</span>
             </Typography>
+            <Box style={{textAlign: 'right', marginTop: 30}}>
+              <TopEmojiDetail emojiTotal={emojiTotal}/>
+            </Box>
           </Box>
-          <Box>
+          <div style={{position: 'relative', marginTop: 10}}>
+            <img style={{width: 650, marginTop: 200, marginLeft: -9}} src={stage} />
             <TopFirst topEmoji={topEmoji}/>
-            <Toolbar style={{ marginTop: -130, marginBottom: 10 }}>
-              <TopSecond topEmoji={topEmoji}/>
-              <TopThird topEmoji={topEmoji}/>
-            </Toolbar>
-          </Box>
-          <Box>
-            <ComposedChart
-              layout="vertical"
-              width={600}
-              height={270}
-              data={emojiTotal}
-              margin={{
-                top: 20,
-                right: 20,
-                bottom: 20,
-                left: 20,
-              }}
-            >
-              <CartesianGrid stroke="#f5f5f5" />
-              <XAxis type="number" />
-              <YAxis dataKey="name" type="category" />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="count" barSize={20} fill="#413ea0" />
-            </ComposedChart>
-          </Box>
+            {/* <Toolbar style={{ marginTop: -90 }}> */}
+            <TopSecond topEmoji={topEmoji}/>
+            <TopThird topEmoji={topEmoji}/>
+            {/* </Toolbar> */}
+          </div>
         </Box>
       : null
       }

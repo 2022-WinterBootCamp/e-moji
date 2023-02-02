@@ -10,14 +10,16 @@ export default function TopThird({topEmoji}) {
   return (
     <Box
         width="200px"
-        height="200px"
+        height="220px"
         style={{
         backgroundColor: "#FFFFFF",
         textAlign: "-webkit-center",
         borderRadius: 30,
-        marginLeft: "110px",
+        marginLeft: "429px",
         marginRight: "auto",
-        marginTop: 10,
+        marginTop: -330,
+        border: 'inset #FECD93',
+        position: 'absolute', 
         }}
     >
         <Box>
@@ -25,9 +27,10 @@ export default function TopThird({topEmoji}) {
             style={{
             color: "#FFFFFF",
             fontWeight: "900",
-            backgroundColor: "rosyBrown",
+            backgroundColor: "#FECD93",
             width: "70px",
             borderRadius: 10,
+            marginTop: 10
             }}
         >
             Top 3
