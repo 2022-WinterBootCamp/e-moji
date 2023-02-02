@@ -34,7 +34,7 @@ export default function TopEmojiModal({open_top, handleClose_top, setOpen_top}) 
       >
         <Box
           sx={newEmojistyle}
-          style={{ backgroundColor: "#FECD93", borderColor: "#FFFFFF", borderWidth: 'thick'}}
+          style={{ backgroundColor: "#FFFFFF", borderColor: "#FECD93", borderWidth: 'thick', border: 'inset #FECD93',}}
         >
           <Typography
             id="modal-modal-title"
@@ -45,7 +45,7 @@ export default function TopEmojiModal({open_top, handleClose_top, setOpen_top}) 
           >
             <div style={{ textAlign: "right" }}>
               <IconButton onClick={() => setOpen_top(false)}>
-                <CloseIcon fontWeight="300" style={{ color: "#FFFFFF" }} />
+                <CloseIcon fontWeight="300" />
               </IconButton>
             </div>
             <TopEmoji />

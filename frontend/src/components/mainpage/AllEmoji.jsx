@@ -12,15 +12,11 @@ import {
     IconButton,
 } from '@mui/material';
 import {
-    Stepper,
-    Step,
-    StepLabel,
     makeStyles,
 } from "@material-ui/core";
 import CloseIcon from "@mui/icons-material/Close";
 
 import Upload from "../upload/Upload";
-import Uploading from "../upload/Uploading";
 import UploadResult from "../upload/UploadResult";
 
 const style = {

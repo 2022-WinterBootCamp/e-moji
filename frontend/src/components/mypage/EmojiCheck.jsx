@@ -7,11 +7,9 @@ import {
   Box,
   TextField,
   Modal,
-  IconButton,
 } from "@mui/material";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
-import MyPage from "../../pages/MyPage";
 
 const style = {
   position: "absolute",

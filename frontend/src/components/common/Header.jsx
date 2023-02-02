@@ -55,6 +55,7 @@ function Header() {
         style={{
           backgroundColor: "#FECD93",
           maxWidth: "100%",
+          boxShadow:'2px 1px 5px 0px gray'
         }}
       >
         <Box
@@ -68,9 +69,9 @@ function Header() {
             <Box>
               <Button href="/mainpage">
                 <img
-                  height="40px"
+                  height="60px"
                   position="center"
-                  style={{ margin: 10 }}
+                  style={{margin: 1}}
                   src={logo}
                 />
               </Button>
@@ -78,9 +79,9 @@ function Header() {
           ) : (
             <Button href="/">
               <img
-                height="40px"
+                height="60px"
                 position="center"
-                style={{ margin: 10 }}
+                style={{margin: 1}}
                 src={logo}
               />
             </Button>
