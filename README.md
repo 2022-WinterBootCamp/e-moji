@@ -98,7 +98,9 @@
         
         <img width="200" alt="스크린샷 2023-02-02 오후 5 38 14" src="https://user-images.githubusercontent.com/121562023/216395399-26160577-790d-493e-93c5-18325845f6d9.png">
 
-        
+```
+Bcrypt : 데이터베이스에 유저의 정보를 저장할 때, 비밀번호와 같이 암호화가 필요한 데이터를 쉽게 다룰 수 있도록 해주는 password hashing 라이브러리이다.
+```
 
 ## Monitoring
 
