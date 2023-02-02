@@ -75,7 +75,7 @@ export default function MyPage() {
     try {
       const data = { user_id: myUserID };
       fetch(
-        `http://localhost:8080/api/v1/emojis/mypage/upload?user_id=${data.user_id}`,
+        `http://localhost:8080/api/v1/users/mypage/upload?user_id=${data.user_id}`,
         {
           method: "GET",
           headers: {
@@ -104,7 +104,7 @@ export default function MyPage() {
     try {
       const data = { user_id: myUserID };
       fetch(
-        `http://localhost:8080/api/v1/emojis/mypage/result?user_id=${data.user_id}`,
+        `http://localhost:8080/api/v1/users/mypage/result?user_id=${data.user_id}`,
         {
           method: "GET",
           headers: {
