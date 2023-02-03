@@ -8,14 +8,17 @@
 ![team_e_IGEMOJI_Flow](https://user-images.githubusercontent.com/121562023/216638353-a20a1582-b256-42eb-bb41-6c6ae7be8e1e.jpg)
 
 
+## Features
+ - Main Feature : 원하는 이모지 템플릿 선택, 사용자가 업로드한 이미지속 사람의 표정을 AI가 분석하여 결과로 도출
+ - Additional Feature : 원하는 이모지 템플릿을 생성 및 삭제 (다른 사용자들과의 공유)
+
+
 ## System Architecture
 
 <img width="1200" alt="스크린샷 2023-02-01 오후 1 39 00" src="https://user-images.githubusercontent.com/121562023/216060082-0852cd9a-abbb-4dc6-80c1-31f0f4652fa4.png">
 
 - **Frontend tech**
    - `MUI` : 인터랙티브 컴포넌트 기반의 React UI라이브러리
-     - WHY?
-     
        - 높은 수준의 UI를 빠르고 효율적으로 개발할 수 있는 UI 도구
        
        - 리액트와 높은 호환성과 높은 수준의 퀄리티를 제공
@@ -23,8 +26,6 @@
 
 
    - `Redux` : Javascript application들의 state(상태)를 관리할 수 있는 라이브러리(저장소)
-     - WHY? 
-   
        - 손쉬운 state 관리
        
        - 편리한 웹사이트 상태 확인
@@ -34,36 +35,29 @@
 - **Backend tech**
 
    - `RabbitMQ` : AMQP(Advanced Message Queuing Protocol)를 따르는 오픈소스 메세지 브로커
-
-     - WHY?
-       
        - 유연한 라우팅 규칙 적용 가능
        - 메시지 전송 타이밍 제어(메시지 만료 또는 메시지 지연 제어) 
        - 단순하게 소비자 기능 구현 가능
 
 
    - `Celery` : 분산 메시지 전달을 기반으로 동작하는 비동기 작업 큐(Asynchronous Task/Job Queue)
- 
-        - WHY?
-       
           - 최적화 설정(RabbitMQ, librabbitmq 등)을 통해 비약적인 작업처리 제공
           - 확장성이 매우 뛰어나 거의 모든 부분을 커스텀하여 사용 가능( serializer, compression schemes, logging, schedulers, consumers, producers 등)
 
 
-   - `Mainserver(Django)` 와 `AI-server(Flask)` 분리해서 사용한 이유는 보편적으로 한개의 Framework 로 여러개의 서버를 구축하는 경우와 달리 한개의 서버가 다운 됐을 때 독립적으로 구동할 수 있으며 영향을 비교적 덜 받는다.
+   - `Mainserver(Django)` 와 `AI-server(Flask)` 의 분리
+        - MainServer(Django) : 하나의 프로젝트 내에 다수의 앱을 운영할 수 있는 ‘분할’의 특징이 있으며, 자체 ORM을 제공
+        - AI-Server(Flask) : 무게가 가벼운 프레임워크
+        - 각각의 장점을 조화롭게 사용
 
 
 <br></br>
-
-## Features
- - Main Feature : 사용자가 업로드한 이미지속 사람의 표정을 AI가 분석하여 이모지를 생성
- - Additional Feature : 생성한 이모지를 공유
 
 
 <br></br>
  
 
-## 🌵 **Tech Stack**
+## **Tech Stack**
 |Dev-Ops|<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=black"> <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white"> <img src="https://img.shields.io/badge/S3%20Bucket-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=black"> |
 |----------|:-------------:|
 |__Frontend__| <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=black"> <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=MUI&logoColor=black"> <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=black"> |
