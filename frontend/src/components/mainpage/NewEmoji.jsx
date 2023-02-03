@@ -135,15 +135,15 @@ export default function NewEmoji() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      emoji_profile.image_file &&
-      emoji_angry.image_file &&
-      emoji_disgust.image_file &&
-      emoji_fear.image_file &&
-      emoji_happy.image_file &&
-      emoji_sad.image_file &&
-      emoji_surprised.image_file
-    ) {
+    // if (
+    //   emoji_profile.image_file &&
+    //   emoji_angry.image_file &&
+    //   emoji_disgust.image_file &&
+    //   emoji_fear.image_file &&
+    //   emoji_happy.image_file &&
+    //   emoji_sad.image_file &&
+    //   emoji_surprised.image_file
+    // ) {
       const formData = new FormData();
 
       formData.append("user_id", userIdtoRedux);
@@ -171,9 +171,9 @@ export default function NewEmoji() {
       } catch (err) {
         console.log(err);
       }
-    } else {
-      alert("모든 사진을 등록해주세요!");
-    }
+    // } else {
+    //   alert("모든 사진을 등록해주세요!");
+    // }
   };
 
   useEffect(() => {
@@ -218,6 +218,7 @@ export default function NewEmoji() {
           </Typography>
           <input
             type="file"
+            accept="image/*"
             onChange={handleFileOnChange}
             onClick={(e) => (e.target.value = null)}
             ref={(refParam) => (inputRef_profile = refParam)}
@@ -238,6 +239,7 @@ export default function NewEmoji() {
             <Typography style={{ textAlign: "center" }}>화남 😡</Typography>
             <input
               type="file"
+              accept="image/*"
               onChange={angryOnChange}
               onClick={(e) => (e.target.value = null)}
               ref={(refParam) => (inputRef_angry = refParam)}
@@ -260,6 +262,7 @@ export default function NewEmoji() {
             <Typography style={{ textAlign: "center" }}>혐오 🤢</Typography>
             <input
               type="file"
+              accept="image/*"
               onChange={disgustOnChange}
               onClick={(e) => (e.target.value = null)}
               ref={(refParam) => (inputRef_disgust = refParam)}
@@ -282,6 +285,7 @@ export default function NewEmoji() {
             <Typography style={{ textAlign: "center" }}>두려움 😬</Typography>
             <input
               type="file"
+              accept="image/*"
               onChange={fearOnChange}
               onClick={(e) => (e.target.value = null)}
               ref={(refParam) => (inputRef_fear = refParam)}
@@ -305,6 +309,7 @@ export default function NewEmoji() {
             <Typography style={{ textAlign: "center" }}>기쁨 😁</Typography>
             <input
               type="file"
+              accept="image/*"
               onChange={happyOnChange}
               onClick={(e) => (e.target.value = null)}
               ref={(refParam) => (inputRef_happy = refParam)}
@@ -326,6 +331,7 @@ export default function NewEmoji() {
             <Typography style={{ textAlign: "center" }}>슬픔 😭</Typography>
             <input
               type="file"
+              accept="image/*"
               onChange={sadOnChange}
               onClick={(e) => (e.target.value = null)}
               ref={(refParam) => (inputRef_sad = refParam)}
@@ -347,6 +353,7 @@ export default function NewEmoji() {
             <Typography style={{ textAlign: "center" }}>놀람 🫢</Typography>
             <input
               type="file"
+              accept="image/*"
               onChange={surprisedOnChange}
               onClick={(e) => (e.target.value = null)}
               ref={(refParam) => (inputRef_surprised = refParam)}

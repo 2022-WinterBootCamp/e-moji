@@ -9,6 +9,7 @@ import {
   Container,
   Grid,
 } from "@mui/material";
+import '../font/font.css';
 import { setAccessToken } from "../auth/tokenManager";
 import { decodeToken } from "../auth/tokenGetter";
 import Api from "../components/common/customApi";
@@ -84,7 +85,8 @@ function Login() {
               fontStyle="Inter"
               fontWeight="800"
               position="center"
-              sx={{ color: "#FECD93" }}
+              fontFamily='cookierun-bold'
+              sx={{ color: "#fede29" }}
             >
               Login
             </Typography>
@@ -128,11 +130,11 @@ function Login() {
                   fontWeight: "bold",
                   fontFamily: "Itim",
                   borderRadius: 5,
-                  backgroundColor: "#FFAB47",
-                  color: "#fff",
+                  backgroundColor: "#3b3b3b",
+                  color: "#FEDE29",
                   "&:hover": {
-                    backgroundColor: "#FF900D",
-                    color: "#838383",
+                    backgroundColor: "#FEDE29",
+                    color: "#212121",
                   },
                 }}
               >

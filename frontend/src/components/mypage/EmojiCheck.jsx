@@ -190,9 +190,9 @@ export default function EmojiCheck({ emojiId }) {
               }}
               variant="contained"
               sx={{
-                bgcolor: "red",
+                bgcolor: "#e40000",
                 ":hover": {
-                  bgcolor: "red",
+                  bgcolor: "#e40000",
                 },
                 borderRadius: "30px",
               }}
@@ -247,9 +247,8 @@ export default function EmojiCheck({ emojiId }) {
               left: "10%",
               width: "150px",
               height: "30px",
-              backgroundColor: "gray",
+              backgroundColor: "#c7c3c3",
               color: "#FFFFFF",
-              borderColor: "#FECD93",
               borderRadius: "30px",
             }}
             onClick={() => setOpen(false)}
@@ -264,9 +263,8 @@ export default function EmojiCheck({ emojiId }) {
               left: "20%",
               width: "150px",
               height: "30px",
-              backgroundColor: "red",
+              backgroundColor: "#e40000",
               color: "#FFFFFF",
-              borderColor: "#FECD93",
               borderRadius: "30px",
             }}
             variant="contained"

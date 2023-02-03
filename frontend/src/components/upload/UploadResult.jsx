@@ -5,12 +5,14 @@ import {
   Container, 
   Typography 
 } from "@mui/material";
+import "../../font/font.css";
 
-export default function UploadResult({emojiResult}) {
+export default function UploadResult({emojiResult, setModalWidth}) {
 
   function place() {
     console.log("[MainPage - UploadResult] 업로드 결과 페이지입니다.")
     console.log("emojiResult>>> ", emojiResult);
+    setModalWidth(750)
   }
 
   return (
@@ -24,14 +26,13 @@ export default function UploadResult({emojiResult}) {
       }}
     >
       {place()}
-      <Container maxWidth="sm" style={{marginBottom: 60}}>
+      <Container maxWidth="md" style={{marginBottom: 60}}>
         <Typography
-          component="h1"
-          variant="h4"
+          fontSize="40px"
           align="center"
           gutterBottom
-          fontStyle="bold"
-          fontFamily="Itim"
+          fontFamily="cookierun-regular"
+          style={{marginTop: -50, marginBottom: -30}}
         >
           <span style={{fontWeight: '900'}}>AI</span>가 <span style={{fontWeight: '900'}}>당신의 이모지</span>를 완성하였습니다!
         </Typography>
@@ -47,9 +48,10 @@ export default function UploadResult({emojiResult}) {
         <img
           style={{
             textAlign: "center",
-            height: "300px",
-            width: "520px",
+            height: "400px",
+            maxwidth: "100%",
             borderRadius: "15px",
+            marginLeft: -13,
           }}
           src={emojiResult}
         />

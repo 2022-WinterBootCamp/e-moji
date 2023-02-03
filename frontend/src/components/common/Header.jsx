@@ -13,7 +13,6 @@ import "../../font/font.css";
 import IconButton from "@mui/material/IconButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -21,7 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchDecodeData } from "../../auth/DecodeActions";
 import { deleteToken } from "../../auth/tokenManager";
 
-import logo from "./logo3.png";
+import logo from "./logo2.png";
 
 const theme = createTheme({
   palette: {
@@ -75,7 +74,6 @@ function Header() {
                 <Button href="/">
                   <img
                     height="60px"
-                    
                     style={{marginLeft: 120, marginTop: 45, position:"absolute"}}
                     src={logo}
                   />
@@ -84,11 +82,11 @@ function Header() {
                   <Link
                     fontFamily= 'cookierun-bold'
                     sx={{ 
-                      color: "gray",
+                      color: "#6a6a6a",
                       "&:hover": {
                       color: "#fede29"
                       },
-                      fontWeight: "500", fontSize: "23px"}}
+                      fontWeight: "500", fontSize: "22px"}}
                       variant="h5"
                       href="/mainpage"
                       underline="none"
@@ -104,8 +102,7 @@ function Header() {
             <Button href="/">
               <img
                 height="60px"
-                position="center"
-                style={{margin: 1}}
+                style={{marginLeft: 167, marginTop: -60, position:"absolute"}}
                 src={logo}
               />
             </Button>
@@ -113,15 +110,15 @@ function Header() {
 
           {token ? (
             // if IsLogin is true
-            <Box sx={{ mb: 1 }}>
+            <Box sx={{ mb: 1.5 }}>
               <Link
                 fontFamily= 'cookierun-bold'
                 sx={{ 
-                  color: "gray",
+                  color: "#6a6a6a",
                   "&:hover": {
                   color: "#fede29"
                   },
-                  fontWeight: "500", fontSize: "23px" }}
+                  fontWeight: "500", fontSize: "19px" }}
                   align="right"
                   variant="h5"
                   href="/mypage"
@@ -130,16 +127,16 @@ function Header() {
                 {/* <IconButton color="inherit" sx={{ ml: 1, mb: 0.6 }}> */}
                   <PersonIcon style={{marginBottom: -4, marginRight: 5}}/>
                 {/* </IconButton> */}
-                {reduxToken.decodeInfo?.alias}님, 환영합니다!
+                {reduxToken.decodeInfo?.alias}님
               </Link>
               <Tooltip title="logout">
                 <IconButton
                   onClick={logoutButton}
                   href="/"
-                  style={{ color: "gray" }}
-                  sx={{ ml: 1, mb: 1 }}
+                  style={{ color: "#6a6a6a" }}
+                  sx={{ ml: 1, mb: 0 }}
                 >
-                  <LogoutIcon sx={{"&:hover": {color: "#fede29"}}}/>
+                  <LogoutIcon sx={{height: 23, "&:hover": {color: "#fede29"}}}/>
                 </IconButton>
               </Tooltip>
             </Box>

@@ -58,14 +58,18 @@ export default function MadePage({doneState, emojiData}) {
           sx={{ display: "flex", flexDirection: "column" }}
         >
           {/* mui의 button은 자동 대문자화가 되기 떄문에 textTransform: 'none' 설정 */}
-          <Button
+          {/* <Button
             onClick={() => {
               setOpen(true);
               setEmojiId(emojiData[index].id);
             }}
             style={{ textTransform: "none" }}
-          >
-            <Card>
+          > */}
+            <Card 
+              onClick={() => {
+                setOpen(true);
+                setEmojiId(emojiData[index].id);
+              }} sx={{":hover": { boxShadow: "gray 0px 22px 70px 4px", cursor: 'pointer'}}}>
               <Toolbar>
                 <Box style={{ marginLeft: "-30px" }}>
                   <CardHeader
@@ -85,7 +89,7 @@ export default function MadePage({doneState, emojiData}) {
                 image={emojiData[index].image[0]}
               />
             </Card>
-          </Button>
+          {/* </Button> */}
         </Grid>
       );
     }

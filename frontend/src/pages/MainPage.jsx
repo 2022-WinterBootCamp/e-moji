@@ -26,6 +26,7 @@ export default function MainPage() {
   const [page, setPage] = useState(1);
   const [emojiCount, setEmojiCount] = useState(1);
   let count;
+  let pageColor = "100vh"
 
   // 메인페이지 모든 이모지 API
   function getMainData(value) {
@@ -40,9 +41,9 @@ export default function MainPage() {
         .then((data) => {
           setEmojiData(data);
           console.log("data>>> ", data);
-
-          let n = data[0].id;
+          
           if (value === 1) {
+            let n = data[0].id;
             if (n % 8 === 0) {
               count = n / 8;
             } else {
@@ -65,25 +66,27 @@ export default function MainPage() {
     getMainData(value);
     setPage(value);
   };
-
+ 
   return (
     <ThemeProvider theme={theme}>
-      <Container sx={{ py: 8, mt: -6 }}>
-        <MainToolbar/>
+      <Box position={pageColor} style={{backgroundColor: '#fffadb'}}>
+        <Container sx={{ py: 8, mt: -6}} position="fixed">
+          <MainToolbar/>
 
-        <AllEmoji emojiData={emojiData}/>
+          <AllEmoji emojiData={emojiData}/>
 
-        <Box>
-          <Stack spacing={2}>
-            <Pagination
-              style={{ margin: "auto", marginTop: 20 }}
-              count={emojiCount}
-              page={page}
-              onChange={pageChange}
-            />
-          </Stack>
-        </Box>
-      </Container>
+          <Box>
+            <Stack spacing={2}>
+              <Pagination
+                style={{ margin: "auto", marginTop: 20 }}
+                count={emojiCount}
+                page={page}
+                onChange={pageChange}
+              />
+            </Stack>
+          </Box>
+        </Container>
+      </Box>
     </ThemeProvider>
   );
 }

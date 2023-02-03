@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Tabs, Tab, Container } from "@mui/material";
 import PropsTypes from "prop-types";
+import "../font/font.css";
 
 import { getAccess } from "../auth/tokenManager";
 import { ReduxModule } from "../auth/ReduxModule";
@@ -66,6 +67,10 @@ export default function MyPage() {
   const [doneState, setDoneState] = useState(false);
   const [didState, setDidState] = useState(false);
 
+  const [doneColor, setDoneColor] = useState("100vh")
+  const [madeColor, setMadeColor] = useState("100vh")
+  const [color, setColor] = useState("");
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -130,50 +135,67 @@ export default function MyPage() {
     }
   }
 
+  function backColor(){
+    if(emojiResult.length < 7)
+      setColor("100vh")
+    else 
+      setColor("null")
+
+    if(emojiData.length < 7)
+      setColor("100vh")
+    else 
+      setColor("null")
+  }
+
   useEffect(() => {
+    backColor();
     if (what !== "") {
       getDidData();
     }
   }, [myUserID]);
-
+  
   return (
-    <Container maxWidth="md">
-      <Box sx={{ width: "100%", mt: 13 }}>
-        <Box
-          sx={{ borderBottom: 1, borderColor: "divider" }}
-          alignItems="center"
-        >
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-            centered
-            variant="fullWidth"
-            TabIndicatorProps={{ style: { background: "#FEDE29" } }}
-            textColor="inherit"
+    <Box height={color} position='relative' style={{backgroundColor: '#fffadb'}}>
+      <Container maxWidth="md">
+        <Box sx={{ width: "100%", mt: 9 }}>
+          <Box
+            sx={{ borderBottom: 1, borderColor: "divider" }}
+            alignItems="center"
           >
-            <Tab
-              label="내가 했던 이모지"
-              {...a11yProps(0)}
-              onClick={getDidData}
-            />
-            <Tab
-              label="내가 만든 이모지"
-              {...a11yProps(1)}
-              onClick={getAllData}
-            />
-          </Tabs>
-        </Box>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+              centered
+              variant="fullWidth"
+              TabIndicatorProps={{ style: { background: "#FEDE29" } }}
+              textColor="inherit"
+            >
+              <Tab
+                label="내가 했던 이모지"
+                sx={{fontFamily:"cookierun-regular"}}
+                {...a11yProps(0)}
+                onClick={getDidData}
+              />
+              <Tab
+                label="내가 만든 이모지"
+                sx={{fontFamily:"cookierun-regular"}}
+                {...a11yProps(1)}
+                onClick={getAllData}
+              />
+            </Tabs>
+          </Box>
 
-        <TabPanel value={value} index={0}>
-          {/* 내가 했던 이모지 */}
-          <DonePage didState={didState} emojiResult={emojiResult} />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          {/* 내가 만든 이모지 */}
-          <MadePage doneState={doneState} emojiData={emojiData} />
-        </TabPanel>
-      </Box>
-    </Container>
+          <TabPanel value={value} index={0}>
+            {/* 내가 했던 이모지 */}
+            <DonePage didState={didState} emojiResult={emojiResult} />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            {/* 내가 만든 이모지 */}
+            <MadePage doneState={doneState} emojiData={emojiData} />
+          </TabPanel>
+        </Box>
+      </Container>
+    </Box>
   );
 }

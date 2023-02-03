@@ -5,14 +5,16 @@ import {
   Box,
 } from "@mui/material";
 import axios from "axios";
+import "../../font/font.css";
 import { getAccess } from "../../auth/tokenManager";
 import { ReduxModule } from "../../auth/ReduxModule";
 import Uploading from "./Uploading";
 
 const preview_URL = 'https://blog.nscsports.org/wp-content/uploads/2014/10/default-img.gif';
 
-export default function Upload({emojiId}) {
+export default function Upload({emojiId, setModalWidth}) {
   let inputRef;
+
   const what = getAccess();
   const userIdtoRedux = ReduxModule().decodeInfo?.id;
   const [aiState, setAiState] = useState(0);
@@ -94,14 +96,13 @@ export default function Upload({emojiId}) {
         aiState === 0
         ? <form onSubmit={handleSubmit}>
             <Typography
-              component="h1"
-              variant="h4"
+              fontSize="40px"
               align="center"
               color="text.primary"
               gutterBottom
               fontStyle="bold"
-              fontFamily="Itim"
-              sx={{ mt: 4, mb: 7 }}
+              fontFamily="cookierun-regular"
+              sx={{ mt: 0, mb: 3 }}
             >
               지금 당신의 표정을 넣어주세요!
             </Typography>
@@ -115,12 +116,12 @@ export default function Upload({emojiId}) {
               ref={(refParam) => (inputRef = refParam)}
               style={{ display: "none" }}
             />
-            <Box style={{ borderRadius: "15px" }}>
+            <Box style={{ borderRadius: "15px", marginLeft: -20 }}>
               <Button>
                 <img
                   style={{
-                    height: "300px",
-                    width: "520px",
+                    height: "400px",
+                    maxwidth: "100%",
                     borderRadius: "15px",
                   }}
                   textAlign
@@ -151,7 +152,7 @@ export default function Upload({emojiId}) {
             </Button>
           </form>
         : (aiState === 1)
-          ? <Uploading taskId={taskId} aiState={aiState}/>
+          ? <Uploading taskId={taskId} aiState={aiState} setModalWidth={setModalWidth}/>
           : null
       }
     </Box>
