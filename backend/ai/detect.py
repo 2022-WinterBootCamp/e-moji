@@ -5,7 +5,7 @@ import requests
 from utils import upload_s3
 
 def ai_emoji(url, emoji) :
-    # url = 'https://file.mk.co.kr/meet/neds/2022/06/image_readtop_2022_521870_16552521075075658.jpg'
+    url = 'https://file.mk.co.kr/meet/neds/2022/06/image_readtop_2022_521870_16552521075075658.jpg'
 
     image_nparray = np.asarray(bytearray(requests.get(url).content), dtype=np.uint8)
     img = cv2.imdecode(image_nparray, cv2.IMREAD_COLOR)
@@ -96,6 +96,6 @@ def ai_emoji(url, emoji) :
         fResult = "synthetic_image.jpg"
         cv2.imwrite(fResult, img)
 
-    # result_img = "synthetic_image.jpg"
-    result_img = upload_s3(fResult)
+    result_img = "synthetic_image.jpg"
+    # result_img = upload_s3(fResult)
     return result_img

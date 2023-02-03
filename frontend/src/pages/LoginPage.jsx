@@ -47,21 +47,25 @@ function Login() {
     });
 
     const userLogin = async () => {
-      const result = await Api.post(`/users/auth`, {
-        email: data.get("email"),
-        password: data.get("password"),
-      }).then((res) => res.data);
-      console.log("받아온 토큰", result);
+      try {
+        const result = await Api.post(`/users/auth`, {
+          email: data.get("email"),
+          password: data.get("password"),
+        }).then((res) => res.data);
+        console.log("받아온 토큰", result);
 
-      if (result.access_token !== null) {
-        setAccessToken(result.access_token, false);
-        alert("로그인 성공");
-        decodeToken(result.access_token);
-        window.location.replace("/mainpage");
-      } else {
+        if (result.access_token !== null) {
+          setAccessToken(result.access_token, false);
+          alert("로그인 성공");
+          decodeToken(result.access_token);
+          window.location.replace("/mainpage");
+        } else {
+          alert("아이디와 비밀번호를 다시 확인해주세요.");
+          // Handle error.
+          console.log("An error occurred:", result);
+        }
+      } catch {
         alert("아이디와 비밀번호를 다시 확인해주세요.");
-        // Handle error.
-        console.log("An error occurred:", result);
       }
     };
     userLogin();

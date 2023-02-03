@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Container,
-  Stack,
-  Pagination,
-} from "@mui/material";
+import { Box, Container, Stack, Pagination } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { getAccess } from "../auth/tokenManager";
@@ -25,6 +20,7 @@ export default function MainPage() {
   // Pagination
   const [page, setPage] = useState(1);
   const [emojiCount, setEmojiCount] = useState(1);
+  const [newData, setNewData] = useState("");
   let count;
 
   // 메인페이지 모든 이모지 API
@@ -41,7 +37,10 @@ export default function MainPage() {
           setEmojiData(data);
           console.log("data>>> ", data);
 
-          let n = data[0].id;
+          let n = data[0].count;
+          console.log(n);
+
+          // let n = data[0].id;
           if (value === 1) {
             if (n % 8 === 0) {
               count = n / 8;
@@ -69,9 +68,9 @@ export default function MainPage() {
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{ py: 8, mt: -6 }}>
-        <MainToolbar/>
+        <MainToolbar />
 
-        <AllEmoji emojiData={emojiData}/>
+        <AllEmoji emojiData={emojiData} />
 
         <Box>
           <Stack spacing={2}>
