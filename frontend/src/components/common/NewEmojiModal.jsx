@@ -6,7 +6,7 @@ import {
   Toolbar,
   IconButton,
 } from '@mui/material';
-import NewEmoji from './NewEmoji';
+import NewEmoji from '../mainpage/NewEmoji';
 import CloseIcon from "@mui/icons-material/Close";
 import '../../font/font.css';
 
@@ -24,7 +24,7 @@ const newEmojistyle = {
   p: 4,
 };
 
-export default function NewEmojiModal({open_new, handleClose_new, setOpen_new}) {
+export default function NewEmojiModal({openCreate, handleCloseCreate, setOpenCreate}) {
   function place() {
     console.log("이모지 템플렛 모달입니다")
   }
@@ -33,8 +33,8 @@ export default function NewEmojiModal({open_new, handleClose_new, setOpen_new}) 
       <Modal
           aria-labelledby="modal-title"
           aria-describedby="modal-description"
-          open={open_new}
-          onClose={handleClose_new}
+          open={openCreate}
+          onClose={handleCloseCreate}
           closeAfterTransition
         >
           <Box sx={newEmojistyle}>
@@ -61,7 +61,7 @@ export default function NewEmojiModal({open_new, handleClose_new, setOpen_new}) 
                   </Typography>
                 </div>
                 <div style={{ width: "0%", textAlign: "right" }}>
-                  <IconButton onClick={() => setOpen_new(false)}>
+                  <IconButton onClick={() => setOpenCreate(false)}>
                     <CloseIcon fontWeight="300" />
                   </IconButton>
                 </div>

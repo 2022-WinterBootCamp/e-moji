@@ -26,15 +26,16 @@ export default function UploadResult({emojiResult, setModalWidth}) {
       }}
     >
       {place()}
-      <Container maxWidth="md" style={{marginBottom: 60}}>
+      <Container maxWidth="sm" style={{marginBottom: 60}}>
         <Typography
           fontSize="40px"
           align="center"
           gutterBottom
           fontFamily="cookierun-regular"
           style={{marginTop: -50, marginBottom: -30}}
+          alt="random"
         >
-          <span style={{fontWeight: '900'}}>AI</span>가 <span style={{fontWeight: '900'}}>당신의 이모지</span>를 완성하였습니다!
+          짜잔! <span style={{fontWeight: '900'}}>완성</span>되었습니다~
         </Typography>
       </Container>
 
@@ -58,24 +59,22 @@ export default function UploadResult({emojiResult, setModalWidth}) {
       </div>
 
       <Button
-        style={{
-          textAlign: "center",
-          position: "absolute",
-          bottom: "50px",
-          left: "35%",
-          width: "200px",
-        }}
-        variant="contained"
-        sx={{
-          bgcolor: "#FECD93",
-          ":hover": {
-            bgcolor: "#FECD93",
-          },
-          borderRadius: "30px",
-        }}
-      >
-        저장하기
-      </Button>
+          sx={{color: "#FBDE2A", backgroundColor: "#896901", "&:hover": {backgroundColor: '#574301'}}}
+          style={{
+            textAlign: "center",
+            position: "absolute",
+            bottom: "50px",
+            left: "35%",
+            width: "200px",
+            height: "35px",
+            borderRadius: "30px",
+          }}
+          variant="contained"
+        >
+          <Typography fontFamily="cookierun-regular">
+            저장하기
+          </Typography>
+        </Button>
     </Box>
   );
 }

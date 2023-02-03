@@ -96,13 +96,14 @@ export default function AllEmoji({emojiData}) {
             <Grid item key={emojiData[index].id} xs={12} sm={6} md={4} lg={3}>
                 <Card
                     sx={{
+                        borderRadius: 5,
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         mt: "-3px",
-                        ":hover": { boxShadow: "gray 0px 7px 7px 4px", cursor: 'pointer'},
+                        ":hover": { boxShadow: "gray 0px 3px 3px 2px", cursor: 'pointer'},
                     }}
-                    style={{borderRadius: 10, borderBottom: 'outset', borderRight: 'groove'}}
+                    style={{borderBottom: 'outset', borderRight: 'groove'}}
                     onClick={() => {
                         handleOpen();
                         setEmojiId(emojiData[index].id); 
@@ -120,7 +121,7 @@ export default function AllEmoji({emojiData}) {
                         <Divider width="260px" style={{marginTop: -18, marginBottom: 8}}/>
                         <Typography
                             gutterBottom
-                            variant="h5"
+                            variant="h6"
                             component="h2"
                             sx={{
                                 display: "flex",
@@ -143,25 +144,11 @@ export default function AllEmoji({emojiData}) {
                             }}
                             fontFamily="cookierun-bold"
                         >
-                            Creater: {" "}
-                            <span style={{ fontWeight: "900", marginLeft: 2 }}>{emojiData[index].alias}</span>
+                           
+                            <span style={{ fontWeight: "900"}}>{emojiData[index].alias}</span>
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        {/* <Button
-                            variant="outlined"
-                            style={{ borderRadius: 10}}
-                            sx={{color: "#896901", borderColor: "#896901", 
-                                "&:hover": {backgroundColor: "#c9c4c4", borderColor: '#896901'},}}
-                            fullWidth
-                            onClick={() => {
-                                
-                            }}
-                        >
-                            <Typography style={{marginLeft: 90, marginRight: 90}}>
-                                Use
-                            </Typography>
-                        </Button> */}
                     </CardActions>
                 </Card>
             </Grid>

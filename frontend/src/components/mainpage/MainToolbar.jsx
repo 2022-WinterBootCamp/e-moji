@@ -37,7 +37,7 @@ export default function MainToolbar() {
                         sx={{ mb: -2, color: '#6a6a6a'}}
                         fontFamily="cookierun-regular"
                     >
-                        원하는 이모지를 선택해주세요
+                        원하는 이모지 템플렛을 선택해주세요
                     </Typography>
                 </Box>
 
@@ -61,6 +61,8 @@ export default function MainToolbar() {
                                 fontWeight: "bold",
                                 fontSize: "inherit",
                             }}
+                            fontFamily="cookierun-regular"
+                            variant="contained"
                         >
                         Top 3
                         </Typography>
@@ -73,7 +75,9 @@ export default function MainToolbar() {
                         handleOpen_new();
                         }}
                     >
-                        이모지 생성
+                        <Typography fontFamily="cookierun-regular">
+                            템플렛 생성
+                        </Typography>
                     </Button>
                 </Box>
                 {/* Top 3 Modal */}

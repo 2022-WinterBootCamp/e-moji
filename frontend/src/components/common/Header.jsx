@@ -20,8 +20,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchDecodeData } from "../../auth/DecodeActions";
 import { deleteToken } from "../../auth/tokenManager";
 
-import logo from "./logo2.png";
+import logo from "./logo3.png";
 import LoginModal from "../firstpage/LoginModal";
+import NewEmojiModal from "./NewEmojiModal";
+import HowToUseModal from "./HowToUseModal";
 
 const theme = createTheme({
   palette: {
@@ -45,6 +47,23 @@ function Header() {
   const handleCloseLogin = () => {
       setOpenLogin(false);
       setStepLogin(0);
+  };
+
+  // 이모지 템플렛 모달
+  const [stepCreate, setStepCreate] = useState(0);
+  const [openCreate, setOpenCreate] = useState(false);
+  const handleOpenCreate = () => setOpenCreate(true);
+  const handleCloseCreate = () => {
+      setOpenCreate(false);
+  };
+
+  // 사용방법 모달
+  const [stepHow, setStepHow] = useState(0);
+  const [openHow, setOpenHow] = useState(false);
+  const handleOpenHow = () => setOpenHow(true);
+  const handleCloseHow = () => {
+      setOpenHow(false);
+      setStepHow(0);
   };
 
   useEffect(() => {
@@ -100,9 +119,39 @@ function Header() {
                       variant="h5"
                       href="/mainpage"
                       underline="none"
-                      style={{margin: 10}}
+                      style={{margin: 10, marginRight: 30}}
                   >
-                    템플릿
+                    템플렛
+                  </Link>
+                  <Link
+                    fontFamily= 'cookierun-bold'
+                    sx={{ 
+                      color: "#6a6a6a",
+                      "&:hover": {
+                      color: "#fede29", cursor: 'pointer'
+                      },
+                      fontWeight: "500", fontSize: "22px"}}
+                      variant="h5"
+                      underline="none"
+                      style={{margin: 10, marginRight: 30}}
+                      onClick={() => {handleOpenCreate()}}
+                  >
+                    만들기
+                  </Link>
+                  <Link
+                    fontFamily= 'cookierun-bold'
+                    sx={{ 
+                      color: "#6a6a6a",
+                      "&:hover": {
+                      color: "#fede29", cursor: 'pointer'
+                      },
+                      fontWeight: "500", fontSize: "22px"}}
+                      variant="h5"
+                      underline="none"
+                      style={{margin: 10}}
+                      onClick={() => {handleOpenHow()}}
+                  >
+                    사용방법
                   </Link>
                 </Box>
               </Box>
@@ -120,7 +169,7 @@ function Header() {
 
           {token ? (
             // if IsLogin is true
-            <Box sx={{ mb: 1.5 }}>
+            <Box sx={{ mb: 1.3 }}>
               <Link
                 fontFamily= 'cookierun-bold'
                 sx={{ 
@@ -142,7 +191,7 @@ function Header() {
                   onClick={logoutButton}
                   href="/"
                   style={{ color: "#6a6a6a" }}
-                  sx={{ ml: 1, mb: 0 }}
+                  sx={{ ml: 2, mb: 0.3 }}
                 >
                   <LogoutIcon sx={{height: 23, "&:hover": {color: "#fede29"}}}/>
                 </IconButton>
@@ -156,7 +205,7 @@ function Header() {
                 textDecoration: "none",
                 // fontFamily: "Itim",
                 color: "gray",
-                "&:hover": {color: "#fede29"},
+                "&:hover": {color: "#fede29",cursor: 'pointer'},
                 fontSize: 25,
                 fontStyle: "bold",
                 fontWeight: "500",
@@ -170,6 +219,11 @@ function Header() {
         </Box>
       </Container>
       </AppBar>
+      {/* 이모지 생성 Modal */}
+      <NewEmojiModal openCreate={openCreate} handleCloseCreate={handleCloseCreate} setOpenCreate={setOpenCreate}/>
+      {/* 사용방법 Modal */}
+      <HowToUseModal openHow={openHow} handleCloseHow={handleCloseHow} setOpenHow={setOpenHow} stepHow={stepHow} setStepHow={setStepHow}/>
+      {/* 로그인 Modal */}
       <LoginModal openLogin={openLogin} handleCloseLogin={handleCloseLogin} setOpenLogin={setOpenLogin} stepLogin={stepLogin} setStepLogin={setStepLogin}/>
     </ThemeProvider>
   );

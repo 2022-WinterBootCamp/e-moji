@@ -132,23 +132,23 @@ export default function Upload({emojiId, setModalWidth}) {
             </Box>
 
             <Button
+              sx={{color: "#FBDE2A", backgroundColor: "#896901", "&:hover": {backgroundColor: '#574301'}}}
               style={{
                 textAlign: "center",
                 position: "absolute",
                 bottom: "70px",
                 left: "35%",
                 width: "200px",
-                height: "38px",
-                backgroundColor: "#FECD93",
-                color: "#FFFFFF",
-                borderColor: "#FECD93",
+                height: "35px",
                 borderRadius: "30px",
               }}
               variant="contained"
               type="submit"
               value="Upload"
             >
-              Upload
+              <Typography fontFamily="cookierun-regular">
+                Upload
+              </Typography>
             </Button>
           </form>
         : (aiState === 1)

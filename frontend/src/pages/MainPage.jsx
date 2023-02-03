@@ -13,7 +13,13 @@ import { ReduxModule } from "../auth/ReduxModule";
 import AllEmoji from "../components/mainpage/AllEmoji";
 import MainToolbar from "../components/mainpage/MainToolbar";
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#fffadb",
+    },
+  },
+});
 
 export default function MainPage() {
   const what = getAccess();
@@ -68,25 +74,33 @@ export default function MainPage() {
   };
  
   return (
-    <ThemeProvider theme={theme}>
-      <Box position={pageColor} style={{backgroundColor: '#fffadb'}}>
-        <Container sx={{ py: 8, mt: -6}} position="fixed">
-          <MainToolbar/>
+        <Container
+          style={{
+            backgroundColor: "#fffadb",
+            border: "solid",
+            borderColor: "#F7F8E9",
+            minWidth: "100%",
+            height: "110vh",
+          }}
+        >
+        <Box position='relative' style={{backgroundColor: '#fffadb'}}>
+          <Container sx={{ py: 8, mt: -6}} position="fixed">
+            <MainToolbar/>
 
-          <AllEmoji emojiData={emojiData}/>
+            <AllEmoji emojiData={emojiData}/>
 
-          <Box>
-            <Stack spacing={2}>
-              <Pagination
-                style={{ margin: "auto", marginTop: 20 }}
-                count={emojiCount}
-                page={page}
-                onChange={pageChange}
-              />
-            </Stack>
-          </Box>
-        </Container>
-      </Box>
-    </ThemeProvider>
+            <Box>
+              <Stack spacing={2}>
+                <Pagination
+                  style={{ margin: "auto", marginTop: 20 }}
+                  count={emojiCount}
+                  page={page}
+                  onChange={pageChange}
+                />
+              </Stack>
+            </Box>
+          </Container>
+        </Box>
+      </Container>
   );
 }

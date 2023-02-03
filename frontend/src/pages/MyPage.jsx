@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Tabs, Tab, Container } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import PropsTypes from "prop-types";
 import "../font/font.css";
 
@@ -41,6 +42,14 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#fffadb",
+    },
+  },
+});
 
 const style = {
   position: "absolute",
@@ -155,47 +164,57 @@ export default function MyPage() {
   }, [myUserID]);
   
   return (
-    <Box height={color} position='relative' style={{backgroundColor: '#fffadb'}}>
-      <Container maxWidth="md">
-        <Box sx={{ width: "100%", mt: 9 }}>
-          <Box
-            sx={{ borderBottom: 1, borderColor: "divider" }}
-            alignItems="center"
-          >
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              centered
-              variant="fullWidth"
-              TabIndicatorProps={{ style: { background: "#FEDE29" } }}
-              textColor="inherit"
+    <Container
+          style={{
+            backgroundColor: "#fffadb",
+            border: "solid",
+            borderColor: "#F7F8E9",
+            minWidth: "100%",
+            height: "100vh",
+          }}
+        >
+      <Box height={color} position='relative' style={{backgroundColor: '#fffadb'}}>
+        <Container maxWidth="md">
+          <Box sx={{ width: "100%", mt: 9 }}>
+            <Box
+              sx={{ borderBottom: 1, borderColor: "divider" }}
+              alignItems="center"
             >
-              <Tab
-                label="RESULT"
-                sx={{fontFamily:"cookierun-regular"}}
-                {...a11yProps(0)}
-                onClick={getDidData}
-              />
-              <Tab
-                label="MY EMOJI"
-                sx={{fontFamily:"cookierun-regular"}}
-                {...a11yProps(1)}
-                onClick={getAllData}
-              />
-            </Tabs>
-          </Box>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+                centered
+                variant="fullWidth"
+                TabIndicatorProps={{ style: { background: "#FEDE29" } }}
+                textColor="inherit"
+              >
+                <Tab
+                  label="RESULT"
+                  sx={{fontFamily:"cookierun-regular"}}
+                  {...a11yProps(0)}
+                  onClick={getDidData}
+                />
+                <Tab
+                  label="MY EMOJI"
+                  sx={{fontFamily:"cookierun-regular"}}
+                  {...a11yProps(1)}
+                  onClick={getAllData}
+                />
+              </Tabs>
+            </Box>
 
-          <TabPanel value={value} index={0}>
-            {/* 내가 했던 이모지 */}
-            <DonePage didState={didState} emojiResult={emojiResult} />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            {/* 내가 만든 이모지 */}
-            <MadePage doneState={doneState} emojiData={emojiData} />
-          </TabPanel>
-        </Box>
-      </Container>
-    </Box>
+            <TabPanel value={value} index={0}>
+              {/* 내가 했던 이모지 */}
+              <DonePage didState={didState} emojiResult={emojiResult} />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              {/* 내가 만든 이모지 */}
+              <MadePage doneState={doneState} emojiData={emojiData} />
+            </TabPanel>
+          </Box>
+        </Container>
+      </Box>
+    </Container>
   );
 }

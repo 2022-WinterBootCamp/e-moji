@@ -10,7 +10,12 @@ import {
 import axios from "axios";
 import { getAccess } from "../../auth/tokenManager";
 import { ReduxModule } from "../../auth/ReduxModule";
+import HelpIcon from '@mui/icons-material/Help';
 import AlertSnackbar from "./AlertSnackbar";
+import '../../font/font.css';
+import NewEmojiInfo from "./NewEmojiInfo";
+
+import angry from '../img/emoji/angry.png';
 
 const style = {
   position: "absolute",
@@ -62,10 +67,19 @@ export default function NewEmoji() {
   const handleClick_alert = (newState) => () => {
     setState({ open: true, ...newState });
   };
-
   const handleClose_alert = () => {
     setState({ ...state, open: false });
   };
+
+  // 이모지 생성 설명 popover
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const open_pop = Boolean(anchorEl);
 
   const nameOnChange = (e) => {
     setEmojiName(e.target.value);
@@ -210,8 +224,8 @@ export default function NewEmoji() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Toolbar style={{ marginLeft: "50px", marginTop: "-10px" }}>
-          <Typography fontStyle="solid" fontSize="20px" sx={{ ml: 3 }}>
+        <Toolbar style={{ marginLeft: "45px", marginTop: "-10px" }}>
+          <Typography fontStyle="solid" fontSize="20px" fontFamily="cookierun-regular" sx={{ ml: 3 }}>
             이모지 이름
           </Typography>
           <TextField
@@ -225,12 +239,22 @@ export default function NewEmoji() {
             onChange={nameOnChange}
             label="이모지 이름을 입력"
           />
+
+          <HelpIcon 
+            aria-owns={open ? 'mouse-over-popover' : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+            style={{marginTop: -120, marginLeft: -20}}/>
         </Toolbar>
-        <Toolbar style={{ marginLeft: "50px" }}>
+
+
+        <Toolbar style={{ marginLeft: "85px" }}>
           <Typography
             fontStyle="solid"
             fontSize="20px"
-            sx={{ ml: 3, mt: -2, mr: 2 }}
+            sx={{ ml: -2, mt: -2, mr: 2 }}
+            fontFamily="cookierun-regular"
           >
             프로필 사진
           </Typography>
@@ -250,11 +274,12 @@ export default function NewEmoji() {
             />
           </Button>
         </Toolbar>
-        <Divider color="#FECD93" sx={{ mt: "10px" }} />
+
+        <Divider color="#896901" sx={{ mt: "10px" }} />
 
         <Toolbar style={{ marginLeft: "-63px" }}>
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography style={{ textAlign: "center" }}>화남 😡</Typography>
+            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>화남 😡</Typography>
             <input
               type="file"
               accept="image/*"
@@ -277,7 +302,7 @@ export default function NewEmoji() {
           </Box>
 
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography style={{ textAlign: "center" }}>혐오 🤢</Typography>
+            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>혐오 🤢</Typography>
             <input
               type="file"
               accept="image/*"
@@ -300,7 +325,7 @@ export default function NewEmoji() {
           </Box>
 
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography style={{ textAlign: "center" }}>두려움 😬</Typography>
+            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>두려움 😬</Typography>
             <input
               type="file"
               accept="image/*"
@@ -324,7 +349,7 @@ export default function NewEmoji() {
         </Toolbar>
         <Toolbar style={{ marginLeft: "-63px", marginTop: "-10px" }}>
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography style={{ textAlign: "center" }}>기쁨 😁</Typography>
+            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>기쁨 😁</Typography>
             <input
               type="file"
               accept="image/*"
@@ -346,7 +371,7 @@ export default function NewEmoji() {
             </Button>
           </Box>
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography style={{ textAlign: "center" }}>슬픔 😭</Typography>
+            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>슬픔 😭</Typography>
             <input
               type="file"
               accept="image/*"
@@ -368,7 +393,7 @@ export default function NewEmoji() {
             </Button>
           </Box>
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography style={{ textAlign: "center" }}>놀람 🫢</Typography>
+            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>놀람 🫢</Typography>
             <input
               type="file"
               accept="image/*"
@@ -390,29 +415,29 @@ export default function NewEmoji() {
             </Button>
           </Box>
         </Toolbar>
-        <Divider color="#FECD93" />
+        <Divider color="#896901" />
         <Button
+          sx={{color: "#FBDE2A", backgroundColor: "#896901", "&:hover": {backgroundColor: '#574301'}}}
           style={{
             textAlign: "center",
             position: "absolute",
             bottom: "15px",
             left: "35%",
             width: "200px",
-            height: "30px",
-            backgroundColor: "#FECD93",
-            color: "#FFFFFF",
-            borderColor: "#FECD93",
+            height: "35px",
             borderRadius: "30px",
           }}
           variant="contained"
           type="submit"
           value="Upload"
-          // onClick = {handleClick_alert()}
         >
-          Upload
+          <Typography fontFamily="cookierun-regular">
+            Upload
+          </Typography>
         </Button>
       </form>
       {/* <AlertSnackbar open_alert={open_alert} handleClose_alert={handleClose_alert} kind={kind[0]}/> */}
+      <NewEmojiInfo open_pop={open_pop} anchorEl={anchorEl} handlePopoverClose={handlePopoverClose}/>
     </div>
   );
 }
