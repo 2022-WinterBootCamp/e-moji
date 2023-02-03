@@ -51,12 +51,8 @@ export default function FirstExample() {
                         justifyContent="left"
                         style={{}}
                     >
-                        {/* <Button href="/mainpage" variant="contained" style={{backgroundColor: 'black', borderRadius: 30, fontSize: 20, fontWeight: 'bold'}}>이모지 보러 가기</Button>
-                        <Button onClick={() => {handleOpen();}} variant="outlined" style={{color: 'black',borderRadius: 30, fontSize: 20, borderColor: 'black'}}>사용법 보러 가기</Button> */}
-                        
-                        {/* <Button href="/mainpage" variant="contained" style={{backgroundColor: 'black', borderRadius: 30, fontSize: 20, fontWeight: 'bold'}}>이모지 보러 가기</Button> */}
-                        <Button onClick={() => {handleOpen();}} variant="contained" style={{backgroundColor: 'black', borderRadius: 30, fontSize: 20, fontWeight: 'bold'}}>사용법 보러 가기</Button>
-                        
+                        <Button href="/mainpage" variant="contained" style={{backgroundColor: 'black', borderRadius: 30, fontSize: 20, fontWeight: 'bold'}}>이모지 보러 가기</Button>
+                        <Button onClick={() => {handleOpen();}} variant="outlined" style={{color: 'black',borderRadius: 30, fontSize: 20, borderColor: 'black'}}>사용법 보러 가기</Button>
                     </Stack>
                     <Lottie
                         animationData={animationData}
