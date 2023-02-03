@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import requests
 from utils import upload_s3
+from rembg import remove
 
 def ai_emoji(url, emoji) :
     # url = 'https://file.mk.co.kr/meet/neds/2022/06/image_readtop_2022_521870_16552521075075658.jpg'
@@ -50,7 +51,8 @@ def ai_emoji(url, emoji) :
             res = emoji[6] 
             
         f_image_nparray = np.asarray(bytearray(requests.get(res).content), dtype=np.uint8)
-        foregrnd_img = cv2.imdecode(f_image_nparray, cv2.IMREAD_COLOR)
+        foregrnd_img_before = cv2.imdecode(f_image_nparray, cv2.IMREAD_COLOR)
+        foregrnd_img = remove(foregrnd_img_before)
             
         src.append(foregrnd_img)
         print(foregrnd_img)
