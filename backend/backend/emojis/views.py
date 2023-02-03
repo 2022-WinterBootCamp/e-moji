@@ -40,13 +40,13 @@ def emoji_create(request):
     payload = user_token_to_data(request.headers.get('Authorization', None))
 
     if (payload.get('id') == str(userData)):
-        img_url =  get_img_url(image) 
-        img_url1 = get_img_url(image1)
-        img_url2 = get_img_url(image2)
-        img_url3 = get_img_url(image3)
-        img_url4 = get_img_url(image4)
-        img_url5 = get_img_url(image5)
-        img_url6 = get_img_url(image6)
+        img_url =  "https://what-moji.s3.ap-northeast-2.amazonaws.com/42b21296-d2b7-48ea-977e-d5c98a7f4218.jpg" # get_img_url(image) 
+        img_url1 = "https://what-moji.s3.ap-northeast-2.amazonaws.com/719b5c80-b12b-440a-93d4-d91aab4ebdd3.jpg" # get_img_url(image1)
+        img_url2 = "https://what-moji.s3.ap-northeast-2.amazonaws.com/678d9650-0fe9-437e-a402-5d5ceb6452a7.jpg" # get_img_url(image2)
+        img_url3 = "https://what-moji.s3.ap-northeast-2.amazonaws.com/61e42736-e75f-46b7-ad6b-733f2be827a5.jpg" # get_img_url(image3)
+        img_url4 = "https://what-moji.s3.ap-northeast-2.amazonaws.com/30e5f2ef-6756-4264-8668-991c527f0dbe.jpg" # get_img_url(image4)
+        img_url5 = "https://what-moji.s3.ap-northeast-2.amazonaws.com/a3a01b60-9a1b-45f3-8d38-a94ab53144ac.jpg" # get_img_url(image5)
+        img_url6 = "https://what-moji.s3.ap-northeast-2.amazonaws.com/98614e0a-2bd3-4df4-9dee-ea9f85d58e41.jpg" # get_img_url(image6)
 
         img_url_pack = [img_url, img_url1, img_url2, img_url3, img_url4, img_url5, img_url6]
         
@@ -70,13 +70,14 @@ def recent_check(self, page_number):
         get_data = {}
         data_set = {}
         offset = (page_number-1)*EMOJIS_PAGE_SIZE
+        allDataCount = Emoji.objects.filter(active=1).order_by('-created_at').values().count()
         recentData = Emoji.objects.filter(active=1).order_by('-created_at')[offset:offset+EMOJIS_PAGE_SIZE].values()
         count = recentData.count()
-        print(count)
         for i in recentData :
             makerName = User.objects.filter(id = i['user_id_id']).values().first()
             # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
             get_data.setdefault('id', i['id'])
+            get_data.setdefault('count', allDataCount)
             get_data.setdefault('name', i['name'])
             get_data.setdefault('alias',makerName['alias'])
             get_data.setdefault('image',i['image'])

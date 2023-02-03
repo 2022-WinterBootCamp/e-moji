@@ -19,6 +19,7 @@ class EmojisMadeSerializer(serializers.Serializer):
 
 class AllDataSerializer(serializers.Serializer) :
     id = serializers.IntegerField()
+    count = serializers.IntegerField()
     name = serializers.CharField(max_length=20)
     alias = serializers.CharField(max_length=20)
     image = serializers.ListField(child=serializers.CharField())
