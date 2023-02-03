@@ -16,6 +16,11 @@ import '../../font/font.css';
 import NewEmojiInfo from "./NewEmojiInfo";
 
 import angry from '../img/emoji/angry.png';
+import disgust from '../img/emoji/disgust.png';
+import fear from '../img/emoji/fear.png';
+import happy from '../img/emoji/happy.png';
+import sad from '../img/emoji/sad.png';
+import surprised from '../img/emoji/surprised.png';
 
 const style = {
   position: "absolute",
@@ -165,15 +170,15 @@ export default function NewEmoji() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (
-    //   emoji_profile.image_file &&
-    //   emoji_angry.image_file &&
-    //   emoji_disgust.image_file &&
-    //   emoji_fear.image_file &&
-    //   emoji_happy.image_file &&
-    //   emoji_sad.image_file &&
-    //   emoji_surprised.image_file
-    // ) {
+    if (
+      emoji_profile.image_file &&
+      emoji_angry.image_file &&
+      emoji_disgust.image_file &&
+      emoji_fear.image_file &&
+      emoji_happy.image_file &&
+      emoji_sad.image_file &&
+      emoji_surprised.image_file
+    ) {
       const formData = new FormData();
 
       formData.append("user_id", userIdtoRedux);
@@ -203,9 +208,9 @@ export default function NewEmoji() {
       } catch (err) {
         console.log(err);
       }
-    // } else {
-    //   alert("모든 사진을 등록해주세요!");
-    // }
+    } else {
+      alert("모든 사진을 등록해주세요!");
+    }
   };
 
   useEffect(() => {
@@ -277,9 +282,12 @@ export default function NewEmoji() {
 
         <Divider color="#896901" sx={{ mt: "10px" }} />
 
-        <Toolbar style={{ marginLeft: "-63px" }}>
+        <Toolbar style={{ marginLeft: "-63px", marginTop: -3 }}>
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>화남 😡</Typography>
+            <Toolbar style={{ marginLeft: 65, marginTop: -17, marginBottom: -20 }}>
+              <Typography fontFamily="cookierun-regular">화남</Typography>
+              <img height="20" style={{marginLeft: 5}} src={angry}/>
+            </Toolbar>
             <input
               type="file"
               accept="image/*"
@@ -302,7 +310,10 @@ export default function NewEmoji() {
           </Box>
 
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>혐오 🤢</Typography>
+            <Toolbar style={{ marginLeft: 65, marginTop: -17, marginBottom: -20 }}>
+              <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>혐오</Typography>
+              <img height="20" style={{marginLeft: 5}} src={disgust}/>
+            </Toolbar>
             <input
               type="file"
               accept="image/*"
@@ -325,7 +336,10 @@ export default function NewEmoji() {
           </Box>
 
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>두려움 😬</Typography>
+            <Toolbar style={{ marginLeft: 65, marginTop: -17, marginBottom: -20 }}>
+              <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>두려움</Typography>
+              <img height="20" style={{marginLeft: 5}} src={fear}/>
+            </Toolbar>
             <input
               type="file"
               accept="image/*"
@@ -349,7 +363,10 @@ export default function NewEmoji() {
         </Toolbar>
         <Toolbar style={{ marginLeft: "-63px", marginTop: "-10px" }}>
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>기쁨 😁</Typography>
+            <Toolbar style={{ marginLeft: 65, marginTop: -17, marginBottom: -20 }}>
+              <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>기쁨</Typography>
+              <img height="20" style={{marginLeft: 5}} src={happy}/>
+            </Toolbar>
             <input
               type="file"
               accept="image/*"
@@ -371,7 +388,10 @@ export default function NewEmoji() {
             </Button>
           </Box>
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>슬픔 😭</Typography>
+            <Toolbar style={{ marginLeft: 65, marginTop: -17, marginBottom: -20 }}>
+              <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>슬픔</Typography>
+              <img height="20" style={{marginLeft: 5}} src={sad}/>
+            </Toolbar>
             <input
               type="file"
               accept="image/*"
@@ -393,7 +413,10 @@ export default function NewEmoji() {
             </Button>
           </Box>
           <Box style={{ width: "210px", margin: "10px" }}>
-            <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>놀람 🫢</Typography>
+            <Toolbar style={{ marginLeft: 65, marginTop: -17, marginBottom: -20 }}>
+              <Typography fontFamily="cookierun-regular" style={{ textAlign: "center" }}>놀람</Typography>
+              <img height="20" style={{marginLeft: 5}} src={surprised}/>
+            </Toolbar>
             <input
               type="file"
               accept="image/*"

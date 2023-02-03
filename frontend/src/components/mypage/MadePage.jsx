@@ -61,7 +61,6 @@ export default function MadePage({doneState, emojiData}) {
                 setOpen(true);
                 setEmojiId(emojiData[index].id);
               }} sx={{borderRadius: 5, ":hover": { cursor: 'pointer',  boxShadow: "gray 0px 3px 3px 2px", }}}>
-                {/* boxShadow: "gray 0px 7px 7px 4px",  */}
               <Toolbar>
                 <Box style={{ marginLeft: "-30px" }}>
                   <CardHeader

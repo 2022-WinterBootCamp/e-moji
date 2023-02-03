@@ -20,7 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchDecodeData } from "../../auth/DecodeActions";
 import { deleteToken } from "../../auth/tokenManager";
 
-import logo from "./logo3.png";
+import logo from "./logo.png";
 import LoginModal from "../firstpage/LoginModal";
 import NewEmojiModal from "./NewEmojiModal";
 import HowToUseModal from "./HowToUseModal";

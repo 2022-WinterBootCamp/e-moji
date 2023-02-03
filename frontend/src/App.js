@@ -6,7 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import MyPage from "./pages/MyPage";
 import AuthRouter from "./auth/AuthRouter";
 import Register from "./pages/Register";
-import FirstExample from "./pages/FirstExample";
+import FirstPage from "./pages/FirstPage";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Header />
       <Routes>
         <Route element={<AuthRouter authAble={false} />}>
-          <Route path="/" element={<FirstExample />} />
+          <Route path="/" element={<FirstPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
         </Route>

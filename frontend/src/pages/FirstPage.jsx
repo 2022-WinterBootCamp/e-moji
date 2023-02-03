@@ -10,7 +10,7 @@ import Lottie from "lottie-react";
 import animationData from "../lotties/first_emoji.json";
 import HowToUseModal from '../components/firstpage/HowToUseModal';
 
-export default function FirstExample() {
+export default function FirstPage() {
     // 사용법 모달
     const [step, setStep] = useState(0);
     const [open, setOpen] = useState(false);

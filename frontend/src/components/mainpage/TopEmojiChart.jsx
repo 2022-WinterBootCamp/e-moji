@@ -5,14 +5,12 @@ import {
 } from '@mui/material';
 import {
   ComposedChart,
-  Line,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
-  Area
 } from "recharts";
 
 export default function TopEmojiChart({emojiTotal}) {
