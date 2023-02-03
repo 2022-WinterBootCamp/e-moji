@@ -6,9 +6,6 @@
 
 ## Main Flow
 ![team_e_IGEMOJI_Flow](https://user-images.githubusercontent.com/121562023/216638353-a20a1582-b256-42eb-bb41-6c6ae7be8e1e.jpg)
-
-
-## Features
  - Main Feature : 원하는 이모지 템플릿 선택, 사용자가 업로드한 이미지속 사람의 표정을 AI가 분석하여 결과로 도출
  - Additional Feature : 원하는 이모지 템플릿을 생성 및 삭제 (다른 사용자들과의 공유)
 
@@ -48,16 +45,10 @@
    - `Mainserver(Django)` 와 `AI-server(Flask)` 의 분리
         - MainServer(Django) : 하나의 프로젝트 내에 다수의 앱을 운영할 수 있는 ‘분할’의 특징이 있으며, 자체 ORM을 제공
         - AI-Server(Flask) : 무게가 가벼운 프레임워크
-        - 각각의 장점을 조화롭게 사용
+        - 각각의 프레임워크의 장점을 상황에 알맞게 사용
 
 
-<br></br>
-
-
-<br></br>
- 
-
-## **Tech Stack**
+## **Tech Stack**
 |Dev-Ops|<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=black"> <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white"> <img src="https://img.shields.io/badge/S3%20Bucket-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=black"> |
 |----------|:-------------:|
 |__Frontend__| <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=black"> <img src="https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=MUI&logoColor=black"> <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=black"> |
@@ -104,7 +95,7 @@
 - ***/api/v1/faces/tasks/***
     - `POST` : 사용자가 업로드한 사진 분석 비동기 처리
 
-- ***/api/v1/faces/tasks/{task_id}
+- ***/api/v1/faces/tasks/{task_id}***
     - `GET` : task id 로 분석 완료 여부 확인 및 front 에서 polling
 
 - ***/api/v1/faces/ranking***
