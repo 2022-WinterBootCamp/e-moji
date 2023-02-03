@@ -5,6 +5,7 @@ import {
     Avatar,
 } from "@mui/material";
 import first from "../img/top3/1st.png";
+import '../../font/font.css';
 
 export default function TopFirst({topEmoji}) {
   return (
@@ -32,6 +33,7 @@ export default function TopFirst({topEmoji}) {
             borderRadius: 10,
             marginTop: 10
             }}
+            fontFamily="cookierun-regular"
         >
             Top 1
         </Typography>
@@ -47,10 +49,10 @@ export default function TopFirst({topEmoji}) {
             src={topEmoji[0].image}
         />
 
-        <Typography variant="h5" style={{ fontWeight: "bold" }}>
+        <Typography variant="h5" fontFamily="cookierun-regular" color="#6a6a6a" style={{ fontWeight: "bold" }}>
             {topEmoji[0].name}
         </Typography>
-        <Typography>made by {topEmoji[0].user}</Typography>
+        <Typography fontFamily="cookierun-regular" color="#ADADAD">{topEmoji[0].user}</Typography>
     </Box>
   )
 }

@@ -32,6 +32,7 @@ export default function TopSecond({topEmoji}) {
             borderRadius: 10,
             marginTop: 10
             }}
+            fontFamily="cookierun-regular" 
         >
             Top 2
         </Typography>
@@ -50,10 +51,10 @@ export default function TopSecond({topEmoji}) {
             src={topEmoji[1].image}
         />
         </Box>
-        <Typography variant="h5" style={{ fontWeight: "bold" }}>
+        <Typography variant="h5" fontFamily="cookierun-regular" color="#6a6a6a" style={{ fontWeight: "bold" }}>
             {topEmoji[1].name}
         </Typography>
-        <Typography>made by {topEmoji[1].user}</Typography>
+        <Typography color="#ADADAD" fontFamily="cookierun-regular" >{topEmoji[1].user}</Typography>
     </Box>
   )
 }

@@ -32,6 +32,7 @@ export default function TopThird({topEmoji}) {
             borderRadius: 10,
             marginTop: 10
             }}
+            fontFamily="cookierun-regular" 
         >
             Top 3
         </Typography>
@@ -50,10 +51,10 @@ export default function TopThird({topEmoji}) {
             src={topEmoji[2].image}
         />
         </Box>
-        <Typography variant="h5" style={{ fontWeight: "bold" }}>
+        <Typography variant="h5" fontFamily="cookierun-regular" color="#6A6A6A" style={{ fontWeight: "bold" }}>
             {topEmoji[2].name}
         </Typography>
-        <Typography>made by {topEmoji[2].user}</Typography>
+        <Typography fontFamily="cookierun-regular" color="#ADADAD" >{topEmoji[2].user}</Typography>
     </Box>
   )
 }

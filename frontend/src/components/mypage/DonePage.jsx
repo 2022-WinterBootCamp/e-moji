@@ -32,6 +32,7 @@ export default function DonePage({didState, emojiResult}) {
                   height: "fit-content",
                   display: "flex",
                   flexDirection: "column",
+                  borderRadius: 5
                 }}
               >
                 <Toolbar>
@@ -42,16 +43,42 @@ export default function DonePage({didState, emojiResult}) {
                           <EmojiEmotionsIcon />
                         </Avatar>
                       }
-                      title={emojiResult[index].name}
-                      subheader={`made by ${emojiResult[index].alias}`}
                     />
                   </Box>
+                  <Typography
+                      variant="h6"
+                      component="h2"
+                      sx={{
+                          mt: "-20px",
+                          ml: -2,
+                          color: "#6a6a6a",
+                          fontSize: '18px'
+                      }}
+                      fontFamily="cookierun-bold"
+                  >
+                      {emojiResult[index].name}
+                  </Typography>
                 </Toolbar>
+                <Typography
+                      sx={{
+                          color: "#ADADAD",
+                          mt: "-34px",
+                          mb: "0px",
+                          ml: 8.5,
+                          fontSize: '16px'
+                      }}
+                      fontFamily="cookierun-regular"
+                  >
+                      
+                    {emojiResult[index].alias}
+                </Typography>
                 <CardMedia
                   component="img"
                   height="194"
                   image={emojiResult[index].image}
+                  sx={{marginTop: 1}}
                 />
+                
               </Card>
             </Grid>
           );

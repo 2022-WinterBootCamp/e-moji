@@ -138,7 +138,7 @@ export default function AllEmoji({emojiData}) {
                             sx={{
                                 color: "#ADADAD",
                                 mt: "-3px",
-                                mb: "-30px",
+                                mb: "-25px",
                                 ml: 1
                             }}
                             fontFamily="cookierun-bold"

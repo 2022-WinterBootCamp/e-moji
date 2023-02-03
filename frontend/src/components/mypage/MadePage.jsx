@@ -62,24 +62,48 @@ export default function MadePage({doneState, emojiData}) {
                 setEmojiId(emojiData[index].id);
               }} sx={{borderRadius: 5, ":hover": { cursor: 'pointer',  boxShadow: "gray 0px 3px 3px 2px", }}}>
               <Toolbar>
-                <Box style={{ marginLeft: "-30px" }}>
-                  <CardHeader
-                    avatar={
-                      <Avatar>
-                        <EmojiEmotionsIcon />
-                      </Avatar>
-                    }
-                    title={emojiData[index].name}
-                    subheader={`made by ${emojiData[index].alias}`}
-                    
-                  />
-                </Box>
-              </Toolbar>
+                  <Box style={{ marginLeft: "-30px" }}>
+                    <CardHeader
+                      avatar={
+                        <Avatar>
+                          <EmojiEmotionsIcon />
+                        </Avatar>
+                      }
+                    />
+                  </Box>
+                  <Typography
+                      variant="h6"
+                      component="h2"
+                      sx={{
+                          mt: "-20px",
+                          ml: -2,
+                          color: "#6a6a6a",
+                          fontSize: '18px'
+                      }}
+                      fontFamily="cookierun-bold"
+                  >
+                      {emojiData[index].name}
+                  </Typography>
+                </Toolbar>
+                <Typography
+                      sx={{
+                          color: "#ADADAD",
+                          mt: "-34px",
+                          mb: "0px",
+                          ml: 8.5,
+                          fontSize: '16px'
+                      }}
+                      fontFamily="cookierun-regular"
+                  >
+                      
+                    {emojiData[index].alias}
+                </Typography>
               <CardMedia
                 component="img"
                 height="194"
                 image={emojiData[index].image[0]}
               />
+
             </Card>
           {/* </Button> */}
         </Grid>

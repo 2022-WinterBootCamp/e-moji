@@ -30,8 +30,8 @@ const data = [
         subTitle: '자신만의 이모지를 만듭니다.'
     },
     {
-        title: '3. ???',
-        subTitle: '???'
+        title: '3. 인기있는 이모지보기',
+        subTitle: '최근 7일간 가장 많이 사용된 이모지 3개를 보여줍니다.'
     },
 
 ]
