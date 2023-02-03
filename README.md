@@ -72,8 +72,7 @@
 
 
 ## Backend API
-<img width="728" alt="ERD" src="https://user-images.githubusercontent.com/121562023/216205865-56d7a7e6-6f63-40ff-816a-825374ac4eb9.png">
-
+<img width="749" alt="스크린샷 2023-02-02 오전 2 46 07" src="https://user-images.githubusercontent.com/121562023/216704040-9b0dfc04-95ac-4dbe-bad7-f37add243f29.png">
 
 
 ### **users api**
