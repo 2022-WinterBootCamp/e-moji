@@ -136,8 +136,6 @@ Haar Cascade classifier 또는 MTCNN(Multi-task Cascaded Convolutional Networks)
 
 
 
-## Initialization
-
 ## JWT
 
 - used_library
