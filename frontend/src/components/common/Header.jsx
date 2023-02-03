@@ -50,7 +50,6 @@ function Header() {
   };
 
   // 이모지 템플렛 모달
-  const [stepCreate, setStepCreate] = useState(0);
   const [openCreate, setOpenCreate] = useState(false);
   const handleOpenCreate = () => setOpenCreate(true);
   const handleCloseCreate = () => {
@@ -103,56 +102,62 @@ function Header() {
                 <Button href="/">
                   <img
                     height="60px"
-                    style={{marginLeft: 120, marginTop: 45, position:"absolute"}}
+                    style={{marginLeft: 119, marginTop: 102, position:"absolute"}}
                     src={logo}
                   />
                 </Button>
-                <Box style={{marginLeft: 230, marginBottom: 17}}>
-                  <Link
-                    fontFamily= 'cookierun-bold'
-                    sx={{ 
-                      color: "#6a6a6a",
-                      "&:hover": {
-                      color: "#fede29"
-                      },
-                      fontWeight: "500", fontSize: "22px"}}
-                      variant="h5"
-                      href="/mainpage"
-                      underline="none"
-                      style={{margin: 10, marginRight: 30}}
-                  >
-                    템플렛
+                <Box style={{marginLeft: 230, marginBottom: -5}}>
+                  <Button>
+                    <Link
+                      fontFamily= 'cookierun-bold'
+                      sx={{ 
+                        color: "#6a6a6a",
+                        "&:hover": {
+                        color: "#fede29"
+                        },
+                        fontWeight: "500", fontSize: "22px"}}
+                        variant="h5"
+                        href="/mainpage"
+                        underline="none"
+                        style={{margin: 20}}
+                    >
+                      템플렛
                   </Link>
-                  <Link
-                    fontFamily= 'cookierun-bold'
-                    sx={{ 
-                      color: "#6a6a6a",
-                      "&:hover": {
-                      color: "#fede29", cursor: 'pointer'
-                      },
-                      fontWeight: "500", fontSize: "22px"}}
-                      variant="h5"
-                      underline="none"
-                      style={{margin: 10, marginRight: 30}}
-                      onClick={() => {handleOpenCreate()}}
-                  >
-                    만들기
-                  </Link>
-                  <Link
-                    fontFamily= 'cookierun-bold'
-                    sx={{ 
-                      color: "#6a6a6a",
-                      "&:hover": {
-                      color: "#fede29", cursor: 'pointer'
-                      },
-                      fontWeight: "500", fontSize: "22px"}}
-                      variant="h5"
-                      underline="none"
-                      style={{margin: 10}}
-                      onClick={() => {handleOpenHow()}}
-                  >
-                    사용방법
-                  </Link>
+                  </Button>
+                  <Button>
+                    <Link
+                      fontFamily= 'cookierun-bold'
+                      sx={{ 
+                        color: "#6a6a6a",
+                        "&:hover": {
+                        color: "#fede29", cursor: 'pointer'
+                        },
+                        fontWeight: "500", fontSize: "22px"}}
+                        variant="h5"
+                        underline="none"
+                        style={{margin: 20}}
+                        onClick={() => {handleOpenCreate()}}
+                    >
+                      만들기
+                    </Link>
+                  </Button>
+                  <Button>
+                    <Link
+                      fontFamily= 'cookierun-bold'
+                      sx={{ 
+                        color: "#6a6a6a",
+                        "&:hover": {
+                        color: "#fede29", cursor: 'pointer'
+                        },
+                        fontWeight: "500", fontSize: "22px"}}
+                        variant="h5"
+                        underline="none"
+                        style={{margin: 20}}
+                        onClick={() => {handleOpenHow()}}
+                    >
+                      사용방법
+                    </Link>
+                  </Button>
                 </Box>
               </Box>
             </Toolbar>

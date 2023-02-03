@@ -30,7 +30,7 @@ export default function FirstExample() {
             height: "100vh",
           }}
         >
-                    <Typography variant="h4" align="left" color="text.secondary" style={{marginTop: 150}} paragraph>
+                    <Typography variant="h4" align="left" color="text.secondary" style={{marginTop: 190, marginLeft: 50}} paragraph>
                         이모지 변환 플랫폼, IGE MOJI
                     </Typography>
                     <Typography
@@ -40,16 +40,15 @@ export default function FirstExample() {
                         color="text.primary"
                         gutterBottom
                         fontFamily= 'cookierun-black'
-                        style={{marginTop: 0}}
+                        style={{marginTop: 20, marginLeft: 50}}
                     >
                         지금 <br/>당신의 표정은?
                     </Typography>
                     <Stack
-                        sx={{ pt: 4 }}
+                        sx={{ pt: 4, ml: 7, mt: 0 }}
                         direction="row"
                         spacing={2}
                         justifyContent="left"
-                        style={{}}
                     >
                         <Button href="/mainpage" variant="contained" style={{backgroundColor: 'black', borderRadius: 30, fontSize: 20, fontWeight: 'bold'}}>이모지 보러 가기</Button>
                         <Button onClick={() => {handleOpen();}} variant="outlined" style={{color: 'black',borderRadius: 30, fontSize: 20, borderColor: 'black'}}>사용법 보러 가기</Button>
