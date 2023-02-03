@@ -66,7 +66,7 @@ export default function Uploading({ taskId, aiState, setModalWidth }) {
       {place()}
       {aiState_result === 1 ? (
         <Container maxWidth="sm">
-          {/* <Typography
+          <Typography
             component="h1"
             variant="h4"
             align="center"
@@ -89,8 +89,7 @@ export default function Uploading({ taskId, aiState, setModalWidth }) {
           <Lottie
             animationData={animationData}
             style={{ height: "350px", marginTop: 60 }}
-          /> */}
-          <UploadResult emojiResult={emojiResult} setModalWidth={setModalWidth}/>
+          />
         </Container>
       ) : aiState_result === 2 ? (
         <UploadResult emojiResult={emojiResult} setModalWidth={setModalWidth}/>

@@ -64,15 +64,15 @@ export default function UploadResult({emojiResult, setModalWidth}) {
             textAlign: "center",
             position: "absolute",
             bottom: "50px",
-            left: "35%",
-            width: "200px",
+            left: "33.5%",
+            width: "250px",
             height: "35px",
             borderRadius: "30px",
           }}
           variant="contained"
         >
-          <Typography fontFamily="cookierun-regular">
-            저장하기
+          <Typography fontFamily="cookierun-regular" style={{marginLeft: 10, marginRight: 10}}>
+            마이페이지로 가기
           </Typography>
         </Button>
     </Box>
