@@ -1,4 +1,4 @@
-# ** IGE MOJI? **
+# **IGE MOJI?**
 
 ---
 
