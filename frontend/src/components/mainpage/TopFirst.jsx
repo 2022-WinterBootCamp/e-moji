@@ -19,7 +19,7 @@ export default function TopFirst({topEmoji}) {
         marginLeft: "34%",
         marginRight: "auto",
         border: 'inset #FECD93',
-        borderColor: '#FECD93',
+        borderColor: '#FEDE29',
         position: 'absolute', 
     }}
     >

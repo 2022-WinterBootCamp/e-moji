@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import NewEmoji from './NewEmoji';
 import CloseIcon from "@mui/icons-material/Close";
+import '../../font/font.css';
 
 const newEmojistyle = {
   position: "absolute",
@@ -24,6 +25,9 @@ const newEmojistyle = {
 };
 
 export default function NewEmojiModal({open_new, handleClose_new, setOpen_new}) {
+  function place() {
+    console.log("이모지 템플렛 모달입니다")
+  }
   return (
     <Box>
       <Modal
@@ -41,18 +45,19 @@ export default function NewEmojiModal({open_new, handleClose_new, setOpen_new}) 
               component="h2"
               sx={{ mb: 3, color: "#737458", fontFamily: "Itim" }}
             >
+            {place()}
               <Toolbar sx={{ mt: -2 }}>
                 <div style={{ width: "120%", textAlign: "right" }}>
                   <Typography
                     component="h1"
-                    variant="h5"
+                    variant="h4"
                     textAlign="center"
-                    color="text.primary"
+                    color="#6a6a6a"
                     gutterBottom
                     fontStyle="bold"
-                    fontFamily="Itim"
+                    fontFamily="cookierun-regular"
                   >
-                    이모지 생성
+                    이모지 템플렛 생성
                   </Typography>
                 </div>
                 <div style={{ width: "0%", textAlign: "right" }}>

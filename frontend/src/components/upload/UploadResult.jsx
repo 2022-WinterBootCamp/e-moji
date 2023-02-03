@@ -5,12 +5,19 @@ import {
   Container, 
   Typography 
 } from "@mui/material";
+import "../../font/font.css";
+import FileSaver from "file-saver";
 
-export default function UploadResult({emojiResult}) {
+export default function UploadResult({emojiResult, setModalWidth}) {
 
   function place() {
     console.log("[MainPage - UploadResult] 업로드 결과 페이지입니다.")
     console.log("emojiResult>>> ", emojiResult);
+    setModalWidth(750)
+  }
+
+  function download() {
+    FileSaver.saveAs(emojiResult, "IGE_MOJI_.jpg");
   }
 
   return (
@@ -26,14 +33,14 @@ export default function UploadResult({emojiResult}) {
       {place()}
       <Container maxWidth="sm" style={{marginBottom: 60}}>
         <Typography
-          component="h1"
-          variant="h4"
+          fontSize="40px"
           align="center"
           gutterBottom
-          fontStyle="bold"
-          fontFamily="Itim"
+          fontFamily="cookierun-regular"
+          style={{marginTop: -50, marginBottom: -30}}
+          alt="random"
         >
-          <span style={{fontWeight: '900'}}>AI</span>가 <span style={{fontWeight: '900'}}>당신의 이모지</span>를 완성하였습니다!
+          짜잔! <span style={{fontWeight: '900'}}>완성</span>되었습니다~
         </Typography>
       </Container>
 
@@ -47,33 +54,50 @@ export default function UploadResult({emojiResult}) {
         <img
           style={{
             textAlign: "center",
-            height: "300px",
-            width: "520px",
+            height: "400px",
+            maxwidth: "100%",
             borderRadius: "15px",
+            marginLeft: -13,
           }}
           src={emojiResult}
         />
       </div>
 
       <Button
-        style={{
-          textAlign: "center",
-          position: "absolute",
-          bottom: "50px",
-          left: "35%",
-          width: "200px",
-        }}
-        variant="contained"
-        sx={{
-          bgcolor: "#FECD93",
-          ":hover": {
-            bgcolor: "#FECD93",
-          },
-          borderRadius: "30px",
-        }}
-      >
-        저장하기
-      </Button>
+          sx={{color: "#FBDE2A", backgroundColor: "#896901", "&:hover": {backgroundColor: '#574301'}}}
+          style={{
+            textAlign: "center",
+            position: "absolute",
+            bottom: "50px",
+            left: "33.5%",
+            width: "250px",
+            height: "35px",
+            borderRadius: "30px",
+          }}
+          variant="contained"
+        >
+          <Typography fontFamily="cookierun-regular" style={{marginLeft: 10, marginRight: 10}}>
+            마이페이지로 가기
+          </Typography>
+        </Button>
+        <Button
+          sx={{color: "#FBDE2A", backgroundColor: "#896901", "&:hover": {backgroundColor: '#574301'}}}
+          style={{
+            textAlign: "center",
+            position: "absolute",
+            bottom: "50px",
+            left: "33.5%",
+            width: "250px",
+            height: "35px",
+            borderRadius: "30px",
+          }}
+          variant="contained"
+          onClick={() => {download()}}
+        >
+          <Typography fontFamily="cookierun-regular" style={{marginLeft: 10, marginRight: 10}}>
+            파일 저장하기
+          </Typography>
+        </Button>
     </Box>
   );
 }

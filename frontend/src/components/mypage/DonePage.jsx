@@ -12,6 +12,7 @@ import {
 import Lottie from "lottie-react";
 import animationData from "../../lotties/empty.json";
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import "../../font/font.css"
 
 export default function DonePage({didState, emojiResult}) {
     function place() {

@@ -15,7 +15,7 @@ export default function TopEmojiDetail({emojiTotal}) {
         <PopupState variant="popover" popupId="demo-popup-popover">
             {(popupState) => (
                 <div>
-                    <Button style={{backgroundColor: '#e38e8e', color: '#FFFFFF'}} variant="contained" {...bindTrigger(popupState)}>
+                    <Button style={{backgroundColor: '#FEDE29', color: '#7F6F10'}} variant="contained" {...bindTrigger(popupState)}>
                         순위를 자세히 알고싶다면
                         <HelpIcon/>
                     </Button>

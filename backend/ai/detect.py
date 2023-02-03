@@ -25,7 +25,7 @@ def ai_emoji(url, emoji) :
     emoticon_new_size = []
     src = []
 
-    #  emoji = ['http://what-moji.s3.ap-northeast-2.amazonaws.com/9c1ba590-cfd7-4f4a-9814-4162958a6174.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/bed587c5-3905-45a0-8f02-036cb89eeb00.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/de1099e8-244d-478f-8140-7f0354877c6c.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/b968b3f0-ca85-4dad-91f5-dac57e554a29.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/3c4d738f-90a8-44f1-bf8a-abb2310ee377.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/3146695e-8546-4e03-8dc4-8432dcb4c2fd.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/5e7c6574-6a8b-4cc0-b235-eea65848a463.jpg']
+    emoji = ['http://what-moji.s3.ap-northeast-2.amazonaws.com/9c1ba590-cfd7-4f4a-9814-4162958a6174.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/bed587c5-3905-45a0-8f02-036cb89eeb00.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/de1099e8-244d-478f-8140-7f0354877c6c.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/b968b3f0-ca85-4dad-91f5-dac57e554a29.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/3c4d738f-90a8-44f1-bf8a-abb2310ee377.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/3146695e-8546-4e03-8dc4-8432dcb4c2fd.jpg', 'http://what-moji.s3.ap-northeast-2.amazonaws.com/5e7c6574-6a8b-4cc0-b235-eea65848a463.jpg']
     for i in range(len(result)):
         top_emotions = [max(e["emotions"], key = lambda key: e["emotions"][key]) for e in result]
         

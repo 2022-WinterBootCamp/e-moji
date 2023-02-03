@@ -3,8 +3,9 @@ import { Box, Container, Typography, useStepContext } from "@mui/material";
 import Lottie from "lottie-react";
 import animationData from "../../lotties/emoticon.json";
 import UploadResult from "./UploadResult";
+import '../../font/font.css';
 
-export default function Uploading({ taskId, aiState }) {
+export default function Uploading({ taskId, aiState, setModalWidth }) {
   const [emojiResult, setEmojiResult] = useState("");
   const [aiState_result, setAiState_result] = useState(aiState);
   let polling = 0;
@@ -12,6 +13,7 @@ export default function Uploading({ taskId, aiState }) {
   function place() {
     console.log("[MainPage - Uploading] 로딩중입니다.");
     console.log("taskId>>> ", taskId);
+    setModalWidth(650)
   }
 
   //사진 결과 Api
@@ -71,7 +73,7 @@ export default function Uploading({ taskId, aiState }) {
             color="text.primary"
             gutterBottom
             fontStyle="bold"
-            fontFamily="Itim"
+            fontFamily="cookierun-regular"
           >
             AI가 당신의 표정을 분석 중이에요!
           </Typography>
@@ -79,6 +81,7 @@ export default function Uploading({ taskId, aiState }) {
             variant="h6"
             align="center"
             color="text.secondary"
+            fontFamily="cookierun-regular"
             paragraph
           >
             잠시만 기다려주세요...
@@ -89,7 +92,7 @@ export default function Uploading({ taskId, aiState }) {
           />
         </Container>
       ) : aiState_result === 2 ? (
-        <UploadResult emojiResult={emojiResult} />
+        <UploadResult emojiResult={emojiResult} setModalWidth={setModalWidth}/>
       ) : null}
     </Box>
   );

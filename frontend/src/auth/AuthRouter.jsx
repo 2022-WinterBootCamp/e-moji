@@ -14,7 +14,7 @@ export function AuthRouter(authAble) {
       if (isAble === true) {
         const token = getToken();
         if (!token) {
-          window.location.replace("/login");
+          window.location.replace("/");
           alert("로그인이 필요합니다.");
         }
       }

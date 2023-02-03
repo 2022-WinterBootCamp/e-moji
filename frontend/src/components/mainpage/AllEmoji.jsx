@@ -9,8 +9,10 @@ import {
     Button,
     Box,
     Modal,
+    Divider,
     IconButton,
 } from '@mui/material';
+import '../../font/font.css';
 import {
     makeStyles,
 } from "@material-ui/core";
@@ -19,19 +21,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Upload from "../upload/Upload";
 import UploadResult from "../upload/UploadResult";
 
-const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    height: 700,
-    width: 650,
-    bgcolor: "background.paper",
-    border: "2px solid #FFFFFF",
-    borderRadius: "25px",
-    boxShadow: 24,
-    p: 4,
-};
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,6 +44,7 @@ function getSteps() {
 
 export default function AllEmoji({emojiData}) {
     const [emojiId, setEmojiId] = useState("");
+    const [modalWidth, setModalWidth] = useState(750);
     
     // Stepper
     const [activeStep, setActiveStep] = React.useState(0);
@@ -62,7 +53,6 @@ export default function AllEmoji({emojiData}) {
     };
     const classes = useStyles();
     const steps = getSteps();
-    const [skipped, setSkipped] = React.useState(new Set());
 
     // Modal
     const [open, setOpen] = useState(false);
@@ -71,35 +61,31 @@ export default function AllEmoji({emojiData}) {
       setOpen(false);
       setActiveStep(0);
     };
+    const style = {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        height: 700,
+        width: modalWidth,
+        bgcolor: "background.paper",
+        border: "2px solid #FFFFFF",
+        borderRadius: "25px",
+        boxShadow: 24,
+        p: 4,
+    };
 
     // Stepper 단계별
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <Upload emojiId={emojiId}/>
-    //   case 1:
-    //     return <Uploading/>;
+        return <Upload emojiId={emojiId} modalWidth={modalWidth} setModalWidth={setModalWidth}/>
       case 1:
         return <UploadResult/>;
       default:
         return "Unknown step";
     }
   }
-
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
-
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
 
     // 메인페이지 모든 이모지 List
     function allEmojiList() {
@@ -110,57 +96,59 @@ export default function AllEmoji({emojiData}) {
             <Grid item key={emojiData[index].id} xs={12} sm={6} md={4} lg={3}>
                 <Card
                     sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    mt: "-5px",
+                        borderRadius: 5,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        mt: "-3px",
+                        ":hover": { boxShadow: "gray 0px 3px 3px 2px", cursor: 'pointer'},
                     }}
+                    style={{borderBottom: 'outset', borderRight: 'groove'}}
+                    onClick={() => {
+                        handleOpen();
+                        setEmojiId(emojiData[index].id); 
+                        setModalWidth(750)
+                    }}
+                    
                 >
                     <CardMedia
                         component="img"
-                        height="250px"
+                        height="230px"
                         image={emojiData[index].image[0]}
-                        alt="random"
                     />
+
                     <CardContent sx={{ flexGrow: 1 }}>
+                        <Divider width="260px" style={{marginTop: -18, marginBottom: 8}}/>
                         <Typography
                             gutterBottom
-                            variant="h5"
+                            variant="h6"
                             component="h2"
                             sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            mt: "-5px",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                mt: "0px",
+                                color: "#6a6a6a"
                             }}
+                            fontFamily="cookierun-bold"
                         >
                             {emojiData[index].name}
                         </Typography>
                         <Typography
+                        align='center'
                             sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            color: "#ADADAD",
-                            mt: "-8px",
-                            mb: "-5px",
+                                color: "#ADADAD",
+                                mt: "-3px",
+                                mb: "-30px",
+                                ml: 1
                             }}
+                            fontFamily="cookierun-bold"
                         >
-                            made by {emojiData[index].alias}
+                           
+                            <span style={{ fontWeight: "900"}}>{emojiData[index].alias}</span>
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button
-                            variant="outlined"
-                            style={{ color: "#FECD93", borderColor: "#FECD93" }}
-                            fullWidth
-                            onClick={() => {
-                                handleOpen();
-                                setEmojiId(emojiData[index].id);
-                            }}
-                        >
-                            Use
-                        </Button>
                     </CardActions>
                 </Card>
             </Grid>
@@ -202,17 +190,6 @@ export default function AllEmoji({emojiData}) {
                     </IconButton>
                 </div>
                 <div className={classes.root}>
-                    {/* <Stepper activeStep={activeStep}>
-                    {steps.map((label) => {
-                        const stepProps = {};
-                        const labelProps = {};
-                        return (
-                        <Step key={label} {...stepProps}>
-                            <StepLabel {...labelProps}>{label}</StepLabel>
-                        </Step>
-                        );
-                    })}
-                    </Stepper> */}
                     <div>
                     {activeStep === steps.length - 1 ? (
                         <Upload/>
@@ -221,29 +198,6 @@ export default function AllEmoji({emojiData}) {
                         <Typography className={classes.instructions}>
                             {getStepContent(activeStep)}
                         </Typography>
-                        {/* <div
-                            style={{
-                            textAlign: "center",
-                            width: "85%",
-                            position: "absolute",
-                            bottom: "10px",
-                            marginLeft: 20,
-                            }}
-                        >
-                            <Button
-                            variant="contained"
-                            sx={{
-                                bgcolor: "#FECD93",
-                                ":hover": {
-                                bgcolor: "#FECD93",
-                                },
-                            }}
-                            onClick={handleNext}
-                            className={classes.button}
-                            >
-                            {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                            </Button>
-                        </div> */}
                         </div>
                     )}
                     </div>

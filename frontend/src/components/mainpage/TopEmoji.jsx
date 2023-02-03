@@ -9,10 +9,12 @@ import TopThird from "./TopThird";
 import TopEmojiDetail from "./TopEmojiDetail";
 
 import stage from './stage.png';
-import top3_logo from './top3_logo.png';
+import top3_logo from './top3_header.png';
 
 import Lottie from "lottie-react";
 import animationData from "../../lotties/prize.json";
+
+import "../../font/font.css";
 
 export default function TopEmoji() {
   const [topEmoji, setTopEmoji] = useState({});
@@ -70,17 +72,7 @@ export default function TopEmoji() {
               style={{ position: 'absolute', width: '500px', marginLeft: 70, marginTop: 100 }}
             />
             <Box style={{ textAlign: "-webkit-center", marginTop: 30 }}>
-            {/* <Typography
-              variant="h3"
-              style={{
-                maxWidth: 300,
-                textAlign: "center",
-                fontWeight: 500,
-              }}
-            >
-              이모지 <span style={{ fontWeight: "900", color: '#e38e8e' }}>TOP 3</span>
-            </Typography> */}
-            <img style={{height: 90, marginTop: -40, marginBottom: -15}} src={top3_logo} />
+              <img style={{height: 90, marginTop: -40, marginBottom: -15}} src={top3_logo} />
             </Box>
           <Box
             style={{ textAlign: "-webkit-center", marginTop: 10, marginBottom: 50 }}
@@ -92,9 +84,10 @@ export default function TopEmoji() {
                 textAlign: "center",
                 fontWeight: 500,
               }}
+              fontFamily="cookierun-regular"
             >
               최근 7일간{" "}
-              <span style={{ fontWeight: "900", color: '#743531' }}>가장 인기 있는 이모지!</span>
+              <span style={{ fontWeight: "900", color: '#7F6F10' }}>가장 인기 있는 이모지!</span>
             </Typography>
             <Box style={{textAlign: 'right', marginTop: 30}}>
               <TopEmojiDetail emojiTotal={emojiTotal}/>
