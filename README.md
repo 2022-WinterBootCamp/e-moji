@@ -113,10 +113,27 @@
 - ***/api/v1/emojis/pages/{page_number}***
     - `GET` : 메인 화면에 표시되는 emoji 데이터, 페이지네이션 적용
 
-## AI, Dataset
-- Dataset : 
+## AI
+
+<img width="613" alt="Untitled" src="https://user-images.githubusercontent.com/121562023/216668440-c19afb08-a2f6-4f76-938b-de46b09b423f.png">
+
+<img width="613" alt="AI" src="https://user-images.githubusercontent.com/121562023/216668601-c75c0bf1-1c5d-4e80-9236-3e2389bc2b64.png">
+
+```
+
+얼굴과 감정 인식을 위하여 파이썬 패키지의 FER라이브러리를 사용했습니다. 딥러닝과 OpenCV 기능을 결합하여 이미지에서 인식 기능을 수행합니다. 
+Haar Cascade classifier 또는 MTCNN(Multi-task Cascaded Convolutional Networks)을 사용하여 감정에 할당된 값의 배열을 
+0과 1 사이의 값으로 얻습니다. 이를 통해 dominant한 감정 데이터를 별도로 추출하고, 표정에 맞는 이모지를 불러오게 됩니다. 
+
+```
+
+<br></br>
+
+## Dataset
 
 <img width="1193" alt="스크린샷 2023-02-03 오후 8 01 02" src="https://user-images.githubusercontent.com/121562023/216587882-c3961bc4-4a23-4dcb-af5b-37839305a9aa.png">
+
+
 
 
 ## Initialization
@@ -149,5 +166,13 @@
 <img width="1200" alt="스크린샷 2023-01-26 오후 2 41 27" src="https://user-images.githubusercontent.com/121562023/216264603-fa949b72-a62d-4f09-8a44-733572aa8aba.png">
 
 
-
+#**Members of Team-E**
+|이름|개발분야|소개페이지|
+|---|---|---|
+|이정우|Back-end, Devops|https://github.com/RayLee-Kor
+|박경은|Front-end|https://github.com/devGEP
+|김대희|Back-end|https://github.com/Dan2er
+|조현진|AI|https://github.com/chojinie/
+|박소윤|Back-end|https://github.com/velyvelylovely
+|정예린|Front-end|https://github.com/Jungyell
 
