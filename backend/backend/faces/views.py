@@ -28,8 +28,8 @@ def get_task_id(request):
 
     payload = user_token_to_data(request.headers.get('Authorization', None))
     if (payload.get('id') == str(user_id)):
-        # image = get_img_url(image)
-        image = "https://upload.wikimedia.org/wikipedia/commons/7/73/BTS_during_a_White_House_press_conference_May_31%2C_2022_%28cropped%29.jpg"
+        image = get_img_url(image)
+        # image = "https://upload.wikimedia.org/wikipedia/commons/7/73/BTS_during_a_White_House_press_conference_May_31%2C_2022_%28cropped%29.jpg"
 
         # 원본 사진 저장
         save_image = create_img(userID, image)
