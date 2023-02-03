@@ -1,7 +1,8 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Api from "../components/common/customApi";
 import axios from "axios";
+import '../font/font.css';
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
@@ -14,9 +15,7 @@ import {
   Box,
   Typography,
   Container,
-  Link,
   styled,
-  Grid,
 } from "@mui/material";
 
 const style = {
@@ -34,27 +33,10 @@ const style = {
   alignItems: "center",
 };
 
-const btnstyle = {
-  borderColor: "transparent",
-  backgroundColor: "#FFAB47",
-  color: "#ffffff",
-  height: "40px",
-  width: "300px",
-  marginTop: "25px",
-  textAlign: "center",
-  fontSize: "15px",
-  fontWeight: "bold",
-  fontFamily: "Itim",
-  textDecoration: "none",
-  borderRadius: 4,
-  p: 1,
-  "&:hover": { backgroundColor: "#737458", color: "#ffffff" },
-};
-
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#FF900D",
+      main: "#7F6F10",
     },
   },
   typography: {
@@ -83,7 +65,7 @@ const UserInfoTf = styled(TextField)(({}) => ({
 
   "& .MuiOutlinedInput-root": {
     "&:hover fieldset": {
-      borderColor: "#FFAB47",
+      borderColor: "#7F6F10",
     },
   },
 }));
@@ -96,7 +78,7 @@ const FormHelperTexts = styled(FormHelperText)`
   font-size: 12px;
 `;
 
-const Register = () => {
+const Register = ({setStepLogin, setHeight}) => {
   const [active, setActive] = useState(false);
   const handleClick = () => {
     setActive(!active);
@@ -202,10 +184,14 @@ const Register = () => {
     }
   };
 
+  useEffect(() => {
+    setHeight(700);
+  }, [])
+
   return (
     <Container>
       <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs" sx={{ mb: 25, mt: 15 }}>
+        <Container component="main" maxWidth="xs" sx={{ mt: -13 }}>
           <CssBaseline />
           <Box
             sx={{
@@ -221,7 +207,8 @@ const Register = () => {
               fontStyle="Inter"
               fontWeight="800"
               position="center"
-              sx={{ color: "#FECD93" }}
+              sx={{ color: "#7F6F10" }}
+              fontFamily='cookierun-bold'
             >
               Sign up
             </Typography>
@@ -296,11 +283,11 @@ const Register = () => {
                   fontWeight: "bold",
                   fontFamily: "Itim",
                   borderRadius: 5,
-                  backgroundColor: "#FFAB47",
-                  color: "#fff",
+                  backgroundColor: "#FEDE29",
+                  color: "#7F6F10",
                   "&:hover": {
-                    backgroundColor: "#FF900D",
-                    color: "#838383",
+                    backgroundColor: "#7F6F10",
+                    color: "#FEDE29",
                   },
                 }}
               >
@@ -321,17 +308,38 @@ const Register = () => {
                 <Box sx={style}>
                   <Typography
                     id="modal-title"
-                    variant="h4"
+                    variant="h3"
                     fontWeight="bold"
-                    component="h1"
-                    sx={{ mb: 3, color: "#FECD93", fontFamily: "Itim" }}
+                    sx={{ mt: 3,mb: 2, color: "#7F6F10"}}
+                    fontFamily='cookierun-bold'
                   >
                     WELCOME!
                   </Typography>
 
-                  <Link href="/login" sx={btnstyle}>
+                  {/* <Link sx={btnstyle} >
                     LOGIN &gt;
-                  </Link>
+                  </Link> */}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    fontFamily='cookierun-bold'
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      height: 50,
+                      fontWeight: "bold",
+                      borderRadius: 5,
+                      backgroundColor: "#7F6F10",
+                      color: "#FEDE29",
+                      "&:hover": {
+                        backgroundColor: "#FEDE29",
+                        color: "#7F6F10",
+                      },
+                    }}
+                    onClick={() => {setStepLogin(0)}}
+                  >
+                    LOGIN &gt;
+                  </Button>
                 </Box>
               </Modal>
             </Box>

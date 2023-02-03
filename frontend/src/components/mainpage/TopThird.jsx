@@ -18,7 +18,7 @@ export default function TopThird({topEmoji}) {
         marginLeft: "429px",
         marginRight: "auto",
         marginTop: -330,
-        border: 'inset #FECD93',
+        border: 'inset #FEDE29',
         position: 'absolute', 
         }}
     >

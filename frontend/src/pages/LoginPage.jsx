@@ -1,4 +1,5 @@
 import * as React from "react";
+import {useEffect} from 'react';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Button,
@@ -17,7 +18,7 @@ import Api from "../components/common/customApi";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#FF900D",
+      main: "#7F6F10",
     },
   },
   typography: {
@@ -37,7 +38,7 @@ const theme = createTheme({
   },
 });
 
-function Login() {
+function Login({setStepLogin, setHeight}) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -67,10 +68,19 @@ function Login() {
     };
     userLogin();
   };
+  function place(){
+    console.log("로그인 페이지 입니다");
+    setHeight(600);
+  }
+
+  useEffect(() => {
+    place()
+  }, [])
+
   return (
     <Container>
       <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs" sx={{ mb: 25, mt: 20 }}>
+        <Container component="main" maxWidth="xs" sx={{ mt: 4 }}>
           <CssBaseline />
           <Box
             sx={{
@@ -86,7 +96,7 @@ function Login() {
               fontWeight="800"
               position="center"
               fontFamily='cookierun-bold'
-              sx={{ color: "#fede29" }}
+              sx={{ color: "#7F6F10", mt: -1 }}
             >
               Login
             </Typography>
@@ -95,7 +105,7 @@ function Login() {
               color="info.contrastText"
               onSubmit={handleSubmit}
               noValidate
-              sx={{ mt: 1 }}
+              sx={{ mt: 5 }}
             >
               <TextField
                 margin="normal"
@@ -130,11 +140,11 @@ function Login() {
                   fontWeight: "bold",
                   fontFamily: "Itim",
                   borderRadius: 5,
-                  backgroundColor: "#3b3b3b",
-                  color: "#FEDE29",
+                  backgroundColor: "#FEDE29",
+                  color: "#7F6F10",
                   "&:hover": {
-                    backgroundColor: "#FEDE29",
-                    color: "#212121",
+                    backgroundColor: "#7F6F10",
+                    color: "#FEDE29",
                   },
                 }}
               >
@@ -160,7 +170,7 @@ function Login() {
                   fontStyle="Inter"
                   fontWeight="550"
                 >
-                  <Button href="/register"> 회원가입</Button>{" "}
+                  <Button onClick={() => {setStepLogin(1);}}> 회원가입</Button>{" "}
                 </Typography>
               </Grid>
             </Grid>

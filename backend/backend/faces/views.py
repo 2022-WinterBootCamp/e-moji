@@ -28,8 +28,8 @@ def get_task_id(request):
 
     payload = user_token_to_data(request.headers.get('Authorization', None))
     if (payload.get('id') == str(user_id)):
-        image = get_img_url(image)
-        # image = "https://upload.wikimedia.org/wikipedia/commons/7/73/BTS_during_a_White_House_press_conference_May_31%2C_2022_%28cropped%29.jpg"
+        # image = get_img_url(image)
+        image = "https://upload.wikimedia.org/wikipedia/commons/7/73/BTS_during_a_White_House_press_conference_May_31%2C_2022_%28cropped%29.jpg"
 
         # 원본 사진 저장
         save_image = create_img(userID, image)
@@ -82,13 +82,19 @@ def get_ranking(request):
     data_set= {}
     count = 0
     for i in ranking:
-            EmojiName = Emoji.objects.filter(id = i['emoji_id']).values().first()
+            EmojiName = Emoji.objects.filter(id = i['emoji_id'], active = 1).values().first()
             # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
+            if(EmojiName == None) : continue # 삭제된 Emoji는 continue
+            # 딕셔너리 setdefault -> 값이 변하지 않음. 일반적으로는 값이 변함
+            UserName = User.objects.filter(emoji = EmojiName['id']).values().first()
+            get_data.setdefault('id',EmojiName['id'])
             get_data.setdefault('name',EmojiName['name'])
+            get_data.setdefault('user',UserName['alias'])
+            get_data.setdefault('image',EmojiName['image'][0])
             get_data.setdefault('cnt',i['cnt'])
             data_set[count] = get_data
             get_data = {} # 딕셔너리 초기화 후 데이터 넣기
-            count += 1
+            count+=1
     print(data_set)
     
     return Response(data_set)

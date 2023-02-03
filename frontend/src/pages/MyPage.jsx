@@ -172,13 +172,13 @@ export default function MyPage() {
               textColor="inherit"
             >
               <Tab
-                label="내가 했던 이모지"
+                label="RESULT"
                 sx={{fontFamily:"cookierun-regular"}}
                 {...a11yProps(0)}
                 onClick={getDidData}
               />
               <Tab
-                label="내가 만든 이모지"
+                label="MY EMOJI"
                 sx={{fontFamily:"cookierun-regular"}}
                 {...a11yProps(1)}
                 onClick={getAllData}

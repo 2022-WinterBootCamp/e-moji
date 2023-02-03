@@ -9,7 +9,7 @@ import TopThird from "./TopThird";
 import TopEmojiDetail from "./TopEmojiDetail";
 
 import stage from './stage.png';
-import top3_logo from './top3_logo.png';
+import top3_logo from './top3_header.png';
 
 import Lottie from "lottie-react";
 import animationData from "../../lotties/prize.json";
@@ -87,7 +87,7 @@ export default function TopEmoji() {
               fontFamily="cookierun-regular"
             >
               최근 7일간{" "}
-              <span style={{ fontWeight: "900", color: '#743531' }}>가장 인기 있는 이모지!</span>
+              <span style={{ fontWeight: "900", color: '#7F6F10' }}>가장 인기 있는 이모지!</span>
             </Typography>
             <Box style={{textAlign: 'right', marginTop: 30}}>
               <TopEmojiDetail emojiTotal={emojiTotal}/>

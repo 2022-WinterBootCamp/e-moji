@@ -6,11 +6,11 @@ import {
   Typography,
   Box,
   TextField,
-  Modal,
 } from "@mui/material";
 import axios from "axios";
 import { getAccess } from "../../auth/tokenManager";
 import { ReduxModule } from "../../auth/ReduxModule";
+import AlertSnackbar from "./AlertSnackbar";
 
 const style = {
   position: "absolute",
@@ -50,6 +50,22 @@ export default function NewEmoji() {
   const [emoji_happy, setEmoji_happy] = useState({image_file: "", preview_URL: preview_URL});
   const [emoji_sad, setEmoji_sad] = useState({image_file: "", preview_URL: preview_URL});
   const [emoji_surprised, setEmoji_surpised] = useState({image_file: "", preview_URL: preview_URL});
+  const kind = ['success', 'error'];
+
+  // alert 창
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center"
+  });
+  const { open_alert } = state;
+  const handleClick_alert = (newState) => () => {
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose_alert = () => {
+    setState({ ...state, open: false });
+  };
 
   const nameOnChange = (e) => {
     setEmojiName(e.target.value);
@@ -165,8 +181,10 @@ export default function NewEmoji() {
             Authorization: `${what.value}`,
           },
         }).then((response) => {
-          setEmojiState(true);
+          // setEmojiState(true);
           console.log("Response >>", response.data);
+          alert("이모지 생성이 완료되었습니다.");
+          window.location.replace("/mainpage");
         });
       } catch (err) {
         console.log(err);
@@ -389,64 +407,12 @@ export default function NewEmoji() {
           variant="contained"
           type="submit"
           value="Upload"
+          // onClick = {handleClick_alert()}
         >
           Upload
         </Button>
-        {emojiState === true ? (
-          <Modal
-            aria-labelledby="modal-title"
-            aria-describedby="modal-description"
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-          >
-            <Box sx={style}>
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                fontWeight="bold"
-                component="h2"
-                sx={{ mb: 3, color: "#737458", fontFamily: "Itim" }}
-              >
-                <Toolbar sx={{ mt: -2 }}>
-                  <div style={{ width: "120%", textAlign: "right" }}>
-                    <Typography
-                      component="h1"
-                      variant="h5"
-                      textAlign="center"
-                      color="text.primary"
-                      gutterBottom
-                      fontStyle="bold"
-                      fontFamily="Itim"
-                      marginTop="80px"
-                    >
-                      이모지 생성이 완료되었습니다.
-                    </Typography>
-                  </div>
-                </Toolbar>
-              </Typography>
-              <Button
-                style={{
-                  textAlign: "center",
-                  position: "absolute",
-                  bottom: "15px",
-                  left: "30%",
-                  width: "200px",
-                  height: "30px",
-                  backgroundColor: "#FECD93",
-                  color: "#FFFFFF",
-                  borderColor: "#FECD93",
-                  borderRadius: "30px",
-                }}
-                variant="contained"
-                href="/mainpage"
-              >
-                이모지 하러가기
-              </Button>
-            </Box>
-          </Modal>
-        ) : null}
       </form>
+      {/* <AlertSnackbar open_alert={open_alert} handleClose_alert={handleClose_alert} kind={kind[0]}/> */}
     </div>
   );
 }

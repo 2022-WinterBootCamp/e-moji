@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import NewEmoji from './NewEmoji';
 import CloseIcon from "@mui/icons-material/Close";
+import HelpIcon from '@mui/icons-material/Help';
 
 const newEmojistyle = {
   position: "absolute",
@@ -55,6 +56,9 @@ export default function NewEmojiModal({open_new, handleClose_new, setOpen_new}) 
                     이모지 생성
                   </Typography>
                 </div>
+                <IconButton>
+                  <HelpIcon/>
+                </IconButton>
                 <div style={{ width: "0%", textAlign: "right" }}>
                   <IconButton onClick={() => setOpen_new(false)}>
                     <CloseIcon fontWeight="300" />

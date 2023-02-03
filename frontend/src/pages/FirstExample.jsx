@@ -12,11 +12,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Lottie from "lottie-react";
 import animationData from "../lotties/first_emoji.json";
 import HowToUseModal from '../components/firstpage/HowToUseModal';
-import Footer from '../components/common/Footer';
+import LoginModal from '../components/firstpage/LoginModal';
 
 const theme = createTheme();
 
 export default function FirstExample() {
+    // 사용법 모달
     const [step, setStep] = useState(0);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -24,6 +25,7 @@ export default function FirstExample() {
         setOpen(false);
         setStep(0);
     };
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -68,8 +70,12 @@ export default function FirstExample() {
                         justifyContent="left"
                         style={{marginTop: -130, marginLeft: 30}}
                     >
-                        <Button href="/mainpage" variant="contained" style={{backgroundColor: 'black', borderRadius: 30, fontSize: 20, fontWeight: 'bold'}}>이모지 보러 가기</Button>
-                        <Button onClick={() => {handleOpen();}} variant="outlined" style={{color: 'black',borderRadius: 30, fontSize: 20, borderColor: 'black'}}>사용법 보러 가기</Button>
+                        {/* <Button href="/mainpage" variant="contained" style={{backgroundColor: 'black', borderRadius: 30, fontSize: 20, fontWeight: 'bold'}}>이모지 보러 가기</Button>
+                        <Button onClick={() => {handleOpen();}} variant="outlined" style={{color: 'black',borderRadius: 30, fontSize: 20, borderColor: 'black'}}>사용법 보러 가기</Button> */}
+                        
+                        {/* <Button href="/mainpage" variant="contained" style={{backgroundColor: 'black', borderRadius: 30, fontSize: 20, fontWeight: 'bold'}}>이모지 보러 가기</Button> */}
+                        <Button onClick={() => {handleOpen();}} variant="contained" style={{backgroundColor: 'black', borderRadius: 30, fontSize: 20, fontWeight: 'bold'}}>사용법 보러 가기</Button>
+                        
                     </Stack>
                 </Box>
             </Box>

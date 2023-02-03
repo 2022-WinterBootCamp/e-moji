@@ -18,7 +18,7 @@ export default function TopSecond({topEmoji}) {
         marginLeft: "auto",
         marginRight: "428px",
         marginTop: -355,
-        border: 'inset #FECD93',
+        border: 'inset #FEDE29',
         position: 'absolute', 
         }}
     >

@@ -34,7 +34,7 @@ export default function TopEmojiModal({open_top, handleClose_top, setOpen_top}) 
       >
         <Box
           sx={newEmojistyle}
-          style={{ backgroundColor: "#FFFFFF", borderColor: "#FECD93", borderWidth: 'thick', border: 'inset #FECD93',}}
+          style={{ backgroundColor: "#FFFFFF", borderColor: "#FEDE29", borderWidth: 'thick', border: 'inset #FECD93',}}
         >
           <Typography
             id="modal-modal-title"

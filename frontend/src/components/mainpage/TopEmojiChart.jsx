@@ -1,4 +1,5 @@
 import React from 'react';
+import "../../font/font.css";
 import {
     Box,
 } from '@mui/material';
@@ -22,21 +23,23 @@ export default function TopEmojiChart({emojiTotal}) {
         height={450}
         data={emojiTotal}
         margin={{
-            top: 20,
+            top: 40,
             right: 80,
-            bottom: 20,
-            left: 20
+            bottom: 10,
+            left: -20
         }}
         >
         <CartesianGrid stroke="#f5f5f5" />
         <XAxis
+            fontFamily='cookierun-bold'
+            style={{color: ''}}
             dataKey="name"
             label={{position: "insideBottomRight", offset: 0 }}
         />
-        <YAxis label={{ value: "count", angle: -90, position: "insideLeft" }} />
+        <YAxis label={{ angle: -90, position: "insideLeft" }} />
         <Tooltip />
         <Legend />
-        <Bar dataKey="count" barSize={60} fill="#e38e8e" />
+        <Bar dataKey="count" barSize={60} fill="#7F6F10" />
         </ComposedChart>
     </Box>
   )

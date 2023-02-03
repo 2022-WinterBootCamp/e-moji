@@ -100,7 +100,7 @@ export default function AllEmoji({emojiData}) {
                         flexDirection: "column",
                         alignItems: "center",
                         mt: "-3px",
-                        ":hover": { boxShadow: "gray 0px 22px 70px 4px", cursor: 'pointer'},
+                        ":hover": { boxShadow: "gray 0px 7px 7px 4px", cursor: 'pointer'},
                     }}
                     style={{borderRadius: 10, borderBottom: 'outset', borderRight: 'groove'}}
                     onClick={() => {
@@ -127,9 +127,9 @@ export default function AllEmoji({emojiData}) {
                                 flexDirection: "column",
                                 alignItems: "center",
                                 mt: "0px",
-                                color: "#3b3b3b"
+                                color: "#6a6a6a"
                             }}
-                            fontFamily="Itim"
+                            fontFamily="cookierun-bold"
                         >
                             {emojiData[index].name}
                         </Typography>
@@ -141,9 +141,9 @@ export default function AllEmoji({emojiData}) {
                                 mb: "-30px",
                                 ml: 1
                             }}
-                            fontFamily="Itim"
+                            fontFamily="cookierun-bold"
                         >
-                            만든이: {" "}
+                            Creater: {" "}
                             <span style={{ fontWeight: "900", marginLeft: 2 }}>{emojiData[index].alias}</span>
                         </Typography>
                     </CardContent>

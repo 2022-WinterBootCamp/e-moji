@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -21,6 +21,7 @@ import { fetchDecodeData } from "../../auth/DecodeActions";
 import { deleteToken } from "../../auth/tokenManager";
 
 import logo from "./logo2.png";
+import LoginModal from "../firstpage/LoginModal";
 
 const theme = createTheme({
   palette: {
@@ -36,6 +37,15 @@ function Header() {
   const dispatch = useDispatch();
 
   const reduxToken = useSelector((state) => state.DecodeReducer);
+
+  // 로그인 모달
+  const [stepLogin, setStepLogin] = useState(0);
+  const [openLogin, setOpenLogin] = useState(false);
+  const handleOpenLogin = () => setOpenLogin(true);
+  const handleCloseLogin = () => {
+      setOpenLogin(false);
+      setStepLogin(0);
+  };
 
   useEffect(() => {
     if (token) {
@@ -124,9 +134,7 @@ function Header() {
                   href="/mypage"
                   underline="none"
               >
-                {/* <IconButton color="inherit" sx={{ ml: 1, mb: 0.6 }}> */}
-                  <PersonIcon style={{marginBottom: -4, marginRight: 5}}/>
-                {/* </IconButton> */}
+                  <PersonIcon style={{marginBottom: -5, marginRight: 5}}/>
                 {reduxToken.decodeInfo?.alias}님
               </Link>
               <Tooltip title="logout">
@@ -143,7 +151,7 @@ function Header() {
           ) : (
             // if IsLogin is false
             <Link
-              href="/login"
+              onClick={() => {handleOpenLogin()}}
               sx={{
                 textDecoration: "none",
                 // fontFamily: "Itim",
@@ -162,6 +170,7 @@ function Header() {
         </Box>
       </Container>
       </AppBar>
+      <LoginModal openLogin={openLogin} handleCloseLogin={handleCloseLogin} setOpenLogin={setOpenLogin} stepLogin={stepLogin} setStepLogin={setStepLogin}/>
     </ThemeProvider>
   );
 }
