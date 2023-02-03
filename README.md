@@ -9,6 +9,20 @@
  - Main Feature : 원하는 이모지 템플릿 선택, 사용자가 업로드한 이미지속 사람의 표정을 AI가 분석하여 결과로 도출
  - Additional Feature : 원하는 이모지 템플릿을 생성 및 삭제 (다른 사용자들과의 공유)
 
+## Features
+
+<img src = "https://user-images.githubusercontent.com/121562023/216717832-619db5a1-4ccc-4d78-a738-00027302e75e.gif"
+ width="65%">
+ 
+<img src = "https://user-images.githubusercontent.com/121562023/216719934-5baa2d26-f1f8-4b98-bcf9-ad90eac3b315.gif" width="65%">
+
+<img src = "https://user-images.githubusercontent.com/121562023/216720145-5e9ce14e-88f3-46f3-a5b5-f53a80df756c.gif" width="65%">
+
+<img src = "https://user-images.githubusercontent.com/121562023/216720259-7d089a2b-81b2-4948-a12c-5649bf60cab5.gif" width="65%">
+
+<img src = "https://user-images.githubusercontent.com/121562023/216720434-69a55475-a946-4ad3-be0f-7cfb9d1b42b7.gif" width="65%">
+
+
 
 ## System Architecture
 
@@ -113,7 +127,7 @@
     - `GET` : 메인 화면에 표시되는 emoji 데이터, 페이지네이션 적용
 
 ## AI
-
+- ***OpenCV***
 <img width="613" alt="Untitled" src="https://user-images.githubusercontent.com/121562023/216668440-c19afb08-a2f6-4f76-938b-de46b09b423f.png">
 
 <img width="613" alt="AI" src="https://user-images.githubusercontent.com/121562023/216668601-c75c0bf1-1c5d-4e80-9236-3e2389bc2b64.png">
@@ -125,8 +139,15 @@ Haar Cascade classifier 또는 MTCNN(Multi-task Cascaded Convolutional Networks)
 0과 1 사이의 값으로 얻습니다. 이를 통해 dominant한 감정 데이터를 별도로 추출하고, 표정에 맞는 이모지를 불러오게 됩니다. 
 
 ```
+- ***Rembg 라이브러리***
+<img src = "https://user-images.githubusercontent.com/121562023/216721967-ab8b8826-b8a2-4b00-a7b0-e8624f3ed03f.png" width="70%">
+
+```
+image segmentation(이미지 분리) 과정을 통해 가시성을 높여준다.
+```
 
 <br></br>
+
 
 ## Dataset
 
