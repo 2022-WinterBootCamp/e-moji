@@ -141,7 +141,7 @@
    - Haar Cascade classifier 또는 MTCNN(Multi-task Cascaded Convolutional Networks)을 사용하여 감정에 할당된 값의 배열 획득
    - 이를 통한 dominant한 감정 데이터를 별도로 추출, 표정에 맞는 이모지를 불러옴
 
-```
+
 - ***Rembg 라이브러리***
 <img src = "https://user-images.githubusercontent.com/121562023/216721967-ab8b8826-b8a2-4b00-a7b0-e8624f3ed03f.png" width="70%">
 
