@@ -10,16 +10,21 @@
  - Additional Feature : 원하는 이모지 템플릿을 생성 및 삭제 (다른 사용자들과의 공유)
 
 ## Features
+- ***Main Page***
 
 <img src = "https://user-images.githubusercontent.com/121562023/216717832-619db5a1-4ccc-4d78-a738-00027302e75e.gif"
  width="65%">
  
+ - ***Login***
 <img src = "https://user-images.githubusercontent.com/121562023/216719934-5baa2d26-f1f8-4b98-bcf9-ad90eac3b315.gif" width="65%">
 
+- ***Emoji Select & Use***
 <img src = "https://user-images.githubusercontent.com/121562023/216720145-5e9ce14e-88f3-46f3-a5b5-f53a80df756c.gif" width="65%">
 
+- ***Emoji Create***
 <img src = "https://user-images.githubusercontent.com/121562023/216720259-7d089a2b-81b2-4948-a12c-5649bf60cab5.gif" width="65%">
 
+- ***Top3 Ranking***
 <img src = "https://user-images.githubusercontent.com/121562023/216720434-69a55475-a946-4ad3-be0f-7cfb9d1b42b7.gif" width="65%">
 
 
