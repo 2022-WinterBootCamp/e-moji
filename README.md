@@ -137,11 +137,9 @@
 
 <img width="613" alt="AI" src="https://user-images.githubusercontent.com/121562023/216668601-c75c0bf1-1c5d-4e80-9236-3e2389bc2b64.png">
 
-```
-
-얼굴과 감정 인식을 위하여 파이썬 패키지의 FER라이브러리를 사용했습니다. 딥러닝과 OpenCV 기능을 결합하여 이미지에서 인식 기능을 수행합니다. 
-Haar Cascade classifier 또는 MTCNN(Multi-task Cascaded Convolutional Networks)을 사용하여 감정에 할당된 값의 배열을 
-0과 1 사이의 값으로 얻습니다. 이를 통해 dominant한 감정 데이터를 별도로 추출하고, 표정에 맞는 이모지를 불러오게 됩니다. 
+   - 얼굴과 감정 인식을 위하여 파이썬 패키지의 FER라이브러리 및 딥러닝과 OpenCV 기능을 결합하여 이미지에서 인식 기능을 수행
+   - Haar Cascade classifier 또는 MTCNN(Multi-task Cascaded Convolutional Networks)을 사용하여 감정에 할당된 값의 배열 획득
+   - 이를 통한 dominant한 감정 데이터를 별도로 추출, 표정에 맞는 이모지를 불러옴
 
 ```
 - ***Rembg 라이브러리***
@@ -192,10 +190,9 @@ image segmentation(이미지 분리) 과정을 통해 가시성을 높여준다.
 #**Members of Team-E**
 |이름|개발분야|소개페이지|
 |---|---|---|
-|이정우|Back-end, Devops|https://github.com/RayLee-Kor
-|박경은|Front-end|https://github.com/devGEP
-|김대희|Back-end|https://github.com/Dan2er
-|조현진|AI|https://github.com/chojinie/
-|박소윤|Back-end|https://github.com/velyvelylovely
+|이정우|Front-end, Back-end, Devops|https://github.com/RayLee-Kor
+|박경은|Front-end, Devops|https://github.com/devGEP
 |정예린|Front-end|https://github.com/Jungyell
-
+|김대희|Back-end|https://github.com/Dan2er
+|박소윤|Back-end, Devops|https://github.com/velyvelylovely
+|조현진|AI|https://github.com/chojinie/
