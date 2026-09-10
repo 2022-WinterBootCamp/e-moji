@@ -1,4 +1,4 @@
-[English](#english) | [한국어](#한국어)
+[English](./README.md) | [한국어](./README_KR.md)
 # IGE-MOJI?
 
 > An AI-powered service that **analyzes facial expressions** and applies the detected expression to a selected **emoji template**.
